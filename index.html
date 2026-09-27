@@ -538,8 +538,12 @@
               <span data-lang="fr">Aucun paiement maintenant — réglez à la réception</span>
             </p>
             <div class="confirm-msg" id="confirmMsg">
-              <span data-lang="ar">شكراً لك! تم فتح واتساب برسالة تحتوي على طلبك — أرسلها لتأكيد الطلب.</span>
-              <span data-lang="fr">Merci ! WhatsApp s'est ouvert avec votre commande — envoyez le message pour la confirmer.</span>
+              <span data-lang="ar">شكراً لك! تم استلام طلبك بنجاح، سنتصل بك قريباً لتأكيده.</span>
+              <span data-lang="fr">Merci ! Votre commande a bien été reçue, nous vous contactons bientôt pour la confirmer.</span>
+            </div>
+            <div class="confirm-msg" id="errorMsg" style="display:none;">
+              <span data-lang="ar">حدث خطأ، يرجى المحاولة مرة أخرى أو الاتصال بنا مباشرة.</span>
+              <span data-lang="fr">Une erreur est survenue, merci de réessayer ou de nous contacter directement.</span>
             </div>
           </form>
         </div>
@@ -880,9 +884,14 @@
   });
 
   // ---- order form ----
-  const WHATSAPP_NUMBER = '21652896961';
+  // Remplace cette URL par celle obtenue lors du déploiement de ton Google Apps Script (voir guide fourni).
+  const SHEET_WEBHOOK_URL = 'COLLE_ICI_TON_URL_GOOGLE_APPS_SCRIPT';
+
   const form = document.getElementById('orderForm');
   const confirmMsg = document.getElementById('confirmMsg');
+  const errorMsg = document.getElementById('errorMsg');
+  const submitBtn = form.querySelector('.submit-btn');
+
   form.addEventListener('submit', (e)=>{
     e.preventDefault();
     if(!form.checkValidity()){
@@ -890,23 +899,37 @@
       return;
     }
     const data = new FormData(form);
-    const name = data.get('name');
-    const phone = data.get('phone');
-    const city = data.get('city');
-    const address = data.get('address');
-    const format = data.get('format');
-    const qty = data.get('qty');
-    const isAr = document.documentElement.getAttribute('lang') === 'ar';
+    const payload = {
+      name: data.get('name'),
+      phone: data.get('phone'),
+      city: data.get('city'),
+      address: data.get('address'),
+      format: data.get('format'),
+      qty: data.get('qty')
+    };
 
-    const message = isAr
-      ? `طلب جديد من موقع SOKKAR STOP\n\nالاسم: ${name}\nالهاتف: ${phone}\nالمدينة: ${city}\nالعنوان: ${address}\nالحجم: ${format}\nالكمية: ${qty}`
-      : `Nouvelle commande — SOKKAR STOP\n\nNom : ${name}\nTéléphone : ${phone}\nVille : ${city}\nAdresse : ${address}\nFormat : ${format}\nQuantité : ${qty}`;
+    errorMsg.style.display = 'none';
+    confirmMsg.classList.remove('show');
+    submitBtn.disabled = true;
 
-    const waUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-
-    confirmMsg.classList.add('show');
-    confirmMsg.scrollIntoView({behavior:'smooth', block:'nearest'});
-    window.open(waUrl, '_blank');
+    fetch(SHEET_WEBHOOK_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+    .then(()=>{
+      confirmMsg.classList.add('show');
+      confirmMsg.scrollIntoView({behavior:'smooth', block:'nearest'});
+      form.reset();
+    })
+    .catch(()=>{
+      errorMsg.style.display = 'block';
+      errorMsg.scrollIntoView({behavior:'smooth', block:'nearest'});
+    })
+    .finally(()=>{
+      submitBtn.disabled = false;
+    });
   });
 </script>
 
