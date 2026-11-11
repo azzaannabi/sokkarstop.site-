@@ -61,7 +61,7 @@ const AR = {
         'fallback' : ['سكر ستوب', ['افتح التطبيق لترى يومك.']],
     };
 
-const ORIGINS = ['https://sokkarstop.site', 'https://www.sokkarstop.site', 'http://localhost:8123', 'http://localhost:8099'];
+const ORIGINS = ['https://sokkarstop.site', 'https://www.sokkarstop.site', 'http://sokkarstop.site', 'http://www.sokkarstop.site', 'https://azzaannabi.github.io', 'http://localhost:8123', 'http://localhost:8099'];
 const DAY = 86400;
 
 function cors(req) {
