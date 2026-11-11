@@ -35,6 +35,12 @@
   }
   html[dir="ltr"] body{ letter-spacing:0.01em; }
 
+  .appli-box{max-width:620px;margin:0 auto;text-align:center;background:var(--cream-soft);border:1px solid var(--line);padding:36px 28px}
+  .appli-txt{margin:0 0 18px;color:var(--ink-soft);line-height:1.8}
+  .appli-list{list-style:none;margin:0 0 26px;padding:0;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .appli-list li{padding:6px 14px;border:1px solid var(--line);background:var(--cream);font-weight:600;font-size:.9rem}
+  .appli-btn{display:inline-block;text-align:center}
+  .appli-note{margin:16px 0 0;font-size:.85rem;color:var(--ink-soft)}
   img{max-width:100%;display:block;}
   a{color:inherit;}
   button{font-family:inherit;cursor:pointer;}
@@ -414,6 +420,7 @@
       <a href="#product" data-lang="ar">المنتج</a><a href="#product" data-lang="fr">Le produit</a>
       <a href="#usage" data-lang="ar">طريقة الاستعمال</a><a href="#usage" data-lang="fr">Utilisation</a>
       <a href="#shop" data-lang="ar">الأسعار</a><a href="#shop" data-lang="fr">Tarifs</a>
+      <a href="#appli" data-lang="ar">التطبيق</a><a href="#appli" data-lang="fr">L'appli</a>
       <a href="#faq" data-lang="ar">الأسئلة الشائعة</a><a href="#faq" data-lang="fr">FAQ</a>
     </nav>
     <div class="header-actions">
@@ -730,6 +737,37 @@
     </div>
   </section>
 
+  <!-- APPLICATION OFFERTE -->
+  <section class="appli" id="appli">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-tag"><span data-lang="ar">هدية مع المنتج</span><span data-lang="fr">Offerte avec ton flacon</span></div>
+        <h2 class="section-title">
+          <span data-lang="ar">احسب سعراتك بصورة واحدة</span>
+          <span data-lang="fr">Compte tes calories en une photo</span>
+        </h2>
+      </div>
+      <div class="appli-box">
+        <p class="appli-txt">
+          <span data-lang="ar">صوّر أكلك: يحسب التطبيق السعرات والكربوهيدرات والبروتين والدهون. وعندما تتجاوز هدفك اليومي يرنّ إنذار «سكر ستوب» ليذكّرك بالتوقف. شهران مجاناً مع كل قنينة.</span>
+          <span data-lang="fr">Prends ton plat en photo : calories, glucides, protéines et lipides sont calculés. Quand tu dépasses ton objectif du jour, l'alarme Sokkar Stop te rappelle de t'arrêter. 2 mois offerts avec chaque flacon.</span>
+        </p>
+        <ul class="appli-list">
+          <li><span data-lang="ar">تذكيرات الوجبات وتشجيعات</span><span data-lang="fr">Rappels de repas et encouragements</span></li>
+          <li><span data-lang="ar">تقويم الأيام بوجوه خضراء وبرتقالية</span><span data-lang="fr">Calendrier de smileys vert et orange</span></li>
+          <li><span data-lang="ar">صورة قبل / بعد حسب هدفك</span><span data-lang="fr">Ton avant / après selon ton objectif</span></li>
+        </ul>
+        <a href="app/" class="btn btn-primary appli-btn">
+          <span data-lang="ar">افتح التطبيق</span><span data-lang="fr">Ouvrir l'appli</span>
+        </a>
+        <p class="appli-note">
+          <span data-lang="ar">على الآيفون: افتح الرابط في Safari ثم «مشاركة» ← «إضافة إلى الشاشة الرئيسية».</span>
+          <span data-lang="fr">Sur iPhone : ouvre le lien dans Safari, puis « Partager » → « Sur l'écran d'accueil ».</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- PRECAUTIONS -->
   <section>
     <div class="wrap">
@@ -820,6 +858,7 @@
         <a href="#product"><span data-lang="ar">المنتج</span><span data-lang="fr">Le produit</span></a>
         <a href="#usage"><span data-lang="ar">طريقة الاستعمال</span><span data-lang="fr">Utilisation</span></a>
         <a href="#shop"><span data-lang="ar">الأسعار</span><span data-lang="fr">Tarifs</span></a>
+        <a href="app/"><span data-lang="ar">التطبيق</span><span data-lang="fr">L'appli</span></a>
         <a href="#faq"><span data-lang="ar">الأسئلة الشائعة</span><span data-lang="fr">FAQ</span></a>
       </div>
       <div class="footer-col">
