@@ -160,7 +160,8 @@ async function analyze(req, env) {
   });
   if (!r.ok) {
     await refund(env, ck, 2 * DAY);
-    return out(req, { error: r.status === 401 || r.status === 403 ? 'config' : r.status === 429 ? 'rate_limited' : 'upstream' }, 502);
+    let dt = ''; try { dt = (await r.text()).slice(0, 300); } catch (e) { dt = ''; }
+    return out(req, { error: r.status === 401 || r.status === 403 ? 'config' : r.status === 429 ? 'rate_limited' : 'upstream', up: r.status, detail: dt }, 502);
   }
   const data = await r.json();
   let text = '';
