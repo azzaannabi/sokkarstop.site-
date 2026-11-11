@@ -149,7 +149,10 @@ async function analyze(req, env) {
   if (!['image/jpeg', 'image/png', 'image/webp'].includes(mime) || !img || img.length > 7e6 || !/^[A-Za-z0-9+/=]+$/.test(img)) { return out(req, { error: 'bad_image' }, 400); }
   if (!env.ANTHROPIC_API_KEY) { return out(req, { error: 'config' }, 500); }
   const ck = 'an:' + device + ':' + dayKey(nowS());
-  if (!(await counter(env, ck, parseInt(cfg(env, 'DAILY_ANALYZE', '40'), 10), 2 * DAY))) { return out(req, { error: 'rate_limited' }, 429); }
+  const ip = req.headers.get('CF-Connecting-IP') || '0', gk = 'g:an:' + dayKey(nowS()), ik = 'ip:an:' + ip + ':' + dayKey(nowS());
+  if (!(await counter(env, gk, parseInt(cfg(env, 'GLOBAL_ANALYZE', '400'), 10), 2 * DAY)) ||
+      !(await counter(env, ik, parseInt(cfg(env, 'DAILY_ANALYZE_PER_IP', '120'), 10), 2 * DAY)) ||
+      !(await counter(env, ck, parseInt(cfg(env, 'DAILY_ANALYZE', '40'), 10), 2 * DAY))) { return out(req, { error: 'rate_limited' }, 429); }
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
@@ -181,6 +184,9 @@ async function transform(req, env) {
   const bmiT = t / ((h / 100) ** 2), change = Math.abs(t - w) / w;
   if (bmiT < 20 || bmiT > 29 || change > 0.25 || change < 0.02 || (goal === 'lose' && t >= w) || (goal === 'gain' && t <= w)) { return out(req, { error: 'goal_unrealistic' }, 400); }
   const max = parseInt(cfg(env, 'MAX_TRANSFORM', '3'), 10), ck = 'tr:' + device;
+  const tip = req.headers.get('CF-Connecting-IP') || '0', tgk = 'g:tr:' + dayKey(nowS()), tik = 'ip:tr:' + tip + ':' + dayKey(nowS());
+  if (!(await counter(env, tgk, parseInt(cfg(env, 'GLOBAL_TRANSFORM', '60'), 10), 2 * DAY)) ||
+      !(await counter(env, tik, parseInt(cfg(env, 'DAILY_TRANSFORM_PER_IP', '6'), 10), 2 * DAY))) { return out(req, { error: 'rate_limited' }, 429); }
   if (!(await counter(env, ck, max))) { return out(req, { error: 'limit', left: 0 }, 429); }
   if (!env.GEMINI_API_KEY) { await refund(env, ck); return out(req, { error: 'config' }, 500); }
   const f = (n) => String(Math.round(n * 10) / 10);
