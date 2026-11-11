@@ -156,18 +156,22 @@ async function analyze(req, env) {
       !(await counter(env, ck, parseInt(cfg(env, 'DAILY_ANALYZE', '40'), 10), 2 * DAY))) { return out(req, { error: 'rate_limited' }, 429); }
   let text = '';
   if (useGem) {
-    const gr = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg(env, 'GEMINI_TEXT_MODEL', 'gemini-3.8-flash')) + ':generateContent', {
-      method: 'POST',
-      headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: PROMPT }, { inline_data: { mime_type: mime, data: img } }] }], generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2000 } }),
-    });
-    if (!gr.ok) {
-      let gd = ''; try { gd = (await gr.text()).slice(0, 300); } catch (e) { gd = ''; }
-      await refund(env, ck, 2 * DAY);
-      return out(req, { error: gr.status === 429 ? 'rate_limited' : gr.status === 401 || gr.status === 403 ? 'config' : 'upstream', up: gr.status, detail: gd }, 502);
+    const models = [cfg(env, 'GEMINI_TEXT_MODEL', ''), 'gemini-3.8-flash-lite', 'gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-3.8-flash'].filter((v, k, a) => v && a.indexOf(v) === k);
+    const body = JSON.stringify({ contents: [{ parts: [{ text: PROMPT }, { inline_data: { mime_type: mime, data: img } }] }], generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 1500 } });
+    let gdata = null, lastSt = 0, lastDt = '';
+    for (const mdl of models) {
+      try {
+        const gr = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(mdl) + ':generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body, signal: AbortSignal.timeout(22000) });
+        if (gr.ok) { gdata = await gr.json(); break; }
+        lastSt = gr.status; lastDt = mdl + ' ' + (await gr.text()).slice(0, 200);
+        if (gr.status === 401 || gr.status === 403 || gr.status === 429) { break; }
+      } catch (e) { lastSt = 0; lastDt = mdl + ' timeout'; }
     }
-    const gd = await gr.json();
-    for (const c of (gd.candidates || [])) { for (const p of ((c.content || {}).parts || [])) { if (p.text) { text += p.text; } } }
+    if (!gdata) {
+      await refund(env, ck, 2 * DAY);
+      return out(req, { error: lastSt === 429 ? 'rate_limited' : lastSt === 401 || lastSt === 403 ? 'config' : 'upstream', up: lastSt, detail: lastDt }, 502);
+    }
+    for (const c of (gdata.candidates || [])) { for (const p of ((c.content || {}).parts || [])) { if (p.text) { text += p.text; } } }
   } else {
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
