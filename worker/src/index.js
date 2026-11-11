@@ -159,17 +159,19 @@ async function analyze(req, env) {
     const models = [cfg(env, 'GEMINI_TEXT_MODEL', ''), 'gemini-3.8-flash-lite', 'gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-3.8-flash'].filter((v, k, a) => v && a.indexOf(v) === k);
     const body = JSON.stringify({ contents: [{ parts: [{ text: PROMPT }, { inline_data: { mime_type: mime, data: img } }] }], generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 1500 } });
     let gdata = null, lastSt = 0, lastDt = '';
-    for (const mdl of models) {
+    const tried = [];
+    for (const mdl of models.concat(models)) {
+      if (gdata) { break; }
       try {
         const gr = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(mdl) + ':generateContent', { method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body, signal: AbortSignal.timeout(22000) });
         if (gr.ok) { gdata = await gr.json(); break; }
-        lastSt = gr.status; lastDt = mdl + ' ' + (await gr.text()).slice(0, 200);
+        lastSt = gr.status; lastDt = mdl + ' ' + (await gr.text()).slice(0, 160).replace(/\s+/g, ' '); tried.push(lastDt);
         if (gr.status === 401 || gr.status === 403 || gr.status === 429) { break; }
       } catch (e) { lastSt = 0; lastDt = mdl + ' timeout'; }
     }
     if (!gdata) {
       await refund(env, ck, 2 * DAY);
-      return out(req, { error: lastSt === 429 ? 'rate_limited' : lastSt === 401 || lastSt === 403 ? 'config' : 'upstream', up: lastSt, detail: lastDt }, 502);
+      return out(req, { error: lastSt === 429 ? 'rate_limited' : lastSt === 401 || lastSt === 403 ? 'config' : 'upstream', up: lastSt, detail: tried.join(' | ') || lastDt }, 502);
     }
     for (const c of (gdata.candidates || [])) { for (const p of ((c.content || {}).parts || [])) { if (p.text) { text += p.text; } } }
   } else {
