@@ -156,10 +156,10 @@ async function analyze(req, env) {
       !(await counter(env, ck, parseInt(cfg(env, 'DAILY_ANALYZE', '40'), 10), 2 * DAY))) { return out(req, { error: 'rate_limited' }, 429); }
   let text = '';
   if (useGem) {
-    const gr = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg(env, 'GEMINI_TEXT_MODEL', 'gemini-2.5-flash')) + ':generateContent', {
+    const gr = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg(env, 'GEMINI_TEXT_MODEL', 'gemini-3.8-flash')) + ':generateContent', {
       method: 'POST',
       headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ contents: [{ parts: [{ text: PROMPT }, { inline_data: { mime_type: mime, data: img } }] }], generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2000, thinkingConfig: { thinkingBudget: 0 } } }),
+      body: JSON.stringify({ contents: [{ parts: [{ text: PROMPT }, { inline_data: { mime_type: mime, data: img } }] }], generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2000 } }),
     });
     if (!gr.ok) {
       let gd = ''; try { gd = (await gr.text()).slice(0, 300); } catch (e) { gd = ''; }
