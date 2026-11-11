@@ -147,12 +147,28 @@ async function analyze(req, env) {
   if (!(await access(env, device)).ok) { return out(req, { error: 'access' }, 403); }
   const img = String(inp.image || ''), mime = String(inp.mime || 'image/jpeg');
   if (!['image/jpeg', 'image/png', 'image/webp'].includes(mime) || !img || img.length > 7e6 || !/^[A-Za-z0-9+/=]+$/.test(img)) { return out(req, { error: 'bad_image' }, 400); }
-  if (!env.ANTHROPIC_API_KEY) { return out(req, { error: 'config' }, 500); }
+  const useGem = !!env.GEMINI_API_KEY && (cfg(env, 'ANALYZE_PROVIDER', 'gemini') === 'gemini' || !env.ANTHROPIC_API_KEY);
+  if (!useGem && !env.ANTHROPIC_API_KEY) { return out(req, { error: 'config' }, 500); }
   const ck = 'an:' + device + ':' + dayKey(nowS());
   const ip = req.headers.get('CF-Connecting-IP') || '0', gk = 'g:an:' + dayKey(nowS()), ik = 'ip:an:' + ip + ':' + dayKey(nowS());
   if (!(await counter(env, gk, parseInt(cfg(env, 'GLOBAL_ANALYZE', '400'), 10), 2 * DAY)) ||
       !(await counter(env, ik, parseInt(cfg(env, 'DAILY_ANALYZE_PER_IP', '120'), 10), 2 * DAY)) ||
       !(await counter(env, ck, parseInt(cfg(env, 'DAILY_ANALYZE', '40'), 10), 2 * DAY))) { return out(req, { error: 'rate_limited' }, 429); }
+  let text = '';
+  if (useGem) {
+    const gr = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg(env, 'GEMINI_TEXT_MODEL', 'gemini-2.5-flash')) + ':generateContent', {
+      method: 'POST',
+      headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: PROMPT }, { inline_data: { mime_type: mime, data: img } }] }], generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 2000, thinkingConfig: { thinkingBudget: 0 } } }),
+    });
+    if (!gr.ok) {
+      let gd = ''; try { gd = (await gr.text()).slice(0, 300); } catch (e) { gd = ''; }
+      await refund(env, ck, 2 * DAY);
+      return out(req, { error: gr.status === 429 ? 'rate_limited' : gr.status === 401 || gr.status === 403 ? 'config' : 'upstream', up: gr.status, detail: gd }, 502);
+    }
+    const gd = await gr.json();
+    for (const c of (gd.candidates || [])) { for (const p of ((c.content || {}).parts || [])) { if (p.text) { text += p.text; } } }
+  } else {
   const r = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
@@ -164,8 +180,8 @@ async function analyze(req, env) {
     return out(req, { error: r.status === 401 || r.status === 403 ? 'config' : r.status === 429 ? 'rate_limited' : 'upstream', up: r.status, detail: dt }, 502);
   }
   const data = await r.json();
-  let text = '';
   for (const p of (data.content || [])) { if (p.type === 'text') { text += p.text; } }
+  }
   const m = text.match(/\{[\s\S]*\}/);
   let o = null; try { o = m ? JSON.parse(m[0]) : null; } catch (e) { o = null; }
   if (!o || typeof o !== 'object') { return out(req, { error: 'bad_answer' }, 502); }
