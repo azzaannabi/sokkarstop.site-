@@ -1,0 +1,12 @@
+name = "sokkar-stop-api"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "KV"
+id = "195e32b373b9437983d998dc525f15d1"
+
+# Rappels de repas : le serveur se réveille toutes les 10 minutes
+[triggers]
+crons = ["*/10 * * * *"]
