@@ -288,3 +288,14 @@ body.has-tabs{padding-bottom:calc(112px + env(safe-area-inset-bottom))}
 .two-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .two-btns .btn{min-height:50px;font-size:.92rem;padding-inline:10px}
 #hero{display:flex;flex-direction:column;gap:16px}
+
+/* compte + historique */
+.acc .inp input{font-size:1rem;font-weight:600}
+.acc .inp{min-height:50px}
+.acc-row{display:flex;gap:8px;flex-wrap:wrap}
+.acc-row .btn{flex:1 1 140px;min-height:48px}
+#account{display:flex;flex-direction:column;gap:14px}
+#settings{display:flex;flex-direction:column;gap:14px}
+button.cal-cell{background:none;border:0;font:inherit;color:inherit;cursor:pointer;width:100%}
+.cal-cell.has{cursor:pointer}
+.cal-cell.sel{box-shadow:inset 0 0 0 1.5px var(--ink)}

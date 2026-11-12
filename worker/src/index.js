@@ -231,7 +231,7 @@ async function transform(req, env) {
 async function sync(req, env) {
   const inp = await req.json().catch(() => ({}));
   const action = String(inp.action || '');
-  if (action === 'config') { return out(req, { vapidPublic: (await vapid(env)).pub, requireCode: String(cfg(env, 'REQUIRE_CODE', 'false')) === 'true', maxTransform: parseInt(cfg(env, 'MAX_TRANSFORM', '3'), 10) }); }
+  if (action === 'config') { return out(req, { vapidPublic: (await vapid(env)).pub, accounts: true, requireCode: String(cfg(env, 'REQUIRE_CODE', 'false')) === 'true', maxTransform: parseInt(cfg(env, 'MAX_TRANSFORM', '3'), 10) }); }
   const device = validDevice(inp.device);
   if (!device) { return out(req, { error: 'bad_device' }, 400); }
   const dk = 'dev:' + device;
@@ -307,6 +307,81 @@ async function codes(req, env, url) {
   return new Response('Codes créés (' + days + ' jours chacun) :\n\n' + list.join('\n') + '\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }
 
+/* ---------- comptes (e-mail + mot de passe) : sauvegarde de l'historique ---------- */
+const EMAIL_RE = /^[^\s@]{1,64}@[^\s@.]{1,120}(\.[^\s@.]{2,})+$/;
+const hex = (buf) => [...new Uint8Array(buf)].map((x) => x.toString(16).padStart(2, '0')).join('');
+async function hashPw(pw, saltHex) {
+  const salt = new Uint8Array(saltHex.match(/../g).map((h) => parseInt(h, 16)));
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+  return hex(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations: 100000 }, key, 256));
+}
+function sameStr(a, b) { if (a.length !== b.length) { return false; } let r = 0; for (let i = 0; i < a.length; i++) { r |= a.charCodeAt(i) ^ b.charCodeAt(i); } return r === 0; }
+async function newSession(env, id) {
+  const token = hex(crypto.getRandomValues(new Uint8Array(32)));
+  await env.KV.put('ses:' + (await sha(token)), id, { expirationTtl: 180 * DAY });
+  return token;
+}
+async function sessionOf(env, token) {
+  token = String(token || '');
+  if (!/^[a-f0-9]{64}$/.test(token)) { return null; }
+  return await env.KV.get('ses:' + (await sha(token)));
+}
+const STATE_FIELDS = ['lang', 'sound', 'step', 'profile', 'goal', 'weights', 'meals', 'dayGoal', 'exceeded', 'startDate', 'rem', 'photoRatio'];
+function cleanState(st) {
+  if (!st || typeof st !== 'object') { return null; }
+  const o = { updatedAt: Math.max(0, Math.min(Date.now() + 86400000, +st.updatedAt || 0)) };
+  for (const k of STATE_FIELDS) { if (st[k] !== undefined) { o[k] = st[k]; } }
+  if (!Array.isArray(o.meals)) { o.meals = []; }
+  if (!Array.isArray(o.weights)) { o.weights = []; }
+  o.meals = o.meals.slice(-4000);
+  o.weights = o.weights.slice(-1500);
+  const txt = JSON.stringify(o);
+  return txt.length > 900000 ? null : o;
+}
+async function account(req, env) {
+  const inp = await req.json().catch(() => ({}));
+  const action = String(inp.action || '');
+  const ip = req.headers.get('CF-Connecting-IP') || '0';
+  const hour = Math.floor(nowS() / 3600);
+  if (!(await counter(env, 'ip:acc:' + ip + ':' + hour, 60, 2 * 3600))) { return out(req, { ok: false, error: 'rate_limited' }, 429); }
+
+  if (action === 'register' || action === 'login') {
+    const email = String(inp.email || '').trim().toLowerCase(), pw = String(inp.password || '');
+    if (email.length > 254 || !EMAIL_RE.test(email)) { return out(req, { ok: false, error: 'bad_email' }, 400); }
+    if (pw.length < 8 || pw.length > 100) { return out(req, { ok: false, error: 'weak_password' }, 400); }
+    const id = await sha('user:' + email), uk = 'usr:' + id;
+    const u = await getJ(env, uk);
+    if (action === 'register') {
+      if (u) { return out(req, { ok: false, error: 'exists' }, 409); }
+      const device = validDevice(inp.device);
+      if (!device) { return out(req, { ok: false, error: 'bad_device' }, 400); }
+      const salt = hex(crypto.getRandomValues(new Uint8Array(16)));
+      await putJ(env, uk, { email, salt, hash: await hashPw(pw, salt), device, created: nowS() });
+      return out(req, { ok: true, token: await newSession(env, id), email, device, state: null });
+    }
+    const fk = 'fail:' + id;
+    if (parseInt((await env.KV.get(fk)) || '0', 10) >= 8) { return out(req, { ok: false, error: 'rate_limited' }, 429); }
+    if (!u || !sameStr(await hashPw(pw, u.salt), u.hash)) {
+      await counter(env, fk, 1000, 900);
+      return out(req, { ok: false, error: 'invalid' }, 401);
+    }
+    await env.KV.delete(fk);
+    return out(req, { ok: true, token: await newSession(env, id), email: u.email, device: u.device, state: await getJ(env, 'acc:' + id) });
+  }
+
+  const id = await sessionOf(env, inp.token);
+  if (!id) { return out(req, { ok: false, error: 'session' }, 401); }
+  if (action === 'load') { return out(req, { ok: true, state: await getJ(env, 'acc:' + id) }); }
+  if (action === 'save') {
+    const st = cleanState(inp.state);
+    if (!st) { return out(req, { ok: false, error: 'bad_state' }, 400); }
+    await putJ(env, 'acc:' + id, st);
+    return out(req, { ok: true });
+  }
+  if (action === 'logout') { await env.KV.delete('ses:' + (await sha(String(inp.token)))); return out(req, { ok: true }); }
+  return out(req, { error: 'unknown_action' }, 400);
+}
+
 /* ---------- rappels (tâche planifiée toutes les 10 minutes) ---------- */
 async function cron(env, ts) {
   ts = ts || nowS();
@@ -363,6 +438,7 @@ export default {
       if (path === 'analyze' && req.method === 'POST') { return await analyze(req, env); }
       if (path === 'transform' && req.method === 'POST') { return await transform(req, env); }
       if (path === 'sync' && req.method === 'POST') { return await sync(req, env); }
+      if (path === 'account' && req.method === 'POST') { return await account(req, env); }
       if (path === 'message' && req.method === 'POST') { return await message(req, env); }
       if (path === 'codes') { return await codes(req, env, url); }
       if (path === '' || path === 'ping') { return out(req, { ok: true, service: 'sokkar-stop' }); }

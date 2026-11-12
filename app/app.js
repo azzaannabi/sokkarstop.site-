@@ -27,6 +27,15 @@ function reduceMotion() { return window.matchMedia && matchMedia('(prefers-reduc
 var T = {
   fr: {
     locale: 'fr-TN', soundOn: 'Couper le son', soundOff: 'Activer le son',
+    accTitle: 'Sauvegarde ton historique', accIntro: 'Crée un compte avec ton e-mail : tes repas et tes résultats restent enregistrés et tu les retrouves sur n’importe quel téléphone.',
+    accTitleW: 'Tu as déjà un compte ?', accIntroW: 'Connecte-toi pour retrouver ton historique.',
+    accEmail: 'E-mail', accPass: 'Mot de passe (8 caractères minimum)', accCreate: 'Créer mon compte', accLogin: 'Me connecter', accLogout: 'Me déconnecter',
+    accIn: function (e) { return 'Connecté : ' + e; }, accSynced: 'Ton historique est sauvegardé automatiquement.', accOutNote: 'Tes données restent sur ce téléphone après la déconnexion.',
+    accBadEmail: 'Adresse e-mail invalide.', accWeak: 'Mot de passe trop court : 8 caractères minimum.', accExists: 'Un compte existe déjà avec cet e-mail. Touche « Me connecter ».',
+    accInvalid: 'E-mail ou mot de passe incorrect.', accRate: 'Trop d’essais. Réessaie dans un moment.', accErr: 'Impossible de joindre le serveur. Réessaie plus tard.', accBusy: 'Un instant…',
+    accInApp: 'Tu utilises le navigateur intégré d’une autre appli (Instagram, TikTok…) : il garde ses propres données, séparées de ton navigateur habituel. Crée un compte pour tout retrouver partout.',
+    accInvite: 'Ne perds plus ton historique : crée ton compte gratuit.', accInviteBtn: 'Créer mon compte',
+    histTitle: 'Détail du jour', histTap: 'Touche un jour du calendrier pour voir tes repas.',
     // accueil / étapes
     h1a: 'Photographie ton assiette.', h1b: 'On compte pour toi.',
     lead: 'Réponds à quelques questions : on calcule tes calories du jour, puis tu scannes tes repas en photo.',
@@ -142,6 +151,15 @@ var T = {
   },
   ar: {
     locale: 'ar-TN-u-nu-latn', soundOn: 'إيقاف الصوت', soundOff: 'تشغيل الصوت',
+    accTitle: 'احفظ سجلّك', accIntro: 'أنشئ حساباً ببريدك الإلكتروني: تبقى وجباتك ونتائجك محفوظة وتجدها على أي هاتف.',
+    accTitleW: 'عندك حساب؟', accIntroW: 'سجّل الدخول لاسترجاع سجلّك.',
+    accEmail: 'البريد الإلكتروني', accPass: 'كلمة السر (8 أحرف على الأقل)', accCreate: 'إنشاء حسابي', accLogin: 'تسجيل الدخول', accLogout: 'تسجيل الخروج',
+    accIn: function (e) { return 'متصل: ' + e; }, accSynced: 'سجلّك يُحفظ تلقائياً.', accOutNote: 'تبقى بياناتك على هذا الهاتف بعد تسجيل الخروج.',
+    accBadEmail: 'بريد إلكتروني غير صالح.', accWeak: 'كلمة السر قصيرة: 8 أحرف على الأقل.', accExists: 'يوجد حساب بهذا البريد. اضغط «تسجيل الدخول».',
+    accInvalid: 'البريد أو كلمة السر غير صحيحة.', accRate: 'محاولات كثيرة. أعد المحاولة بعد قليل.', accErr: 'تعذّر الاتصال بالخادم. أعد المحاولة لاحقاً.', accBusy: 'لحظة…',
+    accInApp: 'أنت تستعمل المتصفح المدمج في تطبيق آخر (إنستغرام، تيك توك…): يحتفظ ببياناته بمعزل عن متصفحك المعتاد. أنشئ حساباً لتجد كل شيء في أي مكان.',
+    accInvite: 'لا تفقد سجلّك بعد اليوم: أنشئ حسابك المجاني.', accInviteBtn: 'إنشاء حسابي',
+    histTitle: 'تفاصيل اليوم', histTap: 'اضغط على يوم في التقويم لترى وجباته.',
     h1a: 'صوّر صحنك.', h1b: 'ونحسب لك السعرات.',
     lead: 'جاوب على أسئلة قليلة ونحسبو سعراتك اليومية، ثم صوّر وجباتك.',
     pill1: 'حساب بالصورة', pill2: 'منبّه سكر ستوب', pill3: 'قبل / بعد',
@@ -265,13 +283,101 @@ function defaults() {
 }
 var S = (function () { var d = defaults(), s = jget(KEY) || {}; for (var k in s) { d[k] = s[k]; } return d; })();
 if (S.gen === 'running') { S.gen = 'error'; S.genErr = 'interrupted'; }
-function save() { jset(KEY, S); }
+function save() { S.updatedAt = Date.now(); jset(KEY, S); pushAcc(); }
 (function prune() {
   var cut = Date.now() - 400 * 86400000;
   S.meals = (S.meals || []).filter(function (m) { return m && m.t > cut; });
 })();
 
-var CFG = { requireCode: false, vapidPublic: '', loaded: false };
+var CFG = { requireCode: false, vapidPublic: '', accounts: false, loaded: false };
+
+/* ---------- compte (e-mail + mot de passe) : l'historique suit la personne ---------- */
+var ACC_KEY = 'ss2_acc', ACC = jget(ACC_KEY), accMsg = '', accBusy = false, accEmailVal = '', pushT = null, applying = false;
+var SYNC_FIELDS = ['lang', 'sound', 'step', 'profile', 'goal', 'weights', 'meals', 'dayGoal', 'exceeded', 'startDate', 'rem', 'photoRatio'];
+var IN_APP = /Instagram|FBAN|FBAV|FB_IAB|musical_ly|TikTok|BytedanceWebview|Snapchat|Line\//i.test(navigator.userAgent || '');
+function accOn() { return !!(CFG.accounts && HAS_API); }
+function accPost(action, data) { var b = { action: action }; for (var k in (data || {})) { b[k] = data[k]; } return post(API + 'account', b); }
+function pushAcc(now) {
+  if (!ACC || applying || !HAS_API) { return; }
+  clearTimeout(pushT);
+  pushT = setTimeout(function () {
+    var st = { updatedAt: S.updatedAt || Date.now() };
+    SYNC_FIELDS.forEach(function (k) { st[k] = S[k]; });
+    accPost('save', { token: ACC.token, state: st }).then(function (r) { if (r.status === 401) { accDrop(); } }).catch(function () {});
+  }, now ? 50 : 1500);
+}
+function accDrop() { ACC = null; try { localStorage.removeItem(ACC_KEY); } catch (e) {} if ($('account')) { refreshAccount(); } }
+function applyRemote(rs) {
+  if (!rs || typeof rs !== 'object') { return; }
+  var m = {}, w = {}, k;
+  (rs.meals || []).concat(S.meals || []).forEach(function (x) { if (x && x.id) { m[x.id] = x; } });
+  (rs.weights || []).concat(S.weights || []).forEach(function (x) { if (x && x.d) { w[x.d] = x; } });
+  var takeRemote = !!rs.profile && (!S.profile || (rs.updatedAt || 0) >= (S.updatedAt || 0));
+  if (takeRemote) {
+    ['lang', 'sound', 'profile', 'goal', 'startDate', 'rem', 'photoRatio'].forEach(function (f) { if (rs[f] !== undefined) { S[f] = rs[f]; } });
+    S.step = 'home';
+  }
+  S.meals = Object.keys(m).map(function (i) { return m[i]; }).sort(function (a, b) { return a.t - b.t; });
+  S.weights = Object.keys(w).map(function (i) { return w[i]; }).sort(function (a, b) { return a.d < b.d ? -1 : 1; });
+  var dg = {}, ex = {};
+  for (k in (rs.dayGoal || {})) { dg[k] = rs.dayGoal[k]; } for (k in (S.dayGoal || {})) { dg[k] = S.dayGoal[k]; }
+  for (k in (rs.exceeded || {})) { ex[k] = rs.exceeded[k]; } for (k in (S.exceeded || {})) { ex[k] = S.exceeded[k]; }
+  S.dayGoal = dg; S.exceeded = ex;
+}
+function accErr(r) {
+  var e = r && r.j && r.j.error;
+  return e === 'bad_email' ? tx('accBadEmail') : e === 'weak_password' ? tx('accWeak') : e === 'exists' ? tx('accExists') : e === 'invalid' ? tx('accInvalid') : e === 'rate_limited' ? tx('accRate') : tx('accErr');
+}
+function doAuth(mode) {
+  if (accBusy) { return; }
+  var em = $('accEmail'), pw = $('accPass'); if (!em || !pw) { return; }
+  var email = em.value.trim().toLowerCase(), pass = pw.value; accEmailVal = email;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { accMsg = tx('accBadEmail'); refreshAccount(); return; }
+  if (pass.length < 8) { accMsg = tx('accWeak'); refreshAccount(); return; }
+  accBusy = true; accMsg = ''; refreshAccount();
+  accPost(mode, { email: email, password: pass, device: S.device }).then(function (r) {
+    accBusy = false;
+    if (!r.ok || !r.j || !r.j.ok) { accMsg = accErr(r); refreshAccount(); return; }
+    ACC = { email: r.j.email, token: r.j.token }; jset(ACC_KEY, ACC);
+    if (r.j.device && r.j.device !== S.device) { S.device = r.j.device; S.pushOn = false; S.access = { expires: null }; }
+    applying = true; applyRemote(r.j.state); applying = false;
+    accMsg = ''; accEmailVal = ''; save(); pushAcc(true);
+    if (CFG.requireCode) { api('status').then(function (j) { if (j && j.access) { S.access.expires = j.access.expires; save(); } }).catch(function () {}); }
+    renderMain();
+  }).catch(function () { accBusy = false; accMsg = tx('accErr'); refreshAccount(); });
+}
+function accLogout() {
+  if (ACC) { accPost('logout', { token: ACC.token }).catch(function () {}); }
+  accDrop(); renderMain();
+}
+function accountInner(where) {
+  if (!accOn()) { return ''; }
+  if (ACC) {
+    return '<div class="card acc"><h2>' + esc(tx('accTitle')) + '</h2><p class="note"><b>' + esc(tx('accIn')(ACC.email)) + '</b><br>' + esc(tx('accSynced')) + '</p>' +
+      '<button class="btn ghost" type="button" data-act="acc-logout" style="min-height:46px">' + esc(tx('accLogout')) + '</button><p class="note">' + esc(tx('accOutNote')) + '</p></div>';
+  }
+  var w = where === 'welcome';
+  return '<form class="card acc" id="accForm" novalidate><h2>' + esc(tx(w ? 'accTitleW' : 'accTitle')) + '</h2><p class="note">' + esc(tx(w ? 'accIntroW' : 'accIntro')) + '</p>' +
+    (IN_APP ? '<p class="note"><b>' + esc(tx('accInApp')) + '</b></p>' : '') +
+    '<div class="inp"><input id="accEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="' + esc(tx('accEmail')) + '" value="' + esc(accEmailVal) + '" dir="ltr"></div>' +
+    '<div class="inp"><input id="accPass" type="password" autocomplete="current-password" placeholder="' + esc(tx('accPass')) + '" dir="ltr"></div>' +
+    (accMsg ? '<p class="err" role="alert">' + esc(accMsg) + '</p>' : '') + (accBusy ? '<p class="note" role="status">' + esc(tx('accBusy')) + '</p>' : '') +
+    '<div class="acc-row"><button class="btn" type="button" data-act="acc-register"' + (accBusy ? ' disabled' : '') + '>' + esc(tx('accCreate')) + '</button>' +
+    '<button class="btn ghost" type="button" data-act="acc-login"' + (accBusy ? ' disabled' : '') + '>' + esc(tx('accLogin')) + '</button></div></form>';
+}
+function refreshAccount() { var el = $('account'); if (el) { el.innerHTML = accountInner(S.step === 'home' ? 'home' : 'welcome'); } }
+function syncFromServer() {
+  if (!ACC || !accOn()) { return; }
+  accPost('load', { token: ACC.token }).then(function (r) {
+    if (r.status === 401) { accDrop(); return; }
+    if (!r.j || !r.j.ok) { return; }
+    var before = S.meals.length;
+    applying = true; applyRemote(r.j.state); applying = false;
+    save(); pushAcc(true);
+    if (S.step === 'home' && !cur) { refreshAll(); } else if (before !== S.meals.length || S.step === 'welcome') { renderMain(); }
+  }).catch(function () {});
+}
+var calDay = '';
 var cur = null;          // photo de repas en cours
 var BODY = null;         // photo "avant" en cours de choix
 var sliderPos = 50, introPlayed = false;
@@ -488,7 +594,8 @@ function viewWelcome() {
     '<div class="hero"><h1>' + esc(tx('h1a')) + '<em>' + esc(tx('h1b')) + '</em></h1><p class="lead">' + esc(tx('lead')) + '</p>' +
     '<ul class="pills"><li>' + esc(tx('pill1')) + '</li><li>' + esc(tx('pill2')) + '</li><li>' + esc(tx('pill3')) + '</li></ul></div>' +
     (need ? codeForm(flash, true) : ok) +
-    '<button class="btn big" type="button" data-act="welcome-next"' + (need ? ' disabled' : '') + '>' + esc(tx('start')) + '</button></div>';
+    '<button class="btn big" type="button" data-act="welcome-next"' + (need ? ' disabled' : '') + '>' + esc(tx('start')) + '</button>' +
+    '<div id="account">' + accountInner('welcome') + '</div></div>';
 }
 
 /* ---------- 2. profil ---------- */
@@ -802,6 +909,9 @@ function bannersHTML() {
     if (min >= s[1] && min < s[2] && !by[s[0]] && S.rem[names[s[0]]]) { return '<div class="banner remind">' + ICON.bell + '<p>' + esc(tx('rem_' + s[0])) + '</p></div>'; }
   }
   if (S.weights.length && lastWeighAge() >= 7) { h = '<div class="banner info">' + ICON.scale + '<p>' + esc(tx('weighBanner')) + '</p></div>'; }
+  if (accOn() && !ACC && S.meals.length) {
+    h += '<div class="banner info"><div><p>' + esc(tx('accInvite')) + '</p><button class="btn" type="button" data-act="acc-go" style="min-height:44px;margin-top:10px">' + esc(tx('accInviteBtn')) + '</button></div></div>';
+  }
   return h;
 }
 function refreshBanners() { var el = $('banners'); if (el) { el.innerHTML = bannersHTML(); } }
@@ -848,10 +958,14 @@ function refreshCal() {
   var cells = '';
   for (var b = 0; b < lead; b++) { cells += '<div></div>'; }
   var names = { good: tx('dG'), mid: tx('dO'), bad: tx('dR') };
+  var selDay = '';
+  if (calDay && calDay.slice(0, 7) === y + '-' + pad(m + 1) && dayInfo(calDay)) { selDay = calDay; }
+  else { for (var q = days; q >= 1; q--) { var qk = y + '-' + pad(m + 1) + '-' + pad(q); if (qk <= today && dayInfo(qk)) { selDay = qk; break; } } }
   for (var d = 1; d <= days; d++) {
     var key = y + '-' + pad(m + 1) + '-' + pad(d), inf = dayInfo(key), cls = 'cal-cell' + (key === today ? ' today' : '') + (key > today ? ' future' : '');
     var label = d + ' ' + title.split(' ')[0] + ' : ' + (inf ? names[inf.status] : tx('dN'));
-    cells += '<div class="' + cls + '" role="img" aria-label="' + esc(label) + '"><span class="d">' + d + '</span>' + (inf ? face(inf.status) : '<span class="dot"></span>') + '</div>';
+    if (inf) { cells += '<button type="button" class="' + cls + ' has' + (key === selDay ? ' sel' : '') + '" data-act="cal-day" data-k="' + key + '" aria-label="' + esc(label) + '"><span class="d">' + d + '</span>' + face(inf.status) + '</button>'; }
+    else { cells += '<div class="' + cls + '" role="img" aria-label="' + esc(label) + '"><span class="d">' + d + '</span><span class="dot"></span></div>'; }
   }
   var nowM = new Date(); var isCurrent = calMonth.getFullYear() === nowM.getFullYear() && calMonth.getMonth() === nowM.getMonth();
   var st = calStats();
@@ -859,14 +973,23 @@ function refreshCal() {
     '<button type="button" data-act="cal-next" aria-label="' + esc(tx('calNext')) + '"' + (isCurrent ? ' disabled' : '') + '>' + ICON.chevR + '</button></div></div>' +
     '<div class="cal-grid">' + wd + cells + '</div>' +
     '<div class="legend"><span>' + face('good') + esc(tx('legG')) + '</span><span>' + face('mid') + esc(tx('legO')) + '</span><span>' + face('bad') + esc(tx('legR')) + '</span></div>' +
-    '<div class="cal-stats"><div><b>' + st.good + '</b>' + esc(tx('calDays')) + '</div><div><b>' + st.streak + '</b>' + esc(tx('calStreak')) + '</div></div></div>';
+    '<div class="cal-stats"><div><b>' + st.good + '</b>' + esc(tx('calDays')) + '</div><div><b>' + st.streak + '</b>' + esc(tx('calStreak')) + '</div></div></div>' + dayDetail(selDay);
+}
+function dayDetail(key) {
+  if (!key) { return '<p class="note" style="text-align:center;margin-top:12px">' + esc(tx('histTap')) + '</p>'; }
+  var list = S.meals.filter(function (m) { return m.day === key; }).sort(function (a, b) { return a.t - b.t; }), u = tx('unit'), inf = dayInfo(key), dt = key;
+  try { var p = key.split('-'); dt = new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString(tx('locale'), { weekday: 'long', day: 'numeric', month: 'long' }); } catch (e) {}
+  return '<div class="card log" style="margin-top:14px"><h2>' + esc(tx('histTitle')) + ' : ' + esc(dt) + '</h2><p class="note"><b>' + fmt(inf.total) + '</b> / ' + fmt(inf.goal) + ' ' + esc(u) + '</p><ul>' + list.map(function (m) {
+    var d = new Date(m.t);
+    return '<li class="meal"><span class="time">' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</span><span class="nm">' + esc(nameOf(m)) + '</span><span class="kc">' + m.kcal + ' ' + esc(u) + '</span></li>';
+  }).join('') + '</ul></div>';
 }
 
 /* réglages */
 function refreshSettings() {
   var el = $('settings'); if (!el) { return; }
   var st = notifState(), msg = flash || notifMsg(st);
-  el.innerHTML = '<div class="card"><h2>' + esc(tx('sTitle')) + '</h2>' +
+  el.innerHTML = (accOn() ? '<div id="account">' + accountInner('home') + '</div>' : '') + '<div class="card"><h2>' + esc(tx('sTitle')) + '</h2>' +
     '<div><div class="switch-row"><span>' + esc(tx('sNotif')) + '<small>' + esc(S.pushOn ? tx('sNotifOn') : tx('sNotifOff')) + '</small></span>' +
     (st === 'ready' && !S.pushOn ? '<button class="btn" type="button" data-act="notif-enable" data-from="settings" style="min-height:44px">' + esc(tx('rEnable')) + '</button>' : (S.pushOn ? '<label class="switch"><input type="checkbox" data-act="push-toggle" checked aria-label="' + esc(tx('sNotif')) + '"><i></i></label>' : '')) + '</div>' +
     '<div>' + remindRows() + '</div></div>' + (msg && !S.pushOn ? '<p class="note" role="status">' + esc(msg) + '</p>' : '') +
@@ -1132,8 +1255,13 @@ function handleClick(ev) {
       break;
     case 'goal-chip': $('goalInput').value = b.getAttribute('data-v'); break;
     case 'recalc': S.step = 'profile'; save(); renderMain(); break;
-    case 'cal-prev': calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1); refreshCal(); break;
-    case 'cal-next': calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1); refreshCal(); break;
+    case 'cal-day': calDay = b.getAttribute('data-k'); refreshCal(); break;
+    case 'acc-register': doAuth('register'); break;
+    case 'acc-login': doAuth('login'); break;
+    case 'acc-logout': accLogout(); break;
+    case 'acc-go': showTab('goal'); setTimeout(function () { var a = $('account'); if (a && a.scrollIntoView) { a.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }, 60); break;
+    case 'cal-prev': calDay = ''; calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1); refreshCal(); break;
+    case 'cal-next': calDay = ''; calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1); refreshCal(); break;
     case 'install': if (deferredInstall) { deferredInstall.prompt(); deferredInstall = null; refreshSettings(); } break;
     case 'reset':
       if (!resetArmed) { resetArmed = true; refreshSettings(); setTimeout(function () { resetArmed = false; if ($('settings')) { refreshSettings(); } }, 5000); }
@@ -1156,7 +1284,8 @@ function finishPhotoStep() {
 }
 function resetEverything() {
   try { navigator.serviceWorker.ready.then(function (r) { return r.pushManager.getSubscription(); }).then(function (s) { if (s) { api('unsubscribe').catch(function () {}); return s.unsubscribe(); } }).catch(function () {}); } catch (e) {}
-  try { localStorage.removeItem(KEY); } catch (e) {}
+  if (ACC) { accPost('logout', { token: ACC.token }).catch(function () {}); }
+  try { localStorage.removeItem(KEY); localStorage.removeItem(ACC_KEY); } catch (e) {}
   idb.clear().then(function () { location.reload(); });
 }
 
@@ -1174,6 +1303,7 @@ function handleChange(ev) {
 function handleSubmit(ev) {
   var f = ev.target.id; if (!f) { return; }
   ev.preventDefault();
+  if (f === 'accForm') { doAuth('login'); return; }
   if (f === 'profileForm') { submitProfile(); }
   else if (f === 'targetForm') {
     var p = S.profile, o = targetOptions(p), v = parseFloat($('tInput').value.replace(',', '.'));
@@ -1222,7 +1352,11 @@ if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) { n
 
 renderMain();
 loadImages().then(function () { if (S.step === 'home') { refreshHero(); } else if (S.step === 'photo') { renderMain(); } });
+try { if (navigator.storage && navigator.storage.persist) { navigator.storage.persist(); } } catch (e) {}
+document.addEventListener('visibilitychange', function () { if (document.hidden) { pushAcc(true); } });
 ensureConfig().then(function () {
+  syncFromServer();
+  if (S.step === 'home') { refreshBanners(); if (!cur) { refreshSettings(); } }
   if (S.step === 'welcome') { renderMain(); }
   if (CFG.requireCode) { api('status').then(function (j) { if (j && j.access) { S.access.expires = j.access.expires; if (typeof j.transformLeft === 'number') { S.genLeft = j.transformLeft; } save(); if (S.step === 'welcome') { renderMain(); } } }).catch(function () {}); }
 }).catch(function () {});
