@@ -5,7 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="facebook-domain-verification" content="4lnlqoocfcegtck43qpfktruxikinq" />
 <title>SOKKAR STOP — بخاخ فموي بالجيمنيما</title>
-<meta name="description" content="SOKKAR STOP — بخاخ فموي طبيعي بالجيمنيما، مكمل غذائي مصنوع في تونس يساعد على تهدئة الرغبة في السكر.">
+<meta name="description" content="SOKKAR STOP — بخاخ فموي طبيعي بالجيمنيما، مصنوع في تونس، يساعد على تهدئة الرغبة في السكر. توصيل مجاني والدفع عند الاستلام.">
+<meta name="theme-color" content="#9C3226">
+<meta property="og:type" content="website">
+<meta property="og:title" content="SOKKAR STOP — بخاخ فموي بالجيمنيما">
+<meta property="og:description" content="Spray buccal au Gymnema, fabriqué en Tunisie. Livraison gratuite, paiement à la réception.">
+<meta property="og:image" content="https://sokkarstop.site/product-30ml.jpg">
+<meta property="og:url" content="https://sokkarstop.site/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -407,6 +413,118 @@
     .hero-stats{gap:22px;}
   }
 
+
+  /* ---------- fixes langue (div / a / p) ---------- */
+  html[dir="ltr"] a[data-lang="fr"]{display:inline;}
+  html[dir="ltr"] div[data-lang="fr"],
+  html[dir="ltr"] p[data-lang="fr"]{display:block;}
+  html[dir="ltr"] li[data-lang="fr"]{display:list-item;}
+  section[id]{scroll-margin-top:76px;}
+
+  /* ---------- menu mobile ---------- */
+  .menu-toggle{
+    width:42px;height:42px;padding:0;align-items:center;justify-content:center;
+    border:1px solid var(--line);border-radius:50%;background:var(--cream-soft);
+  }
+  .menu-toggle svg{display:block;}
+  .menu-toggle .ic-close{display:none;}
+  header.menu-open .menu-toggle .ic-open{display:none;}
+  header.menu-open .menu-toggle .ic-close{display:block;}
+  .nav-cta{display:none !important;}
+
+  /* ---------- bandeau réassurance ---------- */
+  .trust{padding:0;background:var(--cream-soft);border-block:1px solid var(--line);}
+  .trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+  .trust-item{
+    display:flex;align-items:center;gap:12px;padding:20px 18px;
+    border-inline-end:1px solid var(--line);
+  }
+  .trust-item:last-child{border-inline-end:none;}
+  .trust-item svg{flex-shrink:0;color:var(--terracotta);}
+  .trust-item strong{display:block;font-size:0.9rem;font-weight:800;line-height:1.3;}
+  .trust-item small{display:block;font-size:0.76rem;color:var(--ink-soft);line-height:1.4;}
+
+  /* ---------- livraison gratuite ---------- */
+  .free-tag{color:#2F7A4B;font-weight:800;}
+  .hero-price-note .free-tag{margin-inline-start:6px;}
+  .card-points{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:0.88rem;color:var(--ink-soft);}
+  .card-points li{display:flex;gap:8px;align-items:flex-start;}
+  .card-points li::before{content:"✓";color:var(--terracotta);font-weight:800;flex-shrink:0;}
+
+  /* ---------- récapitulatif commande ---------- */
+  .summary{
+    border:1px dashed var(--gold);background:var(--cream);padding:14px 16px;
+    margin:4px 0 16px;border-radius:2px;
+  }
+  .sum-row{display:flex;justify-content:space-between;gap:12px;font-size:0.88rem;color:var(--ink-soft);padding:3px 0;}
+  .sum-row.total{
+    border-top:1px solid var(--line);margin-top:8px;padding-top:10px;
+    color:var(--ink);font-weight:800;font-size:1rem;
+  }
+  .sum-row.total .num{color:var(--terracotta);font-size:1.25rem;}
+  .form-trust{
+    display:flex;flex-wrap:wrap;justify-content:center;gap:6px 16px;margin-top:14px;
+    font-size:0.78rem;font-weight:700;color:var(--ink-soft);
+  }
+  .form-trust span.item::before{content:"✓ ";color:#2F7A4B;}
+  .confirm-msg a{color:var(--terracotta);font-weight:700;}
+
+  /* ---------- barre collante mobile ---------- */
+  .sticky-cta{display:none;}
+
+  .footer-legal{display:flex;gap:18px;flex-wrap:wrap;}
+  .footer-legal a{color:#A79A87;text-decoration:underline;}
+
+  @media (max-width:920px){
+    .header-inner{padding:10px 16px;gap:10px;}
+    .header-actions{gap:10px;}
+    .header-actions > .btn{display:none;}
+    .menu-toggle{display:flex;}
+    nav.primary{
+      display:none;position:absolute;top:100%;inset-inline:0;
+      flex-direction:column;align-items:stretch;gap:0;
+      background:var(--cream-soft);border-bottom:1px solid var(--line);
+      box-shadow:0 16px 28px rgba(36,29,24,0.14);
+      padding:6px 16px 18px;max-height:calc(100vh - 64px);overflow-y:auto;
+    }
+    header.menu-open nav.primary{display:flex;}
+    nav.primary a{
+      display:block;padding:15px 4px;font-size:1.02rem;color:var(--ink);
+      border-bottom:1px solid var(--line);
+    }
+    html[dir="rtl"] nav.primary a[data-lang="fr"],
+    html[dir="ltr"] nav.primary a[data-lang="ar"]{display:none;}
+    nav.primary a.nav-cta{
+      display:flex !important;justify-content:center;margin-top:16px;border:none;
+      color:#fff;padding:14px;
+    }
+    html[dir="rtl"] nav.primary a.nav-cta[data-lang="fr"],
+    html[dir="ltr"] nav.primary a.nav-cta[data-lang="ar"]{display:none !important;}
+    .logo{font-size:1rem;}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+    .trust-item{padding:16px 12px;border-bottom:1px solid var(--line);}
+    .trust-item:nth-child(2n){border-inline-end:none;}
+    .trust-item:nth-last-child(-n+2){border-bottom:none;}
+    body{padding-bottom:78px;}
+    .float-wa{bottom:92px;inset-inline-end:14px;width:50px;height:50px;}
+    .sticky-cta{
+      display:block;position:fixed;inset-inline:0;bottom:0;z-index:55;
+      padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+      background:rgba(250,246,238,0.97);border-top:1px solid var(--line);
+      box-shadow:0 -8px 22px rgba(36,29,24,0.12);
+      transform:translateY(0);transition:transform .25s ease;
+    }
+    .sticky-cta.hide{transform:translateY(110%);}
+    .sticky-cta .btn{width:100%;padding:14px;font-size:1rem;gap:10px;}
+    .sticky-cta small{font-weight:600;opacity:.92;font-size:0.78rem;}
+    section{padding:56px 0;}
+    .hero{padding:28px 0 48px;}
+  }
+  @media (max-width:520px){
+    .trust-item strong{font-size:0.82rem;}
+    .trust-item svg{width:22px;height:22px;}
+  }
+
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
     *{transition:none !important;}
@@ -429,12 +547,13 @@ fbq('track','PageView');
       <span class="mark"></span>
       <span>SOKKAR <span class="stop">STOP</span></span>
     </a>
-    <nav class="primary">
+    <nav class="primary" id="mainNav">
       <a href="#product" data-lang="ar">المنتج</a><a href="#product" data-lang="fr">Le produit</a>
       <a href="#usage" data-lang="ar">طريقة الاستعمال</a><a href="#usage" data-lang="fr">Utilisation</a>
       <a href="#shop" data-lang="ar">الأسعار</a><a href="#shop" data-lang="fr">Tarifs</a>
       <a href="#appli" data-lang="ar">التطبيق</a><a href="#appli" data-lang="fr">L'appli</a>
       <a href="#faq" data-lang="ar">الأسئلة الشائعة</a><a href="#faq" data-lang="fr">FAQ</a>
+      <a href="#order" class="btn btn-primary nav-cta" data-lang="ar">اطلب الآن — توصيل مجاني</a><a href="#order" class="btn btn-primary nav-cta" data-lang="fr">Commander — livraison gratuite</a>
     </nav>
     <div class="header-actions">
       <div class="lang-toggle">
@@ -444,13 +563,17 @@ fbq('track','PageView');
       <a href="#order" class="btn btn-primary">
         <span data-lang="ar">اطلب الآن</span><span data-lang="fr">Commander</span>
       </a>
+      <button type="button" class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false" aria-controls="mainNav">
+        <svg class="ic-open" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
     </div>
   </div>
 </header>
 
 <a href="app/" class="appbar">
-  <span data-lang="ar">📱 تطبيق مجاني مع طلبك: صوّر وجبتك وعدّ السعرات <b>افتح التطبيق ←</b></span>
-  <span data-lang="fr">📱 Appli gratuite avec ton achat : photographie ton repas, compte tes calories <b>Ouvrir l'appli →</b></span>
+  <span data-lang="ar">🎁 مع كل عملية شراء: شهر مجاني في تطبيق Sokkar Coach لحساب السعرات <b>افتح التطبيق ←</b></span>
+  <span data-lang="fr">🎁 Pour chaque achat : 1 mois d'accès gratuit à l'appli Sokkar Coach (compte tes calories en photo) <b>Ouvrir l'appli →</b></span>
 </a>
 
 <main id="top">
@@ -463,18 +586,19 @@ fbq('track','PageView');
           <span class="badge"><span class="dot"></span><span data-lang="ar">صنع في تونس</span><span data-lang="fr">Fabriqué en Tunisie</span></span>
           <span class="badge"><span class="dot"></span><span data-lang="ar">مكونات طبيعية</span><span data-lang="fr">Ingrédients naturels</span></span>
           <span class="badge"><span class="dot"></span><span data-lang="ar">بالجيمنيما</span><span data-lang="fr">Au Gymnema</span></span>
+          <span class="badge"><span class="dot"></span><span data-lang="ar">توصيل مجاني</span><span data-lang="fr">Livraison gratuite</span></span>
         </div>
         <h1 class="hero-title">
-          <span data-lang="ar">يهدّئ رغبتك في السكر <span class="accent">خلال ثوانٍ</span></span>
-          <span data-lang="fr">Calme l'envie de sucre <span class="accent">en quelques secondes</span></span>
+          <span data-lang="ar">يساعد على تهدئة رغبتك في السكر <span class="accent">خلال ثوانٍ</span></span>
+          <span data-lang="fr">Aide à calmer l'envie de sucre <span class="accent">en quelques secondes</span></span>
         </h1>
         <p class="hero-sub">
-          <span data-lang="ar">بخاخ فموي طبيعي بالجيمنيما، صُمم لمساعدتك على تهدئة الرغبة المفاجئة في السكر أينما كنت. مكمل غذائي 100% تونسي الصنع.</span>
-          <span data-lang="fr">Un spray buccal naturel au Gymnema, pensé pour calmer l'envie soudaine de sucre où que vous soyez. Un complément alimentaire 100% fabriqué en Tunisie.</span>
+          <span data-lang="ar">بخاخ فموي طبيعي بالجيمنيما، صُمم لمساعدتك على تهدئة الرغبة المفاجئة في السكر أينما كنت. 100% تونسي الصنع.</span>
+          <span data-lang="fr">Un spray buccal naturel au Gymnema, pensé pour calmer l'envie soudaine de sucre où que vous soyez. 100% fabriqué en Tunisie.</span>
         </p>
         <div class="hero-price">
           <span class="price">49 <span data-lang="ar">د.ت</span><span data-lang="fr">DT</span></span>
-          <span class="hero-price-note"><span data-lang="ar">القنينة 30 مل</span><span data-lang="fr">le flacon 30 ml</span></span>
+          <span class="hero-price-note"><span data-lang="ar">القنينة 30 مل</span><span data-lang="fr">le flacon 30 ml</span> · <span class="free-tag"><span data-lang="ar">التوصيل مجاني</span><span data-lang="fr">livraison gratuite</span></span></span>
         </div>
         <div class="hero-ctas">
           <a href="#order" class="btn btn-primary">
@@ -502,8 +626,18 @@ fbq('track','PageView');
       <div class="hero-visual">
         <div class="plate"></div>
         <span class="hero-badge"><span data-lang="ar">الأكثر طلباً</span><span data-lang="fr">Best-seller</span></span>
-        <img src="product-30ml.jpg" alt="SOKKAR STOP 30ml">
+        <img src="product-30ml.jpg" alt="SOKKAR STOP 30ml" width="480" height="640" fetchpriority="high">
       </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust" aria-label="Garanties">
+    <div class="wrap trust-grid">
+      <div class="trust-item"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11v10H3zM14 9h4l3 3v4h-7"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg><div><strong><span data-lang="ar">توصيل مجاني</span><span data-lang="fr">Livraison gratuite</span></strong><small><span data-lang="ar">لكل ولايات تونس</span><span data-lang="fr">partout en Tunisie</span></small></div></div>
+      <div class="trust-item"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></svg><div><strong><span data-lang="ar">الدفع عند الاستلام</span><span data-lang="fr">Paiement à la réception</span></strong><small><span data-lang="ar">تدفع بعد أن تستلم القنينة</span><span data-lang="fr">tu paies après avoir reçu ton flacon</span></small></div></div>
+      <div class="trust-item"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><div><strong><span data-lang="ar">تأكيد بالهاتف</span><span data-lang="fr">Confirmation par téléphone</span></strong><small><span data-lang="ar">نتصل بك قبل الشحن</span><span data-lang="fr">on t'appelle avant l'envoi</span></small></div></div>
+      <div class="trust-item"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v6c0 5 4 8 9 9 5-1 9-4 9-9V7z"/><path d="m9 12 2 2 4-4"/></svg><div><strong><span data-lang="ar">صنع في تونس</span><span data-lang="fr">Fabriqué en Tunisie</span></strong><small><span data-lang="ar">مكونات نباتية</span><span data-lang="fr">ingrédients d'origine végétale</span></small></div></div>
     </div>
   </section>
 
@@ -520,7 +654,7 @@ fbq('track','PageView');
             <span data-lang="fr">Renseignez vos coordonnées, nous vous appelons pour confirmer la commande et la livraison.</span>
           </p>
           <ul>
-            <li><span data-lang="ar">توصيل إلى جميع ولايات تونس</span><span data-lang="fr">Livraison dans tout le pays</span></li>
+            <li><span data-lang="ar">توصيل مجاني إلى جميع ولايات تونس</span><span data-lang="fr">Livraison gratuite dans tout le pays</span></li>
             <li><span data-lang="ar">الدفع نقداً عند الاستلام</span><span data-lang="fr">Paiement en espèces à la réception</span></li>
             <li><span data-lang="ar">تأكيد الطلب عبر الهاتف</span><span data-lang="fr">Confirmation de commande par téléphone</span></li>
           </ul>
@@ -529,21 +663,22 @@ fbq('track','PageView');
           <form id="orderForm">
             <div class="field">
               <label><span data-lang="ar">الاسم الكامل</span><span data-lang="fr">Nom complet</span></label>
-              <input type="text" name="name" required>
+              <input type="text" name="name" required autocomplete="name">
             </div>
             <div class="form-row">
               <div class="field">
                 <label><span data-lang="ar">رقم الهاتف</span><span data-lang="fr">Téléphone</span></label>
-                <input type="tel" name="phone" required pattern="[0-9+ ]{8,}">
+                <input type="tel" name="phone" required pattern="[0-9+ ]{8,}" inputmode="tel" autocomplete="tel" placeholder="XX XXX XXX">
               </div>
               <div class="field">
                 <label><span data-lang="ar">المدينة</span><span data-lang="fr">Ville</span></label>
-                <input type="text" name="city" required>
+                <input type="text" name="city" required autocomplete="address-level2" list="cities">
+                <datalist id="cities"><option value="Tunis"><option value="Ariana"><option value="Ben Arous"><option value="Manouba"><option value="Nabeul"><option value="Bizerte"><option value="Béja"><option value="Jendouba"><option value="Le Kef"><option value="Siliana"><option value="Zaghouan"><option value="Sousse"><option value="Monastir"><option value="Mahdia"><option value="Kairouan"><option value="Kasserine"><option value="Sidi Bouzid"><option value="Sfax"><option value="Gabès"><option value="Médenine"><option value="Tataouine"><option value="Gafsa"><option value="Tozeur"><option value="Kébili"></datalist>
               </div>
             </div>
             <div class="field">
               <label><span data-lang="ar">العنوان الكامل</span><span data-lang="fr">Adresse complète</span></label>
-              <textarea name="address" rows="2" required></textarea>
+              <textarea name="address" rows="2" required autocomplete="street-address"></textarea>
             </div>
             <input type="hidden" name="format" value="30ml — 49 DT">
             <div class="field">
@@ -555,20 +690,30 @@ fbq('track','PageView');
                 <option value="4">4</option>
               </select>
             </div>
+            <div class="summary" aria-live="polite">
+              <div class="sum-row"><span><span data-lang="ar">المجموع الفرعي</span><span data-lang="fr">Sous-total</span></span><span><b id="sumSub">49</b> <span class="cur"><span data-lang="ar">د.ت</span><span data-lang="fr">DT</span></span></span></div>
+              <div class="sum-row"><span><span data-lang="ar">التوصيل</span><span data-lang="fr">Livraison</span></span><span class="free-tag"><span data-lang="ar">مجاني</span><span data-lang="fr">Gratuite</span></span></div>
+              <div class="sum-row total"><span><span data-lang="ar">المبلغ عند الاستلام</span><span data-lang="fr">À payer à la réception</span></span><span><b class="num" id="sumTotal">49</b> <span class="cur"><span data-lang="ar">د.ت</span><span data-lang="fr">DT</span></span></span></div>
+            </div>
             <button type="submit" class="btn btn-primary submit-btn">
-              <span data-lang="ar">تأكيد الطلب</span><span data-lang="fr">Confirmer la commande</span>
+              <span data-lang="ar">تأكيد الطلب — الدفع عند الاستلام</span><span data-lang="fr">Confirmer — je paie à la réception</span>
             </button>
             <p class="form-note">
-              <span data-lang="ar">لا حاجة للدفع الآن — الدفع عند استلام الطلب</span>
-              <span data-lang="fr">Aucun paiement maintenant — réglez à la réception</span>
+              <span data-lang="ar">لا حاجة للدفع الآن — لن تدفع إلا بعد استلام طلبك</span>
+              <span data-lang="fr">Aucun paiement maintenant — tu ne paies qu'après avoir reçu ta commande</span>
             </p>
+            <div class="form-trust">
+              <span class="item"><span data-lang="ar">توصيل مجاني</span><span data-lang="fr">Livraison gratuite</span></span>
+              <span class="item"><span data-lang="ar">الدفع عند الاستلام</span><span data-lang="fr">Paiement à la réception</span></span>
+              <span class="item"><span data-lang="ar">تأكيد بالهاتف</span><span data-lang="fr">Confirmation par téléphone</span></span>
+            </div>
             <div class="confirm-msg" id="confirmMsg">
-              <span data-lang="ar">شكراً لك! تم استلام طلبك بنجاح، سنتصل بك قريباً لتأكيده.</span>
-              <span data-lang="fr">Merci ! Votre commande a bien été reçue, nous vous contactons bientôt pour la confirmer.</span>
+              <span data-lang="ar">شكراً لك! تم استلام طلبك بنجاح ✅ سنتصل بك قريباً لتأكيده، يرجى إبقاء هاتفك قريباً منك. للاستفسار: <a href="https://wa.me/21652896961" target="_blank" rel="noopener">واتساب</a></span>
+              <span data-lang="fr">Merci ! Ta commande est bien reçue ✅ Nous t'appelons bientôt pour la confirmer : garde ton téléphone à portée de main. Une question ? <a href="https://wa.me/21652896961" target="_blank" rel="noopener">WhatsApp</a></span>
             </div>
             <div class="confirm-msg" id="errorMsg" style="display:none;">
-              <span data-lang="ar">حدث خطأ، يرجى المحاولة مرة أخرى أو الاتصال بنا مباشرة.</span>
-              <span data-lang="fr">Une erreur est survenue, merci de réessayer ou de nous contacter directement.</span>
+              <span data-lang="ar">حدث خطأ، يرجى المحاولة مرة أخرى أو مراسلتنا على <a href="https://wa.me/21652896961" target="_blank" rel="noopener">واتساب</a>.</span>
+              <span data-lang="fr">Une erreur est survenue, réessaie ou écris-nous sur <a href="https://wa.me/21652896961" target="_blank" rel="noopener">WhatsApp</a>.</span>
             </div>
           </form>
         </div>
@@ -671,7 +816,7 @@ fbq('track','PageView');
       <div>
         <div class="section-tag" data-lang="ar">المكوّن الأساسي</div>
         <div class="section-tag" data-lang="fr">L'actif clé</div>
-        <h2><span data-lang="ar">الجيمنيما، النبتة التي تُلجم الرغبة في السكر</span><span data-lang="fr">Le Gymnema, la plante qui bloque l'envie de sucre</span></h2>
+        <h2><span data-lang="ar">الجيمنيما، النبتة التي تساعد على تهدئة الرغبة في السكر</span><span data-lang="fr">Le Gymnema, la plante qui aide à calmer l'envie de sucre</span></h2>
         <p>
           <span data-lang="ar">الجيمنيما نبتة معروفة منذ قرون في الطب التقليدي، تُستعمل لتهدئة الإحساس بحلاوة السكر والمساعدة على كبح الرغبة الملحّة فيه.</span>
           <span data-lang="fr">Le Gymnema est une plante utilisée depuis des siècles en médecine traditionnelle, connue pour atténuer la perception du goût sucré et aider à freiner les envies pressantes de sucre.</span>
@@ -741,12 +886,18 @@ fbq('track','PageView');
         <div class="product-card featured">
           <span class="featured-tag" data-lang="ar">الأكثر طلباً</span>
           <span class="featured-tag" data-lang="fr">Le plus demandé</span>
-          <img src="product-30ml.jpg" alt="SOKKAR STOP 30ml">
+          <img src="product-30ml.jpg" alt="SOKKAR STOP 30ml" loading="lazy">
           <h3>SOKKAR STOP — 30 <span data-lang="ar">مل</span><span data-lang="fr">ml</span></h3>
           <p class="p-desc"><span data-lang="ar">القنينة الكاملة، تكفي لاستعمال يومي منتظم</span><span data-lang="fr">Le flacon complet, pour un usage quotidien régulier</span></p>
           <div class="price-row">
             <span class="price">49 <span data-lang="ar">د.ت</span><span data-lang="fr">DT</span></span>
+            <span class="free-tag"><span data-lang="ar">+ توصيل مجاني</span><span data-lang="fr">+ livraison gratuite</span></span>
           </div>
+          <ul class="card-points">
+            <li><span data-lang="ar">الدفع عند الاستلام، بدون أي دفع مسبق</span><span data-lang="fr">Paiement à la réception, rien à payer d'avance</span></li>
+            <li><span data-lang="ar">هدية مع كل شراء: شهر مجاني في تطبيق Sokkar Coach</span><span data-lang="fr">Offert à chaque achat : 1 mois gratuit sur l'appli Sokkar Coach</span></li>
+            <li><span data-lang="ar">توصيل خلال 1 إلى 3 أيام عمل</span><span data-lang="fr">Livraison en 1 à 3 jours ouvrés</span></li>
+          </ul>
           <a href="#order" class="btn btn-primary" style="width:100%;text-align:center">
             <span data-lang="ar">اطلب الآن</span><span data-lang="fr">Commander maintenant</span>
           </a>
@@ -759,16 +910,16 @@ fbq('track','PageView');
   <section class="appli" id="appli">
     <div class="wrap">
       <div class="section-head">
-        <div class="section-tag"><span data-lang="ar">هدية مع المنتج</span><span data-lang="fr">Offerte avec ton flacon</span></div>
+        <div class="section-tag"><span data-lang="ar">هدية مع كل عملية شراء</span><span data-lang="fr">Offerte à chaque achat</span></div>
         <h2 class="section-title">
-          <span data-lang="ar">احسب سعراتك بصورة واحدة</span>
-          <span data-lang="fr">Compte tes calories en une photo</span>
+          <span data-lang="ar">Sokkar Coach: احسب سعراتك بصورة واحدة</span>
+          <span data-lang="fr">Sokkar Coach : compte tes calories en une photo</span>
         </h2>
       </div>
       <div class="appli-box">
         <p class="appli-txt">
-          <span data-lang="ar">صوّر أكلك: يحسب التطبيق السعرات والكربوهيدرات والبروتين والدهون. وعندما تتجاوز هدفك اليومي يرنّ إنذار «سكر ستوب» ليذكّرك بالتوقف. شهران مجاناً مع كل قنينة.</span>
-          <span data-lang="fr">Prends ton plat en photo : calories, glucides, protéines et lipides sont calculés. Quand tu dépasses ton objectif du jour, l'alarme Sokkar Stop te rappelle de t'arrêter. 2 mois offerts avec chaque flacon.</span>
+          <span data-lang="ar">صوّر أكلك: يحسب التطبيق السعرات والكربوهيدرات والبروتين والدهون. وعندما تتجاوز هدفك اليومي يرنّ إنذار «سكر ستوب» ليذكّرك بالتوقف. شهر واحد مجاناً مع كل عملية شراء.</span>
+          <span data-lang="fr">Prends ton plat en photo : calories, glucides, protéines et lipides sont calculés. Quand tu dépasses ton objectif du jour, l'alarme Sokkar Stop te rappelle de t'arrêter. 1 mois d'accès gratuit offert à chaque achat.</span>
         </p>
         <ul class="appli-list">
           <li><span data-lang="ar">تذكيرات الوجبات وتشجيعات</span><span data-lang="fr">Rappels de repas et encouragements</span></li>
@@ -794,9 +945,9 @@ fbq('track','PageView');
         <ul>
           <li><span data-lang="ar">يُحفظ في مكان بارد وجاف، بعيداً عن متناول الأطفال.</span><span data-lang="fr">Conserver dans un endroit frais et sec, hors de portée des enfants.</span></li>
           <li><span data-lang="ar">لا يجب تجاوز الجرعة اليومية الموصى بها المذكورة على العلبة.</span><span data-lang="fr">Ne pas dépasser la dose journalière recommandée indiquée sur la boîte.</span></li>
-          <li><span data-lang="ar">لا يُعوّض هذا المكمل الغذائي عن نظام غذائي متوازن ونمط حياة صحي.</span><span data-lang="fr">Ce complément alimentaire ne se substitue pas à une alimentation variée et équilibrée.</span></li>
+          <li><span data-lang="ar">لا يُعوّض هذا المنتج عن نظام غذائي متوازن ونمط حياة صحي.</span><span data-lang="fr">Ce produit ne se substitue pas à une alimentation variée et équilibrée.</span></li>
           <li><span data-lang="ar">يُنصح الأشخاص الذين يتبعون علاجاً لمرض السكري باستشارة الطبيب أو الصيدلي قبل الاستعمال.</span><span data-lang="fr">Les personnes sous traitement antidiabétique sont invitées à consulter leur médecin ou pharmacien avant utilisation.</span></li>
-          <li><span data-lang="ar">يُنصح النساء الحوامل والمرضعات باستشارة مختص صحي قبل أي مكمل غذائي.</span><span data-lang="fr">Les femmes enceintes ou allaitantes sont invitées à consulter un professionnel de santé avant toute complémentation.</span></li>
+          <li><span data-lang="ar">يُنصح النساء الحوامل والمرضعات باستشارة مختص صحي قبل الاستعمال.</span><span data-lang="fr">Les femmes enceintes ou allaitantes sont invitées à consulter un professionnel de santé avant utilisation.</span></li>
         </ul>
       </div>
     </div>
@@ -822,7 +973,7 @@ fbq('track','PageView');
         </div>
         <div class="faq-item">
           <button class="faq-q" type="button">
-            <span><span data-lang="ar">كم مرة يمكنني الطلب في اليوم؟</span><span data-lang="fr">Combien de fois par jour puis-je l'utiliser ?</span></span>
+            <span><span data-lang="ar">كم مرة يمكنني استعماله في اليوم؟</span><span data-lang="fr">Combien de fois par jour puis-je l'utiliser ?</span></span>
             <span class="plus">+</span>
           </button>
           <div class="faq-a">
@@ -847,6 +998,52 @@ fbq('track','PageView');
             <p><span data-lang="ar">نعم، تدفع نقداً عند استلام طلبك من المُوصّل.</span><span data-lang="fr">Oui, vous payez en espèces au livreur à la réception de votre commande.</span></p>
           </div>
         </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span data-lang="ar">هل التوصيل مجاني فعلاً؟</span><span data-lang="fr">La livraison est-elle vraiment gratuite ?</span></span>
+            <span class="plus">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-lang="ar">نعم، التوصيل مجاني إلى كل ولايات تونس، ولا توجد أي مصاريف خفية: تدفع فقط ثمن المنتج عند الاستلام.</span><span data-lang="fr">Oui, la livraison est gratuite partout en Tunisie, sans frais cachés : tu paies uniquement le prix du produit à la réception.</span></p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span data-lang="ar">ماذا لو لم أرد على مكالمة التأكيد؟</span><span data-lang="fr">Et si je rate l'appel de confirmation ?</span></span>
+            <span class="plus">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-lang="ar">سنحاول الاتصال بك مجدداً، ويمكنك أيضاً مراسلتنا على واتساب (+216 52 896 961) لتأكيد طلبك.</span><span data-lang="fr">Nous réessayons de te joindre, et tu peux aussi nous écrire sur WhatsApp (+216 52 896 961) pour confirmer ta commande.</span></p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span data-lang="ar">هل يعمل فعلاً؟</span><span data-lang="fr">Est-ce que ça marche vraiment ?</span></span>
+            <span class="plus">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-lang="ar">الجيمنيما نبتة معروفة في الاستعمال التقليدي بتخفيف الإحساس بحلاوة السكر. تختلف النتائج من شخص لآخر، والمنتج ليس دواءً ولا علاجاً.</span><span data-lang="fr">Le Gymnema est connu en usage traditionnel pour atténuer la perception du goût sucré. Les résultats varient selon les personnes, et ce produit n'est ni un médicament ni un traitement.</span></p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span data-lang="ar">هل هناك محاذير أو آثار جانبية؟</span><span data-lang="fr">Y a-t-il des précautions ou des effets indésirables ?</span></span>
+            <span class="plus">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-lang="ar">احترم الجرعة الموصى بها. عند الشعور بأي انزعاج أو حساسية، أوقف الاستعمال واستشر مختصاً صحياً. مرضى السكري تحت العلاج والحوامل والمرضعات: استشيروا الطبيب قبل الاستعمال.</span><span data-lang="fr">Respecte la dose recommandée. En cas de gêne ou d'allergie, arrête l'utilisation et demande conseil à un professionnel de santé. Personnes sous traitement antidiabétique, femmes enceintes ou allaitantes : avis médical avant utilisation.</span></p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" type="button">
+            <span><span data-lang="ar">كيف أحصل على تطبيق Sokkar Coach؟</span><span data-lang="fr">Comment avoir l'appli Sokkar Coach ?</span></span>
+            <span class="plus">+</span>
+          </button>
+          <div class="faq-a">
+            <p><span data-lang="ar">تطبيق Sokkar Coach هدية مع كل عملية شراء: شهر واحد مجاني. افتحه من الرابط في الأعلى أو من قسم «التطبيق».</span><span data-lang="fr">L'appli Sokkar Coach est offerte à chaque achat : 1 mois d'accès gratuit. Ouvre-la depuis le bandeau en haut de page ou la section « L'appli ».</span></p>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -865,11 +1062,6 @@ fbq('track','PageView');
           <span data-lang="ar">بخاخ فموي طبيعي بالجيمنيما، صنع في تونس لمساعدتك على تهدئة الرغبة في السكر يومياً.</span>
           <span data-lang="fr">Spray buccal naturel au Gymnema, fabriqué en Tunisie pour calmer l'envie de sucre au quotidien.</span>
         </p>
-        <div class="social-row">
-          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CBBFAF" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-          <a href="#" aria-label="TikTok"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CBBFAF" stroke-width="1.8"><path d="M9 8v8a3 3 0 1 1-3-3M9 8c1.5 2.5 3.5 3.5 6 3.5V8c-2 0-3.5-1-4-3"/></svg></a>
-          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#CBBFAF" stroke-width="1.8"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v6h3v-6h3l1-3h-4V9c0-.6.4-1 1-1z"/></svg></a>
-        </div>
       </div>
       <div class="footer-col">
         <h5><span data-lang="ar">روابط</span><span data-lang="fr">Navigation</span></h5>
@@ -883,19 +1075,27 @@ fbq('track','PageView');
         <h5><span data-lang="ar">تواصل معنا</span><span data-lang="fr">Contact</span></h5>
         <a href="tel:+21652896961">+216 52 896 961</a>
         <a href="mailto:contact@sokkarstop.tn">contact@sokkarstop.tn</a>
-        <a href="#"><span data-lang="ar">تونس</span><span data-lang="fr">Tunisie</span></a>
+        <a href="https://wa.me/21652896961" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="legal.html"><span data-lang="ar">الشروط وسياسة الخصوصية</span><span data-lang="fr">Conditions &amp; confidentialité</span></a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 SOKKAR STOP. <span data-lang="ar">جميع الحقوق محفوظة.</span><span data-lang="fr">Tous droits réservés.</span></span>
-      <span data-lang="ar">مكمل غذائي — ليس دواءً</span><span data-lang="fr">Complément alimentaire — n'est pas un médicament</span>
+      <span data-lang="ar">ليس دواءً</span><span data-lang="fr">N'est pas un médicament</span>
     </div>
   </div>
 </footer>
 
-<a class="float-wa" href="https://wa.me/21652896961" target="_blank" rel="noopener" aria-label="WhatsApp">
+<a class="float-wa" href="https://wa.me/21652896961?text=%D8%B3%D9%84%D8%A7%D9%85%D8%8C%20%D9%86%D8%AD%D8%A8%20%D9%86%D8%B9%D8%B1%D9%81%20%D8%A3%D9%83%D8%AB%D8%B1%20%D8%B9%D9%84%D9%89%20SOKKAR%20STOP" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M20.5 3.5A11 11 0 0 0 3.6 17.3L2 22l4.8-1.6a11 11 0 0 0 5.2 1.3h.1a11 11 0 0 0 8.4-18.2zM12.1 20a9 9 0 0 1-4.6-1.3l-.3-.2-3 .9.9-2.9-.2-.3A9 9 0 1 1 12.1 20zm5-6.8c-.3-.1-1.6-.8-1.9-.9-.2-.1-.4-.1-.6.1-.2.3-.7.9-.8 1-.2.2-.3.2-.5.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.5-1.9-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.4.1-.2 0-.4 0-.5-.1-.1-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s1 2.5 1.1 2.7c.1.2 2 3 4.7 4.2.7.3 1.2.5 1.6.6.7.2 1.3.2 1.8.1.5-.1 1.6-.7 1.9-1.3.2-.6.2-1.1.1-1.3-.1-.1-.2-.2-.5-.3z"/></svg>
 </a>
+
+<div class="sticky-cta" id="stickyCta">
+  <a href="#order" class="btn btn-primary">
+    <span data-lang="ar">اطلب الآن — 49 د.ت <small>· توصيل مجاني</small></span>
+    <span data-lang="fr">Commander — 49 DT <small>· livraison gratuite</small></span>
+  </a>
+</div>
 
 <script>
   // ---- language toggle ----
@@ -907,8 +1107,46 @@ fbq('track','PageView');
       html.setAttribute('lang', lang);
       html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
       langBtns.forEach(b=>b.classList.toggle('active', b===btn));
+      try{ localStorage.setItem('ss_lang', lang); }catch(err){}
     });
   });
+  try{
+    const saved = localStorage.getItem('ss_lang');
+    if(saved === 'fr'){ document.querySelector('[data-set-lang="fr"]').click(); }
+  }catch(err){}
+
+  // ---- menu mobile ----
+  const headerEl = document.querySelector('header');
+  const menuBtn = document.getElementById('menuToggle');
+  function setMenu(open){
+    headerEl.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  menuBtn.addEventListener('click', ()=> setMenu(!headerEl.classList.contains('menu-open')));
+  document.querySelectorAll('#mainNav a').forEach(a=> a.addEventListener('click', ()=> setMenu(false)));
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') setMenu(false); });
+  document.addEventListener('click', e=>{ if(!headerEl.contains(e.target)) setMenu(false); });
+  window.addEventListener('resize', ()=>{ if(window.innerWidth>920) setMenu(false); });
+
+  // ---- barre collante : cachée quand le formulaire est visible ----
+  const sticky = document.getElementById('stickyCta');
+  const orderSec = document.getElementById('order');
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(es=> sticky.classList.toggle('hide', es[0].isIntersecting), {threshold:0.15}).observe(orderSec);
+  }
+
+  // ---- total dynamique (livraison gratuite) ----
+  const UNIT_PRICE = 49;
+  const PRICE_TOTAL = {1:UNIT_PRICE, 2:UNIT_PRICE*2, 3:UNIT_PRICE*3, 4:UNIT_PRICE*4}; // modifiable pour des offres multi-flacons
+  const qtySel = document.querySelector('select[name="qty"]');
+  function calcTotal(q){ q = parseInt(q,10)||1; return PRICE_TOTAL[q] != null ? PRICE_TOTAL[q] : UNIT_PRICE*q; }
+  function updateSummary(){
+    const t = calcTotal(qtySel.value);
+    document.getElementById('sumSub').textContent = t;
+    document.getElementById('sumTotal').textContent = t;
+  }
+  qtySel.addEventListener('change', updateSummary);
+  updateSummary();
 
   // ---- format selection ----
   const selectBtns = document.querySelectorAll('.select-btn');
@@ -962,7 +1200,9 @@ fbq('track','PageView');
       city: data.get('city'),
       address: data.get('address'),
       format: data.get('format'),
-      qty: data.get('qty')
+      qty: data.get('qty'),
+      delivery: 'gratuite',
+      total: calcTotal(data.get('qty'))
     };
 
     errorMsg.style.display = 'none';
@@ -978,12 +1218,12 @@ fbq('track','PageView');
     })
     .then(()=>{
       try{
-        const unit = /10ml/.test(payload.format||'') ? 25 : 49;
-        fbq('track','Purchase',{value: unit*(parseInt(payload.qty,10)||1), currency:'TND', content_name:'Sokkar Stop '+(payload.format||''), num_items: parseInt(payload.qty,10)||1});
+        fbq('track','Purchase',{value: payload.total, currency:'TND', content_name:'Sokkar Stop '+(payload.format||''), num_items: parseInt(payload.qty,10)||1});
       }catch(err){}
       confirmMsg.classList.add('show');
       confirmMsg.scrollIntoView({behavior:'smooth', block:'nearest'});
       form.reset();
+      updateSummary();
     })
     .catch(()=>{
       errorMsg.style.display = 'block';
