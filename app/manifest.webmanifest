@@ -1,6 +1,6 @@
 {
-  "name": "Sokkar Coach",
-  "short_name": "Sokkar Coach",
+  "name": "Sokkar Stop App",
+  "short_name": "Sokkar Stop",
   "description": "Compte tes calories en photo. Alarme Sokkar Stop quand tu dépasses ton objectif.",
   "start_url": "./",
   "scope": "./",
