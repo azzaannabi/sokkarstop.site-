@@ -1,7 +1,8 @@
 {
+  "id": "/app/",
   "name": "Sokkar Stop App",
   "short_name": "Sokkar Stop",
-  "description": "Compte tes calories en photo. Alarme Sokkar Stop quand tu dépasses ton objectif.",
+  "description": "Compte tes calories en photo ou en texte, suis ton historique et tes tendances. Alarme Sokkar Stop quand tu dépasses ton objectif.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -9,9 +10,17 @@
   "background_color": "#F4EBDB",
   "theme_color": "#F4EBDB",
   "lang": "fr",
+  "dir": "auto",
+  "categories": ["health", "fitness", "lifestyle"],
   "icons": [
     { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
     { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "screenshots": [
+    { "src": "screenshots/accueil.jpg", "sizes": "540x960", "type": "image/jpeg", "form_factor": "narrow", "label": "Accueil" },
+    { "src": "screenshots/aujourdhui.jpg", "sizes": "540x960", "type": "image/jpeg", "form_factor": "narrow", "label": "Ma journée" },
+    { "src": "screenshots/resultat.jpg", "sizes": "540x960", "type": "image/jpeg", "form_factor": "narrow", "label": "Résultat modifiable" },
+    { "src": "screenshots/tendances.jpg", "sizes": "540x960", "type": "image/jpeg", "form_factor": "narrow", "label": "Tendances" }
   ]
 }

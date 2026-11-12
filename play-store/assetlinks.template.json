@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "REMPLACE_PAR_TON_ID_DE_PAQUET",
+      "sha256_cert_fingerprints": [
+        "EMPREINTE_SHA256_CLE_DE_SIGNATURE_GOOGLE_PLAY",
+        "EMPREINTE_SHA256_CLE_DE_TELEVERSEMENT_PWABUILDER"
+      ]
+    }
+  }
+]

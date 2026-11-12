@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Supprimer mon compte et mes données — Sokkar Stop App</title>
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<style>
+:root{--bg:#F4EBDB;--surface:#FFFDF8;--ink:#2A1A14;--muted:#6B5A4F;--accent:#A33A2E;--line:#E2D3BD;--ok:#2F7A4D}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,'Segoe UI',Tahoma,sans-serif;padding:20px 16px 60px}
+main{max-width:720px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px}
+h1{font-size:1.55rem;line-height:1.25;margin:.2em 0 .3em}
+h2{font-size:1.1rem;margin:1.6em 0 .3em;color:var(--accent)}
+p,li{margin:.4em 0}
+ul{padding-inline-start:1.3em}
+a{color:var(--accent)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;max-width:720px;margin:0 auto 14px}
+.top a.back{font-weight:700;text-decoration:none}
+.lang button{border:1.5px solid var(--ink);background:var(--surface);padding:6px 14px;font-weight:700;cursor:pointer;font:inherit}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.lang button:first-child{border-radius:999px 0 0 999px}.lang button:last-child{border-radius:0 999px 999px 0;border-inline-start:0}
+.upd{color:var(--muted);font-size:.9rem}
+[lang-block]{display:none}
+html[data-l="fr"] [lang-block="fr"],html[data-l="ar"] [lang-block="ar"]{display:block}
+html[data-l="ar"] body{direction:rtl}
+form.del{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+form.del input{font:inherit;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg)}
+form.del button{font:inherit;font-weight:800;padding:13px;border:0;border-radius:10px;background:#C62828;color:#fff;cursor:pointer}
+form.del button[disabled]{opacity:.6}
+.msg{font-weight:700;margin:.4em 0}.msg.ok{color:var(--ok)}.msg.err{color:#C62828}
+</style>
+</head>
+<body>
+<div class="top"><a class="back" href="./">&larr; Sokkar Stop App</a><div class="lang" role="group" aria-label="Langue / اللغة"><button type="button" data-l="fr" aria-pressed="true">FR</button><button type="button" data-l="ar" aria-pressed="false">AR</button></div></div>
+<main>
+<div lang-block="fr">
+<h1>Supprimer mon compte et mes données</h1>
+<p class="upd">Sokkar Stop App · Dernière mise à jour : 12 novembre 2026</p>
+<h2>Dans l’application</h2>
+<p>Ouvre l’onglet <b>Objectif</b> → carte <b>Compte</b> → <b>Supprimer mon compte</b>, entre ton mot de passe et confirme.</p>
+<h2>Depuis cette page</h2>
+<p>Entre l’e-mail et le mot de passe de ton compte : il sera supprimé immédiatement.</p>
+<p>Mot de passe oublié ? Écris-nous depuis l’e-mail de ton compte à <a href="mailto:sokkarstop@gmail.com">sokkarstop@gmail.com</a> avec l’objet « Suppression de compte » : nous le supprimons sous 7 jours.</p>
+<form class="del" id="delFormFr" novalidate data-form>
+<input id="e1" type="email" autocomplete="email" inputmode="email" placeholder="E-mail du compte" dir="ltr">
+<input id="p1" type="password" autocomplete="current-password" placeholder="Mot de passe" dir="ltr">
+<button type="submit">Supprimer définitivement mon compte</button>
+<p class="msg" role="status" id="m1"></p></form>
+<h2>Ce qui est supprimé</h2>
+<ul>
+<li>ton compte (e-mail, mot de passe chiffré, code de récupération) ;</li>
+<li>l’historique sauvegardé (profil, objectifs, poids, repas) ;</li>
+<li>les rappels : notification et résumé de journée associés à ton appareil.</li>
+</ul>
+<h2>Ce qui reste</h2>
+<ul>
+<li>Sur ton téléphone : tes données locales restent jusqu’à ce que tu utilises « Effacer mes données » dans l’application ou que tu la désinstalles.</li>
+<li>L’activation de ton code d’accès (pour que ton mois offert ne soit pas perdu) et les compteurs anti-abus, qui expirent en 2 jours au plus. Ils ne contiennent ni ton e-mail ni ton historique.</li>
+</ul>
+</div>
+<div lang-block="ar">
+<h1>حذف حسابي وبياناتي</h1>
+<p class="upd">تطبيق سكر ستوب · آخر تحديث: 12 نوفمبر 2026</p>
+<h2>من داخل التطبيق</h2>
+<p>افتح تبويب <b>الهدف</b> ← بطاقة <b>الحساب</b> ← <b>حذف حسابي</b>، أدخل كلمة السر وأكّد.</p>
+<h2>من هذه الصفحة</h2>
+<p>أدخل البريد الإلكتروني وكلمة السر الخاصين بحسابك: سيُحذف فوراً.</p>
+<p>نسيت كلمة السر؟ راسلنا من البريد المسجّل في حسابك على <a href="mailto:sokkarstop@gmail.com">sokkarstop@gmail.com</a> بعنوان «حذف حساب»: نحذفه خلال 7 أيام.</p>
+<form class="del" id="delFormAr" novalidate data-form>
+<input id="e2" type="email" autocomplete="email" inputmode="email" placeholder="البريد الإلكتروني للحساب" dir="ltr">
+<input id="p2" type="password" autocomplete="current-password" placeholder="كلمة السر" dir="ltr">
+<button type="submit">حذف حسابي نهائياً</button>
+<p class="msg" role="status" id="m2"></p></form>
+<h2>ما يُحذف</h2>
+<ul>
+<li>حسابك (البريد وكلمة السر المشفّرة ورمز الاسترجاع)؛</li>
+<li>السجلّ المحفوظ (الملف والأهداف والأوزان والوجبات)؛</li>
+<li>التذكيرات: الإشعار وملخص اليوم المرتبطان بجهازك.</li>
+</ul>
+<h2>ما يبقى</h2>
+<ul>
+<li>على هاتفك: تبقى بياناتك المحلية حتى تستعمل «احذف بياناتي» في التطبيق أو تحذف التطبيق.</li>
+<li>تفعيل رمز الاستعمال (حتى لا يضيع شهرك المجاني) وعدّادات مكافحة الإساءة التي تنتهي خلال يومين كحد أقصى. لا تحتوي بريدك ولا سجلّك.</li>
+</ul>
+</div>
+</main>
+<script>
+(function () {
+  var h = document.documentElement, btns = document.querySelectorAll('.lang button');
+  function set(l) { h.setAttribute('data-l', l); h.lang = l; h.dir = l === 'ar' ? 'rtl' : 'ltr'; btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-l') === l)); }); try { localStorage.setItem('ss_page_lang', l); } catch (e) {} }
+  btns.forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-l')); }); });
+  var l = 'fr'; try { l = localStorage.getItem('ss_page_lang') || ((navigator.language || '').indexOf('ar') === 0 ? 'ar' : 'fr'); } catch (e) {}
+  set(l === 'ar' ? 'ar' : 'fr');
+})();
+</script>
+<script src="config.js"></script>
+<script>
+(function () {
+  var API = (window.SS_API || '').replace(/\/?$/, '/');
+  var T = { fr: { bad: 'Entre ton e-mail et ton mot de passe.', ok: 'Ton compte a été supprimé.', inv: 'E-mail ou mot de passe incorrect.', rate: 'Trop d’essais. Réessaie plus tard.', err: 'Impossible de joindre le serveur. Réessaie plus tard.', none: 'Service indisponible pour le moment.' },
+            ar: { bad: 'أدخل بريدك وكلمة السر.', ok: 'تم حذف حسابك.', inv: 'البريد أو كلمة السر غير صحيحة.', rate: 'محاولات كثيرة. أعد المحاولة لاحقاً.', err: 'تعذّر الاتصال بالخادم. أعد المحاولة لاحقاً.', none: 'الخدمة غير متاحة حالياً.' } };
+  function call(body) {
+    return fetch(API + 'account', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); });
+  }
+  document.querySelectorAll('form[data-form]').forEach(function (f) {
+    var l = f.id.slice(-2).toLowerCase(), t = T[l], em = f.querySelector('input[type=email]'), pw = f.querySelector('input[type=password]'), msg = f.querySelector('.msg'), btn = f.querySelector('button');
+    function say(m, ok) { msg.textContent = m; msg.className = 'msg ' + (ok ? 'ok' : 'err'); }
+    f.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      var email = em.value.trim().toLowerCase(), pass = pw.value;
+      if (!email || pass.length < 8) { say(t.bad); return; }
+      if (!window.SS_API) { say(t.none); return; }
+      btn.disabled = true; say('…', true);
+      call({ action: 'login', email: email, password: pass }).then(function (r) {
+        if (!r.ok || !r.j || !r.j.ok) { btn.disabled = false; say(r.status === 429 ? t.rate : (r.status === 401 || r.status === 400 ? t.inv : t.err)); return null; }
+        return call({ action: 'delete', token: r.j.token, password: pass }).then(function (d) {
+          if (d.ok && d.j && d.j.ok) { em.value = ''; pw.value = ''; say(t.ok, true); } else { btn.disabled = false; say(d.status === 429 ? t.rate : t.err); }
+        });
+      }).catch(function () { btn.disabled = false; say(t.err); });
+    });
+  });
+})();
+</script>
+</body>
+</html>

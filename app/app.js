@@ -36,6 +36,22 @@ var T = {
     accInApp: 'Tu utilises le navigateur intégré d’une autre appli (Instagram, TikTok…) : il garde ses propres données, séparées de ton navigateur habituel. Crée un compte pour tout retrouver partout.',
     accInvite: 'Ne perds plus ton historique : crée ton compte gratuit.', accInviteBtn: 'Créer mon compte',
     histTitle: 'Détail du jour', histTap: 'Touche un jour du calendrier pour voir tes repas.',
+    accForgot: 'Mot de passe oublié ?', accFTitle: 'Retrouver mon compte', accFIntro: 'Entre ton e-mail, ton code de récupération et choisis un nouveau mot de passe.',
+    accRecPh: 'Code de récupération (XXXX-XXXX-XXXX)', accNewPass: 'Nouveau mot de passe (8 caractères minimum)', accFGo: 'Changer mon mot de passe', accBack: 'Retour',
+    accRecBad: 'E-mail ou code de récupération incorrect.',
+    recTitle: 'Note ton code de récupération', recText: 'Il te permet de retrouver ton compte si tu oublies ton mot de passe. Garde-le dans un endroit sûr (capture d’écran, papier) : il ne sera plus affiché.',
+    recCopy: 'Copier', recCopied: 'Copié', recDone: 'Je l’ai noté',
+    recNone: 'Tu n’as pas encore de code de récupération : génère-en un pour pouvoir retrouver ton compte si tu oublies ton mot de passe.', recGen: 'Générer un code de récupération', recNew: 'Nouveau code de récupération',
+    recOld: 'Un nouveau code annule l’ancien.', accPassNow: 'Ton mot de passe actuel', accOk: 'Valider',
+    delOpen: 'Supprimer mon compte', delWarn: 'Ton compte et ton historique sauvegardé seront supprimés définitivement de nos serveurs. Tes données restent sur ce téléphone tant que tu ne les supprimes pas (bouton « Effacer mes données »).', delGo: 'Supprimer définitivement', delDone: 'Ton compte a été supprimé.',
+    legalPriv: 'Confidentialité', legalDel: 'Supprimer mon compte et mes données', welcomeGift: '1 mois d’accès offert avec chaque flacon Sokkar Stop.',
+    txtBtn: 'Écrire mon repas', manBtn: 'Ajout rapide', txtTitle: 'Décris ton repas', txtHelp: 'Ex. : 2 briks au thon et une salade, ou un thé à la menthe avec 2 sucres.', txtPh: 'Qu’as-tu mangé ou bu ?', txtGo: 'Calculer', txtShort: 'Écris au moins un mot.',
+    manTitle: 'Ajout rapide', manHelp: 'Tu connais déjà les calories ? Entre-les directement.', manName: 'Nom (ex. : pain, jus…)', manKcal: 'Calories', manGo: 'Continuer', entryClose: 'Annuler',
+    itEdit: 'Modifier', itDel: 'Retirer', itAdd: 'Ajouter un aliment', itName: 'Nom', itKcal: 'Calories', itSave: 'Valider', itBad: 'Entre un nom et des calories entre 1 et 5 000.',
+    manualHint: 'Valeurs saisies par toi.', textHint: 'Estimation d’après ton texte : précise les quantités pour être plus juste.', e_badtext: 'Décris ton repas avec quelques mots de plus.',
+    trTitle: 'Tendances', tr7: '7 jours', tr30: '30 jours', trNone: 'Aucun repas enregistré sur cette période.', trGoal: 'Objectif', trAvg: 'Moyenne par jour sur les jours enregistrés',
+    trLogged: function (n, t) { return n + ' jour' + (n > 1 ? 's' : '') + ' sur ' + t; }, trKcal: 'kcal', trCarbs: 'Glucides', trProt: 'Protéines', trFat: 'Lipides', trWeight: 'Poids',
+    trChart: function (n, avg) { return 'Calories par jour sur ' + n + ' jours, moyenne ' + avg + ' kcal.'; },
     // accueil / étapes
     h1a: 'Photographie ton assiette.', h1b: 'On compte pour toi.',
     lead: 'Réponds à quelques questions : on calcule tes calories du jour, puis tu scannes tes repas en photo.',
@@ -160,6 +176,22 @@ var T = {
     accInApp: 'أنت تستعمل المتصفح المدمج في تطبيق آخر (إنستغرام، تيك توك…): يحتفظ ببياناته بمعزل عن متصفحك المعتاد. أنشئ حساباً لتجد كل شيء في أي مكان.',
     accInvite: 'لا تفقد سجلّك بعد اليوم: أنشئ حسابك المجاني.', accInviteBtn: 'إنشاء حسابي',
     histTitle: 'تفاصيل اليوم', histTap: 'اضغط على يوم في التقويم لترى وجباته.',
+    accForgot: 'نسيت كلمة السر؟', accFTitle: 'استرجاع حسابي', accFIntro: 'أدخل بريدك الإلكتروني ورمز الاسترجاع واختر كلمة سر جديدة.',
+    accRecPh: 'رمز الاسترجاع (XXXX-XXXX-XXXX)', accNewPass: 'كلمة السر الجديدة (8 أحرف على الأقل)', accFGo: 'تغيير كلمة السر', accBack: 'رجوع',
+    accRecBad: 'البريد أو رمز الاسترجاع غير صحيح.',
+    recTitle: 'دوّن رمز الاسترجاع', recText: 'يسمح لك باسترجاع حسابك إذا نسيت كلمة السر. احفظه في مكان آمن (لقطة شاشة أو ورقة): لن يظهر مرة أخرى.',
+    recCopy: 'نسخ', recCopied: 'تم النسخ', recDone: 'دوّنته',
+    recNone: 'ليس لديك رمز استرجاع بعد: أنشئ واحداً لتتمكن من استرجاع حسابك إذا نسيت كلمة السر.', recGen: 'إنشاء رمز استرجاع', recNew: 'رمز استرجاع جديد',
+    recOld: 'الرمز الجديد يلغي القديم.', accPassNow: 'كلمة السر الحالية', accOk: 'تأكيد',
+    delOpen: 'حذف حسابي', delWarn: 'سيُحذف حسابك وسجلّك المحفوظ نهائياً من خوادمنا. تبقى بياناتك على هذا الهاتف حتى تحذفها (زر «احذف بياناتي»).', delGo: 'حذف نهائي', delDone: 'تم حذف حسابك.',
+    legalPriv: 'الخصوصية', legalDel: 'حذف حسابي وبياناتي', welcomeGift: 'شهر مجاني من الاستعمال مع كل قارورة سكر ستوب.',
+    txtBtn: 'اكتب وجبتك', manBtn: 'إضافة سريعة', txtTitle: 'صف وجبتك', txtHelp: 'مثال: 2 بريك بالتونة وسلطة، أو شاي بالنعناع بسكرتين.', txtPh: 'ماذا أكلت أو شربت؟', txtGo: 'احسب', txtShort: 'اكتب كلمة واحدة على الأقل.',
+    manTitle: 'إضافة سريعة', manHelp: 'تعرف السعرات؟ أدخلها مباشرة.', manName: 'الاسم (مثال: خبز، عصير…)', manKcal: 'السعرات', manGo: 'متابعة', entryClose: 'إلغاء',
+    itEdit: 'تعديل', itDel: 'إزالة', itAdd: 'إضافة صنف', itName: 'الاسم', itKcal: 'السعرات', itSave: 'تأكيد', itBad: 'أدخل اسماً وسعرات بين 1 و5000.',
+    manualHint: 'قيم أدخلتها بنفسك.', textHint: 'تقدير حسب نصّك: حدّد الكميات لتكون النتيجة أدق.', e_badtext: 'صف وجبتك بكلمات أكثر قليلاً.',
+    trTitle: 'الاتجاهات', tr7: '7 أيام', tr30: '30 يوماً', trNone: 'لا توجد وجبات مسجّلة في هذه الفترة.', trGoal: 'الهدف', trAvg: 'المعدل اليومي في الأيام المسجّلة',
+    trLogged: function (n, t) { return n + ' من ' + t + ' يوماً'; }, trKcal: 'سعرة', trCarbs: 'كربوهيدرات', trProt: 'بروتين', trFat: 'دهون', trWeight: 'الوزن',
+    trChart: function (n, avg) { return 'السعرات اليومية خلال ' + n + ' يوماً، المعدل ' + avg + ' سعرة.'; },
     h1a: 'صوّر صحنك.', h1b: 'ونحسب لك السعرات.',
     lead: 'جاوب على أسئلة قليلة ونحسبو سعراتك اليومية، ثم صوّر وجباتك.',
     pill1: 'حساب بالصورة', pill2: 'منبّه سكر ستوب', pill3: 'قبل / بعد',
@@ -326,7 +358,21 @@ function applyRemote(rs) {
 }
 function accErr(r) {
   var e = r && r.j && r.j.error;
-  return e === 'bad_email' ? tx('accBadEmail') : e === 'weak_password' ? tx('accWeak') : e === 'exists' ? tx('accExists') : e === 'invalid' ? tx('accInvalid') : e === 'rate_limited' ? tx('accRate') : tx('accErr');
+  return e === 'bad_email' ? tx('accBadEmail') : e === 'weak_password' ? tx('accWeak') : e === 'exists' ? tx('accExists') : e === 'invalid' ? tx('accInvalid') : e === 'invalid_recovery' ? tx('accRecBad') : e === 'rate_limited' ? tx('accRate') : tx('accErr');
+}
+var accMode = '', accPanel = '', recShow = '', accNote = '';
+function afterAuth(r, mode) {
+  ACC = { email: r.j.email, token: r.j.token, hasRec: mode === 'register' || mode === 'reset' ? true : !!r.j.hasRecovery }; jset(ACC_KEY, ACC);
+  recShow = r.j.recovery || '';
+  if (r.j.device && r.j.device !== S.device) { S.device = r.j.device; S.pushOn = false; S.access = { expires: null }; }
+  applying = true; applyRemote(r.j.state); applying = false;
+  accMsg = ''; accNote = ''; accEmailVal = ''; accMode = ''; accPanel = ''; save(); pushAcc(true);
+  if (CFG.requireCode) { api('status').then(function (j) { if (j && j.access) { S.access.expires = j.access.expires; save(); } }).catch(function () {}); }
+  renderMain();
+  if (recShow && S.step === 'home') {                 // le code de récupération est dans l'onglet Objectif : on y va
+    showTab('goal');
+    setTimeout(function () { var a = $('account'); if (a && a.scrollIntoView) { a.scrollIntoView({ block: 'start' }); } }, 60);
+  }
 }
 function doAuth(mode) {
   if (accBusy) { return; }
@@ -334,36 +380,98 @@ function doAuth(mode) {
   var email = em.value.trim().toLowerCase(), pass = pw.value; accEmailVal = email;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { accMsg = tx('accBadEmail'); refreshAccount(); return; }
   if (pass.length < 8) { accMsg = tx('accWeak'); refreshAccount(); return; }
-  accBusy = true; accMsg = ''; refreshAccount();
+  accBusy = true; accMsg = ''; accNote = ''; refreshAccount();
   accPost(mode, { email: email, password: pass, device: S.device }).then(function (r) {
     accBusy = false;
     if (!r.ok || !r.j || !r.j.ok) { accMsg = accErr(r); refreshAccount(); return; }
-    ACC = { email: r.j.email, token: r.j.token }; jset(ACC_KEY, ACC);
-    if (r.j.device && r.j.device !== S.device) { S.device = r.j.device; S.pushOn = false; S.access = { expires: null }; }
-    applying = true; applyRemote(r.j.state); applying = false;
-    accMsg = ''; accEmailVal = ''; save(); pushAcc(true);
-    if (CFG.requireCode) { api('status').then(function (j) { if (j && j.access) { S.access.expires = j.access.expires; save(); } }).catch(function () {}); }
+    afterAuth(r, mode);
+  }).catch(function () { accBusy = false; accMsg = tx('accErr'); refreshAccount(); });
+}
+function doForgot() {
+  if (accBusy) { return; }
+  var em = $('fEmail'), rc = $('fRec'), pw = $('fPass'); if (!em || !rc || !pw) { return; }
+  var email = em.value.trim().toLowerCase(), rec = rc.value, pass = pw.value; accEmailVal = email;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { accMsg = tx('accBadEmail'); refreshAccount(); return; }
+  if (rec.replace(/[^A-Za-z0-9]/g, '').length !== 12) { accMsg = tx('accRecBad'); refreshAccount(); return; }
+  if (pass.length < 8) { accMsg = tx('accWeak'); refreshAccount(); return; }
+  accBusy = true; accMsg = ''; refreshAccount();
+  accPost('reset', { email: email, recovery: rec, password: pass }).then(function (r) {
+    accBusy = false;
+    if (!r.ok || !r.j || !r.j.ok) { accMsg = accErr(r); refreshAccount(); return; }
+    afterAuth(r, 'reset');
+  }).catch(function () { accBusy = false; accMsg = tx('accErr'); refreshAccount(); });
+}
+/* actions qui redemandent le mot de passe : nouveau code de récupération, suppression du compte */
+function doSecure(kind) {
+  if (accBusy || !ACC) { return; }
+  var pw = $('secPass'); if (!pw) { return; }
+  if (pw.value.length < 8) { accMsg = tx('accInvalid'); refreshAccount(); return; }
+  accBusy = true; accMsg = ''; refreshAccount();
+  accPost(kind, { token: ACC.token, password: pw.value }).then(function (r) {
+    accBusy = false;
+    if (r.status === 401 && r.j && r.j.error === 'session') { accDrop(); accMsg = tx('accInvalid'); refreshAccount(); return; }
+    if (!r.ok || !r.j || !r.j.ok) { accMsg = accErr(r); refreshAccount(); return; }
+    accMsg = '';
+    if (kind === 'recovery') { ACC.hasRec = true; jset(ACC_KEY, ACC); recShow = r.j.recovery || ''; accPanel = ''; refreshAccount(); return; }
+    ACC = null; try { localStorage.removeItem(ACC_KEY); } catch (e) {}
+    S.pushOn = false; accPanel = ''; accMode = ''; recShow = ''; accNote = tx('delDone'); save();
     renderMain();
   }).catch(function () { accBusy = false; accMsg = tx('accErr'); refreshAccount(); });
 }
 function accLogout() {
   if (ACC) { accPost('logout', { token: ACC.token }).catch(function () {}); }
-  accDrop(); renderMain();
+  accDrop(); accPanel = ''; recShow = ''; renderMain();
+}
+function copyText(t, btn) {
+  function ok() { if (btn) { btn.textContent = tx('recCopied'); } }
+  function fallback() {
+    try { var ta = document.createElement('textarea'); ta.value = t; ta.setAttribute('readonly', ''); ta.style.cssText = 'position:fixed;left:-9999px;top:0'; document.body.appendChild(ta); ta.select(); var done = document.execCommand('copy'); document.body.removeChild(ta); if (done) { ok(); } } catch (e) {}
+  }
+  try { if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(ok, fallback); } else { fallback(); } } catch (e) { fallback(); }
+}
+function legalLinks() {
+  return '<p class="legal"><a href="confidentialite.html" target="_blank" rel="noopener">' + esc(tx('legalPriv')) + '</a><span aria-hidden="true"> · </span><a href="suppression-compte.html" target="_blank" rel="noopener">' + esc(tx('legalDel')) + '</a></p>';
+}
+function secForm(kind) {
+  var del = kind === 'delete';
+  return '<form class="sec" id="' + (del ? 'delForm' : 'recForm') + '" novalidate>' +
+    '<p class="note">' + esc(del ? tx('delWarn') : tx('recOld')) + '</p>' +
+    '<div class="inp"><input id="secPass" type="password" autocomplete="current-password" placeholder="' + esc(tx('accPassNow')) + '" dir="ltr"></div>' +
+    (accMsg ? '<p class="err" role="alert">' + esc(accMsg) + '</p>' : '') + (accBusy ? '<p class="note" role="status">' + esc(tx('accBusy')) + '</p>' : '') +
+    '<div class="acc-row"><button class="btn' + (del ? ' danger' : '') + '" type="submit"' + (accBusy ? ' disabled' : '') + '>' + esc(del ? tx('delGo') : tx('accOk')) + '</button>' +
+    '<button class="btn ghost" type="button" data-act="acc-panel-close">' + esc(tx('entryClose')) + '</button></div></form>';
 }
 function accountInner(where) {
   if (!accOn()) { return ''; }
+  if (recShow) {
+    return '<div class="card acc rec"><h2>' + esc(tx('recTitle')) + '</h2><p class="note">' + esc(tx('recText')) + '</p><div class="rec-code" dir="ltr" translate="no">' + esc(recShow) + '</div>' +
+      '<div class="acc-row"><button class="btn ghost" type="button" data-act="rec-copy">' + esc(tx('recCopy')) + '</button><button class="btn" type="button" data-act="rec-done">' + esc(tx('recDone')) + '</button></div></div>';
+  }
   if (ACC) {
     return '<div class="card acc"><h2>' + esc(tx('accTitle')) + '</h2><p class="note"><b>' + esc(tx('accIn')(ACC.email)) + '</b><br>' + esc(tx('accSynced')) + '</p>' +
-      '<button class="btn ghost" type="button" data-act="acc-logout" style="min-height:46px">' + esc(tx('accLogout')) + '</button><p class="note">' + esc(tx('accOutNote')) + '</p></div>';
+      '<button class="btn ghost" type="button" data-act="acc-logout" style="min-height:46px">' + esc(tx('accLogout')) + '</button><p class="note">' + esc(tx('accOutNote')) + '</p>' +
+      (ACC.hasRec === false && accPanel !== 'rec' ? '<p class="note"><b>' + esc(tx('recNone')) + '</b></p>' : '') +
+      (accPanel === 'rec' ? secForm('recovery') : '<button class="link" type="button" data-act="acc-rec-open">' + esc(ACC.hasRec === false ? tx('recGen') : tx('recNew')) + '</button>') +
+      (accPanel === 'del' ? secForm('delete') : '<button class="link danger" type="button" data-act="acc-del-open">' + esc(tx('delOpen')) + '</button>') + '</div>';
+  }
+  if (accMode === 'forgot') {
+    return '<form class="card acc" id="forgotForm" novalidate><h2>' + esc(tx('accFTitle')) + '</h2><p class="note">' + esc(tx('accFIntro')) + '</p>' +
+      '<div class="inp"><input id="fEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="' + esc(tx('accEmail')) + '" value="' + esc(accEmailVal) + '" dir="ltr"></div>' +
+      '<div class="inp"><input id="fRec" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="20" placeholder="' + esc(tx('accRecPh')) + '" dir="ltr"></div>' +
+      '<div class="inp"><input id="fPass" type="password" autocomplete="new-password" placeholder="' + esc(tx('accNewPass')) + '" dir="ltr"></div>' +
+      (accMsg ? '<p class="err" role="alert">' + esc(accMsg) + '</p>' : '') + (accBusy ? '<p class="note" role="status">' + esc(tx('accBusy')) + '</p>' : '') +
+      '<div class="acc-row"><button class="btn" type="submit"' + (accBusy ? ' disabled' : '') + '>' + esc(tx('accFGo')) + '</button><button class="btn ghost" type="button" data-act="acc-back">' + esc(tx('accBack')) + '</button></div></form>';
   }
   var w = where === 'welcome';
   return '<form class="card acc" id="accForm" novalidate><h2>' + esc(tx(w ? 'accTitleW' : 'accTitle')) + '</h2><p class="note">' + esc(tx(w ? 'accIntroW' : 'accIntro')) + '</p>' +
+    (accNote ? '<p class="note" role="status"><b>' + esc(accNote) + '</b></p>' : '') +
     (IN_APP ? '<p class="note"><b>' + esc(tx('accInApp')) + '</b></p>' : '') +
     '<div class="inp"><input id="accEmail" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="' + esc(tx('accEmail')) + '" value="' + esc(accEmailVal) + '" dir="ltr"></div>' +
     '<div class="inp"><input id="accPass" type="password" autocomplete="current-password" placeholder="' + esc(tx('accPass')) + '" dir="ltr"></div>' +
     (accMsg ? '<p class="err" role="alert">' + esc(accMsg) + '</p>' : '') + (accBusy ? '<p class="note" role="status">' + esc(tx('accBusy')) + '</p>' : '') +
     '<div class="acc-row"><button class="btn" type="button" data-act="acc-register"' + (accBusy ? ' disabled' : '') + '>' + esc(tx('accCreate')) + '</button>' +
-    '<button class="btn ghost" type="button" data-act="acc-login"' + (accBusy ? ' disabled' : '') + '>' + esc(tx('accLogin')) + '</button></div></form>';
+    '<button class="btn ghost" type="button" data-act="acc-login"' + (accBusy ? ' disabled' : '') + '>' + esc(tx('accLogin')) + '</button></div>' +
+    '<button class="link" type="button" data-act="acc-forgot">' + esc(tx('accForgot')) + '</button></form>';
 }
 function refreshAccount() { var el = $('account'); if (el) { el.innerHTML = accountInner(S.step === 'home' ? 'home' : 'welcome'); } }
 function syncFromServer() {
@@ -371,13 +479,14 @@ function syncFromServer() {
   accPost('load', { token: ACC.token }).then(function (r) {
     if (r.status === 401) { accDrop(); return; }
     if (!r.j || !r.j.ok) { return; }
+    if (ACC && typeof r.j.hasRecovery === 'boolean' && ACC.hasRec !== r.j.hasRecovery) { ACC.hasRec = r.j.hasRecovery; jset(ACC_KEY, ACC); if ($('account')) { refreshAccount(); } }
     var before = S.meals.length;
     applying = true; applyRemote(r.j.state); applying = false;
     save(); pushAcc(true);
     if (S.step === 'home' && !cur) { refreshAll(); } else if (before !== S.meals.length || S.step === 'welcome') { renderMain(); }
   }).catch(function () {});
 }
-var calDay = '';
+var calDay = '', trendDays = 7;
 var cur = null;          // photo de repas en cours
 var BODY = null;         // photo "avant" en cours de choix
 var sliderPos = 50, introPlayed = false;
@@ -592,10 +701,10 @@ function viewWelcome() {
   var ok = CFG.requireCode && accessOk() ? '<p class="note">' + esc(tx('codeOk')(longDate(new Date(S.access.expires * 1000)))) + '</p>' : '';
   return '<div class="view">' + dots('welcome') +
     '<div class="hero"><h1>' + esc(tx('h1a')) + '<em>' + esc(tx('h1b')) + '</em></h1><p class="lead">' + esc(tx('lead')) + '</p>' +
-    '<ul class="pills"><li>' + esc(tx('pill1')) + '</li><li>' + esc(tx('pill2')) + '</li><li>' + esc(tx('pill3')) + '</li></ul></div>' +
+    '<ul class="pills"><li>' + esc(tx('pill1')) + '</li><li>' + esc(tx('pill2')) + '</li><li>' + esc(tx('pill3')) + '</li></ul><p class="gift">' + esc(tx('welcomeGift')) + '</p></div>' +
     (need ? codeForm(flash, true) : ok) +
     '<button class="btn big" type="button" data-act="welcome-next"' + (need ? ' disabled' : '') + '>' + esc(tx('start')) + '</button>' +
-    '<div id="account">' + accountInner('welcome') + '</div></div>';
+    '<div id="account">' + accountInner('welcome') + '</div>' + legalLinks() + '</div>';
 }
 
 /* ---------- 2. profil ---------- */
@@ -973,7 +1082,67 @@ function refreshCal() {
     '<button type="button" data-act="cal-next" aria-label="' + esc(tx('calNext')) + '"' + (isCurrent ? ' disabled' : '') + '>' + ICON.chevR + '</button></div></div>' +
     '<div class="cal-grid">' + wd + cells + '</div>' +
     '<div class="legend"><span>' + face('good') + esc(tx('legG')) + '</span><span>' + face('mid') + esc(tx('legO')) + '</span><span>' + face('bad') + esc(tx('legR')) + '</span></div>' +
-    '<div class="cal-stats"><div><b>' + st.good + '</b>' + esc(tx('calDays')) + '</div><div><b>' + st.streak + '</b>' + esc(tx('calStreak')) + '</div></div></div>' + dayDetail(selDay);
+    '<div class="cal-stats"><div><b>' + st.good + '</b>' + esc(tx('calDays')) + '</div><div><b>' + st.streak + '</b>' + esc(tx('calStreak')) + '</div></div></div>' + dayDetail(selDay) + trendsHTML();
+}
+
+/* tendances : calories par jour (7 ou 30 jours), moyennes, courbe de poids */
+function trendsHTML() {
+  var n = trendDays, loc = tx('locale'), days = [], d = new Date(), i;
+  d.setHours(12, 0, 0, 0);
+  for (i = 0; i < n; i++) {
+    var key = dkey(d), list = S.meals.filter(function (m) { return m.day === key; });
+    days.unshift({ k: key, date: new Date(d.getTime()), inf: dayInfo(key), sum: sumMeals(list), has: list.length > 0 });
+    d.setDate(d.getDate() - 1);
+  }
+  var logged = days.filter(function (x) { return x.has; }), cnt = logged.length;
+  var head = '<div class="tr-head"><h2>' + esc(tx('trTitle')) + '</h2><div class="seg-tr" role="group" aria-label="' + esc(tx('trTitle')) + '">' +
+    '<button type="button" data-act="trend" data-v="7" aria-pressed="' + (n === 7) + '">' + esc(tx('tr7')) + '</button><button type="button" data-act="trend" data-v="30" aria-pressed="' + (n === 30) + '">' + esc(tx('tr30')) + '</button></div></div>';
+  if (!cnt) { return '<div class="card tr" style="margin-top:14px">' + head + '<p class="note">' + esc(tx('trNone')) + '</p>' + weightTrend() + '</div>'; }
+  var tot = { kcal: 0, carbs: 0, protein: 0, fat: 0 };
+  logged.forEach(function (x) { tot.kcal += x.sum.kcal; tot.carbs += x.sum.carbs; tot.protein += x.sum.protein; tot.fat += x.sum.fat; });
+  var avg = { kcal: Math.round(tot.kcal / cnt), carbs: Math.round(tot.carbs / cnt), protein: Math.round(tot.protein / cnt), fat: Math.round(tot.fat / cnt) };
+  var W = 320, H = 150, top = 12, base = 118, mx = S.goal * 1.25;
+  logged.forEach(function (x) { if (x.sum.kcal * 1.08 > mx) { mx = x.sum.kcal * 1.08; } });
+  var slot = W / n, bw = Math.max(4, slot * (n === 7 ? 0.56 : 0.64)), svg = '';
+  function yOf(v) { return base - (v / mx) * (base - top); }
+  days.forEach(function (x, idx) {
+    var cx = idx * slot + slot / 2;
+    if (x.has) {
+      var y = yOf(x.sum.kcal), col = x.inf.status === 'good' ? 'var(--ok)' : (x.inf.status === 'mid' ? 'var(--warn)' : 'var(--bad)');
+      svg += '<rect x="' + (cx - bw / 2).toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(2, base - y).toFixed(1) + '" rx="3" style="fill:' + col + '"/>';
+    } else {
+      svg += '<rect x="' + (cx - bw / 2).toFixed(1) + '" y="' + (base - 3) + '" width="' + bw.toFixed(1) + '" height="3" rx="1.5" style="fill:var(--line)"/>';
+    }
+    if (n === 7) {
+      var wd = ''; try { wd = x.date.toLocaleDateString(loc, { weekday: 'narrow' }); } catch (e) { wd = ''; }
+      svg += '<text x="' + cx.toFixed(1) + '" y="' + (base + 18) + '" text-anchor="middle" style="fill:var(--muted);font-size:11px;font-weight:700">' + esc(wd) + '</text>';
+    }
+  });
+  if (n === 30) {
+    [0, 14, 29].forEach(function (idx) { var x = days[idx]; svg += '<text x="' + (idx === 0 ? 2 : idx === 29 ? W - 2 : idx * slot + slot / 2).toFixed(1) + '" y="' + (base + 18) + '" text-anchor="' + (idx === 0 ? 'start' : idx === 29 ? 'end' : 'middle') + '" style="fill:var(--muted);font-size:11px;font-weight:700">' + x.date.getDate() + '/' + (x.date.getMonth() + 1) + '</text>'; });
+  }
+  var gy = yOf(S.goal);
+  svg += '<line x1="0" x2="' + W + '" y1="' + gy.toFixed(1) + '" y2="' + gy.toFixed(1) + '" stroke-dasharray="5 4" style="stroke:var(--ink);stroke-width:1.2;opacity:.55"/>';
+  var u = tx('unit');
+  return '<div class="card tr" style="margin-top:14px">' + head +
+    '<svg class="tr-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(tx('trChart')(n, avg.kcal)) + '" dir="ltr">' + svg + '</svg>' +
+    '<p class="note tr-key"><i aria-hidden="true"></i>' + esc(tx('trGoal')) + ' : ' + fmt(S.goal) + ' ' + esc(u) + ' · ' + esc(tx('trLogged')(cnt, n)) + '</p>' +
+    '<p class="note">' + esc(tx('trAvg')) + '</p>' +
+    '<div class="tr-stats"><div><b>' + fmt(avg.kcal) + '</b>' + esc(u) + '</div><div><b>' + avg.carbs + ' ' + esc(tx('g')) + '</b>' + esc(tx('trCarbs')) + '</div><div><b>' + avg.protein + ' ' + esc(tx('g')) + '</b>' + esc(tx('trProt')) + '</div><div><b>' + avg.fat + ' ' + esc(tx('g')) + '</b>' + esc(tx('trFat')) + '</div></div>' +
+    weightTrend() + '</div>';
+}
+function weightTrend() {
+  var w = (S.weights || []).slice(-12);
+  if (w.length < 2) { return ''; }
+  var lo = Infinity, hi = -Infinity, k;
+  w.forEach(function (x) { if (x.kg < lo) { lo = x.kg; } if (x.kg > hi) { hi = x.kg; } });
+  lo -= 0.5; hi += 0.5;
+  var W = 320, H = 70, pts = w.map(function (x, i) { return [(6 + (W - 12) * i / (w.length - 1)), 8 + (H - 16) * (1 - (x.kg - lo) / (hi - lo))]; });
+  var line = pts.map(function (p) { return p[0].toFixed(1) + ',' + p[1].toFixed(1); }).join(' '), last = pts[pts.length - 1];
+  var first = w[0].kg, end = w[w.length - 1].kg, delta = Math.round((end - first) * 10) / 10;
+  return '<div class="tr-weight"><div class="tr-wh"><b>' + esc(tx('trWeight')) + '</b><span dir="ltr">' + first + ' → ' + end + ' kg (' + (delta > 0 ? '+' : '') + delta + ')</span></div>' +
+    '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(tx('trWeight') + ' ' + first + ' → ' + end + ' kg') + '" dir="ltr"><polyline points="' + line + '" fill="none" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--accent);stroke-width:2.5"/>' +
+    '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="4.5" style="fill:var(--accent)"/></svg></div>';
 }
 function dayDetail(key) {
   if (!key) { return '<p class="note" style="text-align:center;margin-top:12px">' + esc(tx('histTap')) + '</p>'; }
@@ -995,7 +1164,7 @@ function refreshSettings() {
     '<div>' + remindRows() + '</div></div>' + (msg && !S.pushOn ? '<p class="note" role="status">' + esc(msg) + '</p>' : '') +
     '<button class="btn ghost" type="button" data-act="recalc">' + esc(tx('sRecalc')) + '</button>' +
     (deferredInstall ? '<button class="btn ghost" type="button" data-act="install">' + esc(tx('sInstall')) + '</button>' : '') +
-    '<button class="link" type="button" data-act="reset">' + esc(resetArmed ? tx('sResetAsk') : tx('sReset')) + '</button><p class="note" style="text-align:center">' + esc(tx('sResetNote')) + '</p></div>';
+    '<button class="link" type="button" data-act="reset">' + esc(resetArmed ? tx('sResetAsk') : tx('sReset')) + '</button><p class="note" style="text-align:center">' + esc(tx('sResetNote')) + '</p>' + legalLinks() + '</div>';
 }
 
 /* ======================================================================
@@ -1070,7 +1239,8 @@ function normalise(data) {
     return { fr: String(it.fr || it.ar || '').slice(0, 60), ar: String(it.ar || it.fr || '').slice(0, 60), kcal: num(it.kcal), carbs: carbs, protein: num(it.protein_g), fat: num(it.fat_g), sugar: sugar };
   }).filter(function (i) { return i.fr && i.kcal > 0; });
 }
-function closeCur() { if (cur && cur.ctl) { try { cur.ctl.abort(); } catch (e) {} } cur = null; }
+var entry = '', entryErr = '';      // saisie sans photo : '' | 'text' | 'manual'
+function closeCur() { if (cur && cur.ctl) { try { cur.ctl.abort(); } catch (e) {} } cur = null; entry = ''; entryErr = ''; }
 
 function startAnalysis(file) {
   closeCur();
@@ -1083,7 +1253,7 @@ function runAnalysis(job) {
   if (!HAS_API) { job.status = 'error'; job.err = 'soon'; renderCapture(); return; }
   job.status = 'analyzing'; job.err = ''; renderCapture();
   var ctl = job.ctl = (window.AbortController ? new AbortController() : null);
-  fetch(API + 'analyze.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl ? ctl.signal : undefined, body: JSON.stringify({ device: S.device, image: job.b64, mime: 'image/jpeg', lang: S.lang }) })
+  fetch(API + 'analyze.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl ? ctl.signal : undefined, body: JSON.stringify(job.text ? { device: S.device, text: job.text, lang: S.lang } : { device: S.device, image: job.b64, mime: 'image/jpeg', lang: S.lang }) })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
     .then(function (r) {
       if (cur !== job) { return; }
@@ -1096,20 +1266,78 @@ function runAnalysis(job) {
     .catch(function (e) {
       if (cur !== job || (e && e.name === 'AbortError')) { return; }
       var c = e && e.code; job.status = 'error';
-      job.err = c === 'rate_limited' ? 'busy' : c === 'bad_image' ? 'badimg' : c === 'access' ? 'access' : c === 'config' ? 'config' : (e && e.name === 'TypeError' ? 'offline' : 'generic');
+      job.err = c === 'rate_limited' ? 'busy' : c === 'bad_image' ? 'badimg' : c === 'bad_text' ? 'badtext' : c === 'access' ? 'access' : c === 'config' ? 'config' : (e && e.name === 'TypeError' ? 'offline' : 'generic');
       if (job.err === 'access') { S.access.expires = null; save(); }
       renderCapture();
     });
 }
 
+/* repas décrit en texte, ou ajout rapide nom + calories */
+function startTextAnalysis(desc) {
+  closeCur();
+  var job = cur = { status: 'analyzing', items: [], mult: 1, conf: '', thumb: '', text: desc, ctl: null, alarmed: false };
+  renderCapture(); runAnalysis(job);
+}
+function startManual(name, kcal) {
+  closeCur();
+  var job = cur = { status: 'result', items: [{ fr: name, ar: name, kcal: kcal, carbs: 0, protein: 0, fat: 0, sugar: 0 }], mult: 1, conf: 'manual', thumb: '', manual: true, ctl: null, alarmed: false };
+  renderCapture();
+  if (mealKcal(1) > remaining()) { job.alarmed = true; decisionAlarm(); }
+}
+function readKcal(v) { var n = Math.round(parseFloat(String(v).replace(',', '.'))); return isFinite(n) && n >= 1 && n <= 5000 ? n : 0; }
+function applyItemForm() {
+  if (!cur || cur.status !== 'result') { return; }
+  var nm = $('itName'), kc = $('itKcal'); if (!nm || !kc) { return; }
+  var name = nm.value.replace(/\s+/g, ' ').trim().slice(0, 60), shown = readKcal(kc.value), mult = cur.mult > 0 ? cur.mult : 1;
+  if (!name || !shown) { cur.editErr = tx('itBad'); renderCapture(); return; }
+  var base = shown / mult;                       // la valeur saisie est celle affichée pour la portion choisie
+  if (cur.edit === 'new') {
+    if (cur.items.length >= 12) { cur.edit = undefined; renderCapture(); return; }
+    cur.items.push({ fr: name, ar: name, kcal: base, carbs: 0, protein: 0, fat: 0, sugar: 0 });
+  } else {
+    var it = cur.items[cur.edit]; if (!it) { cur.edit = undefined; renderCapture(); return; }
+    var ratio = it.kcal > 0 ? base / it.kcal : 1, same = nameOf(it) === name;
+    cur.items[cur.edit] = { fr: same ? it.fr : name, ar: same ? it.ar : name, kcal: base, carbs: it.carbs * ratio, protein: it.protein * ratio, fat: it.fat * ratio, sugar: it.sugar * ratio };
+  }
+  cur.edit = undefined; cur.editErr = ''; renderCapture();
+}
+function itemRow(i, idx, mult, u) {
+  var shown = Math.round(i.kcal * mult), multi = cur.items.length > 1;
+  return '<li><span>' + esc(nameOf(i)) + '</span><span class="k">' + shown + ' ' + u + '</span><span class="row-act">' +
+    '<button type="button" class="ico-btn" data-act="it-edit" data-i="' + idx + '" aria-label="' + esc(tx('itEdit') + ' : ' + nameOf(i)) + '">' + ICON.pencil + '</button>' +
+    (multi ? '<button type="button" class="ico-btn" data-act="it-del" data-i="' + idx + '" aria-label="' + esc(tx('itDel') + ' : ' + nameOf(i)) + '">&times;</button>' : '') + '</span></li>';
+}
+function itemForm(idx, mult) {
+  var it = idx === 'new' ? null : cur.items[idx];
+  return '<li class="edit"><form id="itemForm" novalidate>' +
+    '<div class="inp"><input id="itName" type="text" maxlength="60" autocomplete="off" aria-label="' + esc(tx('itName')) + '" placeholder="' + esc(tx('itName')) + '" value="' + esc(it ? nameOf(it) : '') + '"></div>' +
+    '<div class="inp"><input id="itKcal" type="number" inputmode="numeric" min="1" max="5000" step="1" aria-label="' + esc(tx('itKcal')) + '" placeholder="' + esc(tx('itKcal')) + '" value="' + (it ? Math.round(it.kcal * mult) : '') + '" dir="ltr"><span class="u">' + esc(tx('unit')) + '</span></div>' +
+    (cur.editErr ? '<p class="err" role="alert">' + esc(cur.editErr) + '</p>' : '') +
+    '<div class="acc-row"><button class="btn" type="submit" style="min-height:44px">' + esc(tx('itSave')) + '</button><button class="btn ghost" type="button" data-act="it-cancel" style="min-height:44px">' + esc(tx('entryClose')) + '</button></div></form></li>';
+}
+function entryForm() {
+  if (entry === 'text') {
+    return '<form class="card" id="txtForm" novalidate><h2>' + esc(tx('txtTitle')) + '</h2><p class="hint">' + esc(tx('txtHelp')) + '</p>' +
+      '<div class="inp area"><textarea id="txtIn" rows="3" maxlength="300" autocomplete="off" aria-label="' + esc(tx('txtTitle')) + '" placeholder="' + esc(tx('txtPh')) + '"></textarea></div>' +
+      (entryErr ? '<p class="err" role="alert">' + esc(entryErr) + '</p>' : '') +
+      '<div class="actions"><button type="submit" class="btn">' + esc(tx('txtGo')) + '</button><button type="button" class="btn ghost" data-act="entry-close">' + esc(tx('entryClose')) + '</button></div></form>';
+  }
+  return '<form class="card" id="manForm" novalidate><h2>' + esc(tx('manTitle')) + '</h2><p class="hint">' + esc(tx('manHelp')) + '</p>' +
+    '<div class="inp"><input id="manName" type="text" maxlength="60" autocomplete="off" aria-label="' + esc(tx('manName')) + '" placeholder="' + esc(tx('manName')) + '"></div>' +
+    '<div class="inp"><input id="manKcal" type="number" inputmode="numeric" min="1" max="5000" step="1" aria-label="' + esc(tx('manKcal')) + '" placeholder="' + esc(tx('manKcal')) + '" dir="ltr"><span class="u">' + esc(tx('unit')) + '</span></div>' +
+    (entryErr ? '<p class="err" role="alert">' + esc(entryErr) + '</p>' : '') +
+    '<div class="actions"><button type="submit" class="btn">' + esc(tx('manGo')) + '</button><button type="button" class="btn ghost" data-act="entry-close">' + esc(tx('entryClose')) + '</button></div></form>';
+}
 function renderCapture() {
   var el = $('capture'); if (!el) { return; }
   var u = tx('unit'), g = tx('g');
   if (!cur) {
-    el.innerHTML = '<label class="snap" for="foodPick" data-act="snap">' + ICON.camera + '<span>' + esc(tx('snap')) + '</span></label><label class="link" for="foodCam" data-act="snap">' + esc(tx('camNow')) + '</label>';
+    if (entry) { el.innerHTML = entryForm(); var fi = $(entry === 'text' ? 'txtIn' : 'manName'); if (fi) { fi.focus(); } return; }
+    el.innerHTML = '<label class="snap" for="foodPick" data-act="snap">' + ICON.camera + '<span>' + esc(tx('snap')) + '</span></label><label class="link" for="foodCam" data-act="snap">' + esc(tx('camNow')) + '</label>' +
+      '<div class="alt-row"><button type="button" class="btn ghost" data-act="entry-text">' + ICON.pencil + '<span>' + esc(tx('txtBtn')) + '</span></button><button type="button" class="btn ghost" data-act="entry-manual"><b aria-hidden="true">+</b><span>' + esc(tx('manBtn')) + '</span></button></div>';
     return;
   }
-  var thumb = cur.thumb ? '<img class="thumb" src="' + cur.thumb + '" alt="">' : '<span class="thumb"></span>';
+  var thumb = cur.thumb ? '<img class="thumb" src="' + cur.thumb + '" alt="">' : (cur.text || cur.manual ? '<span class="thumb txt" aria-hidden="true">' + ICON.pencil + '</span>' : '<span class="thumb"></span>');
   if (cur.status === 'analyzing') {
     el.innerHTML = '<div class="card"><div class="card-head">' + thumb + '<div class="status"><span class="spinner" aria-hidden="true"></span><span>' + esc(tx('analyzing')) + '</span></div></div>' +
       '<div class="actions"><button type="button" class="btn ghost" data-act="cancel">' + esc(tx('cancel')) + '</button></div></div>';
@@ -1123,7 +1351,8 @@ function renderCapture() {
     return;
   }
   var t = totalsOf(cur.items, cur.mult), rem = remaining(), over = t.kcal - rem;
-  var rows = cur.items.map(function (i) { return '<li><span>' + esc(nameOf(i)) + '</span><span class="k">' + Math.round(i.kcal * cur.mult) + ' ' + u + '</span></li>'; }).join('');
+  var rows = cur.items.map(function (i, idx) { return cur.edit === idx ? itemForm(idx, cur.mult) : itemRow(i, idx, cur.mult, u); }).join('') +
+    (cur.edit === 'new' ? itemForm('new', cur.mult) : (cur.edit === undefined && cur.items.length < 12 ? '<li class="add-row"><button type="button" class="link add-it" data-act="it-add">+ ' + esc(tx('itAdd')) + '</button></li>' : ''));
   var known = PORTIONS.some(function (p) { return p[0] === cur.mult; });
   var chips = PORTIONS.map(function (p) { return '<button type="button" class="chip' + (mealKcal(p[0]) <= rem ? ' fit' : '') + '" data-act="mult" data-v="' + p[0] + '" aria-pressed="' + (p[0] === cur.mult) + '">' + p[1] + '</button>'; }).join('') +
     (known ? '' : '<button type="button" class="chip" aria-pressed="true">' + esc(tx('pctCustom')(Math.round(cur.mult * 100))) + '</button>');
@@ -1138,8 +1367,9 @@ function renderCapture() {
     '<div class="mini"><span>' + esc(tx('carbs')) + ' <b>' + t.carbs + ' ' + g + '</b></span><span>' + esc(tx('protein')) + ' <b>' + t.protein + ' ' + g + '</b></span><span>' + esc(tx('fat')) + ' <b>' + t.fat + ' ' + g + '</b></span></div></div></div>' +
     '<ul class="items">' + rows + '</ul>' + warn +
     '<div class="portion"><span class="t">' + esc(tx('portion')) + '</span>' + chips + '</div>' +
-    '<p class="hint">' + esc(cur.conf === 'low' ? tx('lowConf') : tx('estimate')) + '</p>' +
+    '<p class="hint">' + esc(cur.manual ? tx('manualHint') : (cur.conf === 'low' ? tx('lowConf') : (cur.text ? tx('textHint') : tx('estimate')))) + '</p>' +
     '<div class="actions"><button type="button" class="btn" data-act="add">' + esc(tx('add')) + '</button><button type="button" class="btn ghost" data-act="cancel">' + esc(tx('cancel')) + '</button></div></div>';
+  if (cur.edit !== undefined) { var nf = $('itName'); if (nf) { nf.focus(); } }
 }
 
 /* ======================================================================
@@ -1256,6 +1486,23 @@ function handleClick(ev) {
     case 'goal-chip': $('goalInput').value = b.getAttribute('data-v'); break;
     case 'recalc': S.step = 'profile'; save(); renderMain(); break;
     case 'cal-day': calDay = b.getAttribute('data-k'); refreshCal(); break;
+    case 'entry-text': if (!cur) { entry = 'text'; entryErr = ''; renderCapture(); } break;
+    case 'entry-manual': if (!cur) { entry = 'manual'; entryErr = ''; renderCapture(); } break;
+    case 'entry-close': entry = ''; entryErr = ''; renderCapture(); break;
+    case 'it-edit': if (cur && cur.status === 'result') { cur.edit = Number(b.getAttribute('data-i')); cur.editErr = ''; renderCapture(); } break;
+    case 'it-add': if (cur && cur.status === 'result') { cur.edit = 'new'; cur.editErr = ''; renderCapture(); } break;
+    case 'it-cancel': if (cur) { cur.edit = undefined; cur.editErr = ''; renderCapture(); } break;
+    case 'it-del':
+      if (cur && cur.status === 'result' && cur.items.length > 1) { cur.items.splice(Number(b.getAttribute('data-i')), 1); cur.edit = undefined; renderCapture(); }
+      break;
+    case 'trend': trendDays = Number(b.getAttribute('data-v')) === 30 ? 30 : 7; refreshCal(); break;
+    case 'acc-forgot': accMode = 'forgot'; accMsg = ''; accNote = ''; refreshAccount(); break;
+    case 'acc-back': accMode = ''; accMsg = ''; refreshAccount(); break;
+    case 'acc-rec-open': accPanel = 'rec'; accMsg = ''; refreshAccount(); break;
+    case 'acc-del-open': accPanel = 'del'; accMsg = ''; refreshAccount(); break;
+    case 'acc-panel-close': accPanel = ''; accMsg = ''; refreshAccount(); break;
+    case 'rec-copy': copyText(recShow, b); break;
+    case 'rec-done': recShow = ''; refreshAccount(); break;
     case 'acc-register': doAuth('register'); break;
     case 'acc-login': doAuth('login'); break;
     case 'acc-logout': accLogout(); break;
@@ -1304,6 +1551,20 @@ function handleSubmit(ev) {
   var f = ev.target.id; if (!f) { return; }
   ev.preventDefault();
   if (f === 'accForm') { doAuth('login'); return; }
+  if (f === 'forgotForm') { doForgot(); return; }
+  if (f === 'recForm') { doSecure('recovery'); return; }
+  if (f === 'delForm') { doSecure('delete'); return; }
+  if (f === 'itemForm') { applyItemForm(); return; }
+  if (f === 'txtForm') {
+    var tv = ($('txtIn').value || '').replace(/\s+/g, ' ').trim();
+    if (tv.length < 2) { entryErr = tx('txtShort'); renderCapture(); return; }
+    startTextAnalysis(tv.slice(0, 300)); return;
+  }
+  if (f === 'manForm') {
+    var mn = ($('manName').value || '').replace(/\s+/g, ' ').trim().slice(0, 60), mk = readKcal($('manKcal').value);
+    if (!mn || !mk) { entryErr = tx('itBad'); renderCapture(); return; }
+    startManual(mn, mk); return;
+  }
   if (f === 'profileForm') { submitProfile(); }
   else if (f === 'targetForm') {
     var p = S.profile, o = targetOptions(p), v = parseFloat($('tInput').value.replace(',', '.'));

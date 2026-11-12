@@ -1,8 +1,8 @@
 /* Sokkar Stop : service worker (fonctionne hors ligne + reçoit les notifications) */
-var CACHE = 'sokkar-stop-v8';
+var CACHE = 'sokkar-stop-v9';
 try { importScripts('config.js'); } catch (e) {}
 var API = (self.SS_API || '').replace(/\/?$/, '/');
-var SHELL = ['./', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'config.js', 'icons/icon-192.png', 'icons/icon-512.png'];
+var SHELL = ['./', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'config.js', 'icons/icon-192.png', 'icons/icon-512.png', 'confidentialite.html', 'suppression-compte.html'];
 
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); }));

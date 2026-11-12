@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Politique de confidentialité — Sokkar Stop App</title>
+<meta name="robots" content="index,follow">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<style>
+:root{--bg:#F4EBDB;--surface:#FFFDF8;--ink:#2A1A14;--muted:#6B5A4F;--accent:#A33A2E;--line:#E2D3BD;--ok:#2F7A4D}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,'Segoe UI',Tahoma,sans-serif;padding:20px 16px 60px}
+main{max-width:720px;margin:0 auto;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px}
+h1{font-size:1.55rem;line-height:1.25;margin:.2em 0 .3em}
+h2{font-size:1.1rem;margin:1.6em 0 .3em;color:var(--accent)}
+p,li{margin:.4em 0}
+ul{padding-inline-start:1.3em}
+a{color:var(--accent)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;max-width:720px;margin:0 auto 14px}
+.top a.back{font-weight:700;text-decoration:none}
+.lang button{border:1.5px solid var(--ink);background:var(--surface);padding:6px 14px;font-weight:700;cursor:pointer;font:inherit}
+.lang button[aria-pressed="true"]{background:var(--ink);color:var(--surface)}
+.lang button:first-child{border-radius:999px 0 0 999px}.lang button:last-child{border-radius:0 999px 999px 0;border-inline-start:0}
+.upd{color:var(--muted);font-size:.9rem}
+[lang-block]{display:none}
+html[data-l="fr"] [lang-block="fr"],html[data-l="ar"] [lang-block="ar"]{display:block}
+html[data-l="ar"] body{direction:rtl}
+form.del{display:flex;flex-direction:column;gap:10px;margin:14px 0}
+form.del input{font:inherit;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg)}
+form.del button{font:inherit;font-weight:800;padding:13px;border:0;border-radius:10px;background:#C62828;color:#fff;cursor:pointer}
+form.del button[disabled]{opacity:.6}
+.msg{font-weight:700;margin:.4em 0}.msg.ok{color:var(--ok)}.msg.err{color:#C62828}
+</style>
+</head>
+<body>
+<div class="top"><a class="back" href="./">&larr; Sokkar Stop App</a><div class="lang" role="group" aria-label="Langue / اللغة"><button type="button" data-l="fr" aria-pressed="true">FR</button><button type="button" data-l="ar" aria-pressed="false">AR</button></div></div>
+<main>
+<div lang-block="fr">
+<h1>Politique de confidentialité — Sokkar Stop App</h1>
+<p class="upd">Dernière mise à jour : 12 novembre 2026</p>
+<p><b>Sokkar Stop App</b> est une application de suivi des calories éditée par Sokkar Stop (Tunisie). Cette page explique quelles données sont utilisées, pourquoi, avec qui elles sont partagées et comment les supprimer. Contact : <a href="mailto:sokkarstop@gmail.com">sokkarstop@gmail.com</a>.</p>
+
+<h2>1. Ce qui reste sur ton téléphone</h2>
+<p>Sans compte, tout est enregistré uniquement sur ton téléphone : profil (sexe, âge, taille, poids, objectif), repas, poids, réglages et, si tu en ajoutes, ta photo « avant » et l’image « après ». Nous n’y avons pas accès. Le bouton « Effacer mes données » (Objectif → Réglages) les supprime.</p>
+
+<h2>2. Ce qui est envoyé à nos serveurs</h2>
+<ul>
+<li><b>Analyse d’un repas</b> : la photo (ou le texte que tu écris) est envoyée à notre serveur, puis à un service d’intelligence artificielle (Google Gemini, ou Anthropic Claude selon la configuration) qui renvoie les calories estimées. <b>Nous ne conservons ni la photo ni le texte.</b></li>
+<li><b>Image « après »</b> (facultative, réservée aux adultes) : ta photo « avant » et ton profil sont envoyés au service d’intelligence artificielle de Google pour générer une image d’objectif. Nous ne conservons pas la photo envoyée.</li>
+<li><b>Identifiant d’appareil</b> : un identifiant aléatoire sert à limiter les abus, à activer ton code d’accès (1 mois offert avec le flacon) et à gérer les rappels.</li>
+<li><b>Rappels</b> (facultatifs) : si tu les actives, nous gardons l’adresse technique de notification de ton appareil, tes choix de rappel et un résumé de ta journée (total de calories, objectif, nombre de repas) pour envoyer des messages utiles.</li>
+<li><b>Compte (facultatif)</b> : e-mail, mot de passe (conservé uniquement sous forme chiffrée, jamais en clair), code de récupération (chiffré), et la sauvegarde de ton historique (profil, objectifs, poids, repas) pour le retrouver sur un autre téléphone. Tes photos ne sont jamais sauvegardées.</li>
+<li><b>Sécurité</b> : ton adresse IP est utilisée de manière temporaire (au plus 2 jours) pour limiter le nombre de demandes.</li>
+</ul>
+
+<h2>3. Pourquoi</h2>
+<p>Uniquement pour faire fonctionner l’application : calculer tes calories, sauvegarder ton historique, envoyer les rappels que tu as choisis, protéger le service contre les abus. Nous ne vendons pas tes données, il n’y a pas de publicité et pas de suivi publicitaire dans l’application.</p>
+
+<h2>4. Avec qui</h2>
+<ul>
+<li><b>Cloudflare</b> héberge notre serveur et son stockage.</li>
+<li><b>Google (Gemini)</b> et, selon la configuration, <b>Anthropic (Claude)</b> traitent les photos et textes de repas pour l’estimation des calories, selon leurs propres conditions.</li>
+<li><b>Google Fonts</b> fournit la police d’écriture (ton adresse IP est vue par Google à ce moment).</li>
+</ul>
+<p>Nous ne transmettons tes données à personne d’autre, sauf obligation légale.</p>
+
+<h2>5. Durée de conservation</h2>
+<p>Les données du compte et l’historique sauvegardé sont conservés jusqu’à la suppression du compte. Les sessions de connexion expirent après 180 jours. Les compteurs anti-abus expirent en 2 jours au plus.</p>
+
+<h2>6. Tes droits et la suppression</h2>
+<p>Tu peux à tout moment supprimer ton compte et les données associées directement dans l’application (Objectif → Compte → « Supprimer mon compte »), ou depuis la page <a href="suppression-compte.html">Supprimer mon compte et mes données</a>. Pour toute demande d’accès, de correction ou de suppression : <a href="mailto:sokkarstop@gmail.com">sokkarstop@gmail.com</a>. Conformément à la loi organique tunisienne n° 2004-63 sur la protection des données à caractère personnel, tu peux aussi t’adresser à l’Instance nationale de protection des données personnelles (INPDP).</p>
+
+<h2>7. Santé et âge</h2>
+<p>Sokkar Stop App donne des estimations indicatives et ne remplace pas l’avis d’un médecin ou d’un diététicien. Les calories calculées à partir d’une photo ou d’un texte sont approximatives. La fonction « image après » est réservée aux personnes de 18 ans et plus. L’application n’est pas destinée aux enfants.</p>
+
+<h2>8. Modifications</h2>
+<p>Si cette politique change, la date de mise à jour ci-dessus sera modifiée.</p>
+</div>
+<div lang-block="ar">
+<h1>سياسة الخصوصية — تطبيق سكر ستوب</h1>
+<p class="upd">آخر تحديث: 12 نوفمبر 2026</p>
+<p><b>تطبيق سكر ستوب (Sokkar Stop App)</b> تطبيق لمتابعة السعرات الحرارية من إصدار Sokkar Stop (تونس). توضّح هذه الصفحة البيانات المستعملة ولماذا ومع من تُشارك وكيف تحذفها. للتواصل: <a href="mailto:sokkarstop@gmail.com">sokkarstop@gmail.com</a>.</p>
+
+<h2>1. ما يبقى على هاتفك</h2>
+<p>بدون حساب، كل شيء يُحفظ على هاتفك فقط: الملف الشخصي (الجنس والعمر والطول والوزن والهدف) والوجبات والأوزان والإعدادات، وإن أضفتها صورتك «قبل» وصورة «بعد». ليس لنا وصول إليها. زر «احذف بياناتي» (الهدف ← الإعدادات) يمسحها.</p>
+
+<h2>2. ما يُرسل إلى خوادمنا</h2>
+<ul>
+<li><b>تحليل وجبة</b>: تُرسل الصورة (أو النص الذي تكتبه) إلى خادمنا ثم إلى خدمة ذكاء اصطناعي (Google Gemini أو Anthropic Claude حسب الإعداد) تعيد السعرات المقدّرة. <b>لا نحتفظ بالصورة ولا بالنص.</b></li>
+<li><b>صورة «بعد»</b> (اختيارية وللبالغين فقط): تُرسل صورتك «قبل» وملفك إلى خدمة الذكاء الاصطناعي من Google لإنشاء صورة الهدف. لا نحتفظ بالصورة المرسلة.</li>
+<li><b>معرّف الجهاز</b>: معرّف عشوائي لتقييد الإساءة وتفعيل رمز الاستعمال (شهر مجاني مع القارورة) وإدارة التذكيرات.</li>
+<li><b>التذكيرات</b> (اختيارية): إن فعّلتها نحتفظ بعنوان الإشعارات التقني لجهازك واختياراتك وملخص يومك (مجموع السعرات والهدف وعدد الوجبات) لإرسال رسائل مفيدة.</li>
+<li><b>الحساب (اختياري)</b>: البريد الإلكتروني وكلمة السر (محفوظة مشفّرة فقط، ولا تُحفظ أبداً بشكل صريح) ورمز الاسترجاع (مشفّر) ونسخة من سجلّك (الملف والأهداف والأوزان والوجبات) لتجده على هاتف آخر. لا تُحفظ صورك أبداً.</li>
+<li><b>الأمان</b>: يُستعمل عنوان IP مؤقتاً (يومان كحد أقصى) لتحديد عدد الطلبات.</li>
+</ul>
+
+<h2>3. لماذا</h2>
+<p>فقط لتشغيل التطبيق: حساب السعرات وحفظ سجلّك وإرسال التذكيرات التي اخترتها وحماية الخدمة من الإساءة. لا نبيع بياناتك، ولا توجد إعلانات ولا تتبّع إعلاني في التطبيق.</p>
+
+<h2>4. مع من</h2>
+<ul>
+<li><b>Cloudflare</b> تستضيف خادمنا وتخزينه.</li>
+<li><b>Google (Gemini)</b> وحسب الإعداد <b>Anthropic (Claude)</b> تعالجان صور ونصوص الوجبات لتقدير السعرات وفق شروطهما.</li>
+<li><b>Google Fonts</b> توفّر الخط (ترى Google عنوان IP الخاص بك عندئذ).</li>
+</ul>
+<p>لا نشارك بياناتك مع أي جهة أخرى إلا بموجب القانون.</p>
+
+<h2>5. مدة الاحتفاظ</h2>
+<p>تُحفظ بيانات الحساب والسجلّ حتى حذف الحساب. تنتهي جلسات الدخول بعد 180 يوماً. تنتهي عدّادات مكافحة الإساءة خلال يومين كحد أقصى.</p>
+
+<h2>6. حقوقك والحذف</h2>
+<p>يمكنك في أي وقت حذف حسابك والبيانات المرتبطة به مباشرة من التطبيق (الهدف ← الحساب ← «حذف حسابي»)، أو من صفحة <a href="suppression-compte.html">حذف حسابي وبياناتي</a>. لأي طلب اطّلاع أو تصحيح أو حذف: <a href="mailto:sokkarstop@gmail.com">sokkarstop@gmail.com</a>. وفقاً للقانون الأساسي التونسي عدد 63 لسنة 2004 المتعلق بحماية المعطيات الشخصية، يمكنك أيضاً التوجه إلى الهيئة الوطنية لحماية المعطيات الشخصية.</p>
+
+<h2>7. الصحة والسن</h2>
+<p>يقدّم التطبيق تقديرات إرشادية ولا يغني عن رأي الطبيب أو أخصائي التغذية. السعرات المحسوبة من صورة أو نص تقريبية. ميزة «صورة بعد» مخصصة لمن بلغ 18 سنة فأكثر. التطبيق غير موجّه للأطفال.</p>
+
+<h2>8. التعديلات</h2>
+<p>إذا تغيّرت هذه السياسة فسيُعدَّل تاريخ التحديث أعلاه.</p>
+</div>
+</main>
+<script>
+(function () {
+  var h = document.documentElement, btns = document.querySelectorAll('.lang button');
+  function set(l) { h.setAttribute('data-l', l); h.lang = l; h.dir = l === 'ar' ? 'rtl' : 'ltr'; btns.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-l') === l)); }); try { localStorage.setItem('ss_page_lang', l); } catch (e) {} }
+  btns.forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-l')); }); });
+  var l = 'fr'; try { l = localStorage.getItem('ss_page_lang') || ((navigator.language || '').indexOf('ar') === 0 ? 'ar' : 'fr'); } catch (e) {}
+  set(l === 'ar' ? 'ar' : 'fr');
+})();
+</script>
+
+</body>
+</html>
