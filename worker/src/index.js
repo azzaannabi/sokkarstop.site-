@@ -247,9 +247,9 @@ async function sync(req, env) {
     case 'activate': {
       const code = String(inp.code || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
       let c;
-      if (/^[0-9]{4}$/.test(code)) {
-        /* code à 4 chiffres (boîte Sokkar Stop) : liste fixe créée par /pins, un seul téléphone par code.
-           Seulement 10 000 combinaisons : on limite les essais par adresse IP et par téléphone. */
+      if (/^[0-9]{6}$/.test(code)) {
+        /* code à 6 chiffres (boîte Sokkar Stop) : liste fixe créée par /pins, un seul téléphone par code.
+           On limite quand même les essais par adresse IP et par téléphone. */
         const ip = req.headers.get('CF-Connecting-IP') || '0', hr = Math.floor(nowS() / 3600);
         if (!(await counter(env, 'ip:pin:' + ip + ':' + hr, 12, 2 * 3600)) || !(await counter(env, 'dev:pin:' + device + ':' + Math.floor(hr / 24), 30, 2 * DAY))) { return out(req, { ok: false, error: 'rate_limited' }, 429); }
         const list = (await getJ(env, 'pins')) || {};
@@ -310,7 +310,7 @@ async function message(req, env) {
   return out(req, m || notifText('fallback', d.lang || 'fr', 0));
 }
 
-/* codes à 4 chiffres : GET /pins?token=ADMIN_TOKEN&n=1500&days=30 (une seule fois ; refuse si la liste existe déjà, sauf &add=1) */
+/* codes à 6 chiffres : GET /pins?token=ADMIN_TOKEN&n=1500&days=30 (une seule fois ; refuse si la liste existe déjà, sauf &add=1) */
 async function pins(req, env, url) {
   const t = url.searchParams.get('token') || '';
   if (!env.ADMIN_TOKEN || t !== env.ADMIN_TOKEN) { return out(req, { error: 'forbidden' }, 403); }
@@ -318,16 +318,16 @@ async function pins(req, env, url) {
   const days = Math.max(1, Math.min(400, parseInt(url.searchParams.get('days') || cfg(env, 'CODE_DAYS', '30'), 10)));
   const list = (await getJ(env, 'pins')) || {};
   if (Object.keys(list).length && url.searchParams.get('add') !== '1') { return out(req, { error: 'exists', count: Object.keys(list).length, hint: 'ajoute &add=1 pour en créer d’autres' }, 409); }
-  if (Object.keys(list).length + n > 9000) { return out(req, { error: 'too_many' }, 400); }
-  const bad = (c) => /^(\d)\1{3}$/.test(c) || ['0123', '1234', '2345', '3456', '4567', '5678', '6789', '4321', '3210', '9876', '1212', '2020', '2021', '2022', '2023', '2024', '2025', '2026'].includes(c);
+  if (Object.keys(list).length + n > 100000) { return out(req, { error: 'too_many' }, 400); }
+  const bad = (c) => /^(\d)\1{5}$/.test(c) || /^(\d{3})\1$/.test(c) || /^(\d{2})\1\1$/.test(c) || ['012345', '123456', '234567', '345678', '456789', '987654', '876543', '654321', '543210', '123123', '000000'].includes(c);
   const fresh = [];
   while (fresh.length < n) {
-    const c = String(crypto.getRandomValues(new Uint32Array(1))[0] % 10000).padStart(4, '0');
+    const c = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1000000).padStart(6, '0');
     if (list[c] || bad(c)) { continue; }
     list[c] = days; fresh.push(c);
   }
   await putJ(env, 'pins', list);
-  return new Response('Codes à 4 chiffres créés (' + days + ' jours, un seul téléphone par code) : ' + fresh.length + '\n\n' + fresh.join('\n') + '\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+  return new Response('Codes à 6 chiffres créés (' + days + ' jours, un seul téléphone par code) : ' + fresh.length + '\n\n' + fresh.join('\n') + '\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }
 
 async function codes(req, env, url) {

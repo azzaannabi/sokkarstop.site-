@@ -57,8 +57,8 @@ var T = {
     lead: 'Réponds à quelques questions : on calcule ton objectif de glucides du jour, puis tu scannes tes repas en photo.',
     pill1: 'Glucides par photo', pill2: 'Alarme Sokkar Stop', pill3: 'Avant / après',
     start: 'Commencer', next: 'Continuer', back: 'Retour',
-    codeLabel: 'Code d’activation', codeHelp: 'Le code à 4 chiffres est dans la boîte Sokkar Stop. Il fonctionne sur un seul téléphone.', codeBtn: 'Valider',
-    codeInvalid: 'Ce code n’existe pas. Vérifie les 4 chiffres.', codeUsed: 'Ce code est déjà utilisé sur un autre téléphone.',
+    codeLabel: 'Code d’activation', codeHelp: 'Le code à 6 chiffres est dans la boîte Sokkar Stop. Il fonctionne sur un seul téléphone.', codeBtn: 'Valider',
+    codeInvalid: 'Ce code n’existe pas. Vérifie les 6 chiffres.', codeUsed: 'Ce code est déjà utilisé sur un autre téléphone.',
     codeOk: function (d) { return 'Accès actif jusqu’au ' + d + '.'; }, codeNeed: 'Entre ton code pour commencer.',
     formTitle: 'Calcule ton objectif du jour',
     sexQ: 'Tu es', female: 'Une femme', male: 'Un homme',
@@ -198,7 +198,7 @@ var T = {
     lead: 'جاوب على أسئلة قليلة ونحسبو هدفك اليومي من الكربوهيدرات، ثم صوّر وجباتك.',
     pill1: 'كربوهيدرات بالصورة', pill2: 'منبّه سكر ستوب', pill3: 'قبل / بعد',
     start: 'ابدأ', next: 'متابعة', back: 'رجوع',
-    codeLabel: 'رمز التفعيل', codeHelp: 'رمز من 4 أرقام داخل علبة سكر ستوب. يعمل على هاتف واحد فقط.', codeBtn: 'تأكيد',
+    codeLabel: 'رمز التفعيل', codeHelp: 'رمز من 6 أرقام داخل علبة سكر ستوب. يعمل على هاتف واحد فقط.', codeBtn: 'تأكيد',
     codeInvalid: 'هذا الرمز غير موجود. تأكد من الحروف والأرقام.', codeUsed: 'هذا الرمز مستعمل على هاتف آخر.',
     codeOk: function (d) { return 'الاشتراك فعّال حتى ' + d + '.'; }, codeNeed: 'أدخل رمزك للبدء.',
     formTitle: 'احسب هدفك اليومي',
@@ -713,7 +713,7 @@ function accessOk() { return !CFG.requireCode || (S.access.expires && S.access.e
 function codeForm(msg, isErr) {
   return '<form class="panel" id="codeForm"><div class="group"><label class="q" for="codeInput">' + esc(tx('codeLabel')) + '</label>' +
     '<p class="hint">' + esc(tx('codeHelp')) + '</p>' +
-    '<div class="codeform"><div class="inp"><input id="codeInput" type="text" inputmode="numeric" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="0000"></div>' +
+    '<div class="codeform"><div class="inp"><input id="codeInput" type="text" inputmode="numeric" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="000 000"></div>' +
     '<button class="btn" type="submit">' + esc(tx('codeBtn')) + '</button></div>' +
     (msg ? '<p class="' + (isErr ? 'err' : 'note') + '" role="alert">' + esc(msg) + '</p>' : '') + '</div></form>';
 }

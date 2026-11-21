@@ -30,7 +30,7 @@ On enveloppe l'appli web dans **Capacitor** (gratuit) :
 4. **Confidentialité** : URL `https://sokkarstop.site/app/confidentialite.html`, plus le questionnaire « étiquettes de confidentialité » (e-mail, données de santé et forme, photos, identifiant d'appareil).
 5. **Suppression de compte dans l'appli** : obligatoire pour Apple, déjà présente (Objectif, Compte).
 6. **Classification d'âge** : 17+ à cause de la santé et de la nutrition (à confirmer dans le questionnaire).
-7. **Compte de démonstration** pour le relecteur : si `REQUIRE_CODE` est actif, fournis un code à 4 chiffres de test dans « Informations de connexion », sinon l'appli est bloquée pour lui.
+7. **Compte de démonstration** pour le relecteur : si `REQUIRE_CODE` est actif, fournis un code à 6 chiffres de test dans « Informations de connexion », sinon l'appli est bloquée pour lui.
 
 ## 5. Textes de la fiche (français)
 
