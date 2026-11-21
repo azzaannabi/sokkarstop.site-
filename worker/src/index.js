@@ -317,6 +317,14 @@ async function pins(req, env, url) {
   const n = Math.max(1, Math.min(5000, parseInt(url.searchParams.get('n') || '100', 10)));
   const days = Math.max(1, Math.min(400, parseInt(url.searchParams.get('days') || cfg(env, 'CODE_DAYS', '30'), 10)));
   const list = (await getJ(env, 'pins')) || {};
+  const own = String(url.searchParams.get('code') || '');
+  if (own) {
+    /* code personnalisé (accès propriétaire) : &code=123456&days=3650 */
+    if (!/^[0-9]{6}$/.test(own)) { return out(req, { error: 'bad_code' }, 400); }
+    list[own] = Math.max(1, Math.min(3650, parseInt(url.searchParams.get('days') || '3650', 10)));
+    await putJ(env, 'pins', list);
+    return new Response('Code ' + own + ' ajouté (' + list[own] + ' jours, un seul téléphone).\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+  }
   if (Object.keys(list).length && url.searchParams.get('add') !== '1') { return out(req, { error: 'exists', count: Object.keys(list).length, hint: 'ajoute &add=1 pour en créer d’autres' }, 409); }
   if (Object.keys(list).length + n > 100000) { return out(req, { error: 'too_many' }, 400); }
   const bad = (c) => /^(\d)\1{5}$/.test(c) || /^(\d{3})\1$/.test(c) || /^(\d{2})\1\1$/.test(c) || ['012345', '123456', '234567', '345678', '456789', '987654', '876543', '654321', '543210', '123123', '000000'].includes(c);
