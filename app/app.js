@@ -46,19 +46,19 @@ var T = {
     delOpen: 'Supprimer mon compte', delWarn: 'Ton compte et ton historique sauvegardé seront supprimés définitivement de nos serveurs. Tes données restent sur ce téléphone tant que tu ne les supprimes pas (bouton « Effacer mes données »).', delGo: 'Supprimer définitivement', delDone: 'Ton compte a été supprimé.',
     legalPriv: 'Confidentialité', legalDel: 'Supprimer mon compte et mes données', welcomeGift: '1 mois d’accès offert avec chaque flacon Sokkar Stop.',
     txtBtn: 'Écrire mon repas', manBtn: 'Ajout rapide', txtTitle: 'Décris ton repas', txtHelp: 'Ex. : 2 briks au thon et une salade, ou un thé à la menthe avec 2 sucres.', txtPh: 'Qu’as-tu mangé ou bu ?', txtGo: 'Calculer', txtShort: 'Écris au moins un mot.',
-    manTitle: 'Ajout rapide', manHelp: 'Tu connais déjà les calories ? Entre-les directement.', manName: 'Nom (ex. : pain, jus…)', manKcal: 'Calories', manGo: 'Continuer', entryClose: 'Annuler',
-    itEdit: 'Modifier', itDel: 'Retirer', itAdd: 'Ajouter un aliment', itName: 'Nom', itKcal: 'Calories', itSave: 'Valider', itBad: 'Entre un nom et des calories entre 1 et 5 000.',
-    manualHint: 'Valeurs saisies par toi.', textHint: 'Estimation d’après ton texte : précise les quantités pour être plus juste.', e_badtext: 'Décris ton repas avec quelques mots de plus.',
+    manTitle: 'Ajout rapide', manHelp: 'Tu connais déjà les glucides ? Entre-les directement.', manName: 'Nom (ex. : pain, jus…)', manKcal: 'Glucides (g)', manGo: 'Continuer', entryClose: 'Annuler',
+    itEdit: 'Modifier', itDel: 'Retirer', itAdd: 'Ajouter un aliment', itName: 'Nom', itKcal: 'Glucides (g)', itSave: 'Valider', itBad: 'Entre un nom et des glucides entre 0 et 1 000 g.',
+    manualHint: 'Glucides saisis par toi : les calories sont estimées (4 kcal par g).', textHint: 'Estimation d’après ton texte : précise les quantités pour être plus juste.', e_badtext: 'Décris ton repas avec quelques mots de plus.',
     trTitle: 'Tendances', tr7: '7 jours', tr30: '30 jours', trNone: 'Aucun repas enregistré sur cette période.', trGoal: 'Objectif', trAvg: 'Moyenne par jour sur les jours enregistrés',
     trLogged: function (n, t) { return n + ' jour' + (n > 1 ? 's' : '') + ' sur ' + t; }, trKcal: 'kcal', trCarbs: 'Glucides', trProt: 'Protéines', trFat: 'Lipides', trWeight: 'Poids',
-    trChart: function (n, avg) { return 'Calories par jour sur ' + n + ' jours, moyenne ' + avg + ' kcal.'; },
+    trChart: function (n, avg) { return 'Glucides par jour sur ' + n + ' jours, moyenne ' + avg + ' g.'; },
     // accueil / étapes
-    h1a: 'Photographie ton assiette.', h1b: 'On compte pour toi.',
-    lead: 'Réponds à quelques questions : on calcule tes calories du jour, puis tu scannes tes repas en photo.',
-    pill1: 'Calcul par photo', pill2: 'Alarme Sokkar Stop', pill3: 'Avant / après',
+    h1a: 'Photographie ton assiette.', h1b: 'On compte tes glucides.',
+    lead: 'Réponds à quelques questions : on calcule ton objectif de glucides du jour, puis tu scannes tes repas en photo.',
+    pill1: 'Glucides par photo', pill2: 'Alarme Sokkar Stop', pill3: 'Avant / après',
     start: 'Commencer', next: 'Continuer', back: 'Retour',
-    codeLabel: 'Code d’activation', codeHelp: 'Tu le trouves avec ton flacon Sokkar Stop.', codeBtn: 'Valider',
-    codeInvalid: 'Ce code n’existe pas. Vérifie les lettres et les chiffres.', codeUsed: 'Ce code est déjà utilisé sur un autre téléphone.',
+    codeLabel: 'Code d’activation', codeHelp: 'Le code à 4 chiffres est dans la boîte Sokkar Stop. Il fonctionne sur un seul téléphone.', codeBtn: 'Valider',
+    codeInvalid: 'Ce code n’existe pas. Vérifie les 4 chiffres.', codeUsed: 'Ce code est déjà utilisé sur un autre téléphone.',
     codeOk: function (d) { return 'Accès actif jusqu’au ' + d + '.'; }, codeNeed: 'Entre ton code pour commencer.',
     formTitle: 'Calcule ton objectif du jour',
     sexQ: 'Tu es', female: 'Une femme', male: 'Un homme',
@@ -72,11 +72,13 @@ var T = {
     lose: 'Perdre du poids', loseD: 'Environ 0,5 kg par semaine',
     keep: 'Garder mon poids', keepD: 'Rester stable',
     gain: 'Prendre du poids', gainD: 'Environ 0,25 kg par semaine',
-    medNote: 'Estimation générale, pas un avis médical. Si tu es enceinte, si tu allaites ou si tu as une maladie, demande conseil à ton médecin.',
+    medNote: 'Estimation générale, pas un avis médical. Si tu es enceinte, si tu allaites, si tu as un diabète ou une autre maladie, demande conseil à ton médecin.',
     calc: 'Continuer',
     errForm: 'Complète toutes les infos avec des valeurs correctes : âge de 14 à 90 ans, poids de 30 à 250 kg, taille de 120 à 230 cm.',
     // objectif
-    gTitle: 'Ton objectif', resTitle: 'Ton objectif du jour', perDay: 'kcal par jour',
+    gTitle: 'Ton objectif', resTitle: 'Ton objectif de glucides', perDay: 'g de glucides par jour',
+    carbNote: function (p, k) { return 'C’est ' + p + ' % de ton énergie du jour (' + fmt(k) + ' kcal), dans les repères de l’OMS (45 à 75 %). L’alarme sonne quand tu dépasses cette limite.'; },
+    sugarNote: function (g) { return 'Côté sucres, l’OMS conseille moins de 10 % de l’énergie en sucres libres, soit environ ' + g + ' g par jour (idéalement moins de 5 %).'; },
     adjLose: 'Pour perdre du poids, ton objectif est de 500 kcal sous ta dépense.',
     adjGain: 'Pour prendre du poids, ton objectif est de 300 kcal au-dessus de ta dépense.',
     adjKeep: 'Pour garder ton poids, ton objectif est égal à ta dépense.',
@@ -103,12 +105,12 @@ var T = {
     rIos: 'Sur iPhone : touche le bouton Partager de Safari, puis « Sur l’écran d’accueil ». Ouvre ensuite l’appli depuis l’écran d’accueil pour activer les notifications.',
     rFail: 'Impossible d’activer les notifications pour le moment. Réessaie plus tard.',
     // accueil
-    goalLabel: 'Objectif du jour', goalHelp: 'Calories à ne pas dépasser chaque jour.', save: 'Enregistrer',
-    unit: 'kcal', g: 'g', of: function (n) { return 'sur ' + fmt(n) + ' kcal'; },
-    left: function (n) { return 'Il te reste ' + fmt(n) + ' kcal'; },
-    over: function (n) { return 'Dépassé de ' + fmt(n) + ' kcal. Stop pour aujourd’hui.'; },
-    goalBtn: function (n) { return 'Objectif : ' + fmt(n) + ' kcal'; },
-    carbs: 'Glucides', protein: 'Protéines', fat: 'Lipides', sugarIn: 'dont sucres',
+    goalLabel: 'Objectif de glucides du jour', goalHelp: 'Glucides à ne pas dépasser chaque jour.', goalRec: function (n) { return 'Conseillé : ' + n + ' g'; }, save: 'Enregistrer',
+    unit: 'kcal', g: 'g', of: function (n) { return 'sur ' + fmt(n) + ' g de glucides'; },
+    left: function (n) { return 'Il te reste ' + fmt(n) + ' g de glucides'; },
+    over: function (n) { return 'Dépassé de ' + fmt(n) + ' g de glucides. Stop pour aujourd’hui.'; },
+    goalBtn: function (n) { return 'Objectif : ' + fmt(n) + ' g de glucides'; },
+    carbs: 'Glucides', protein: 'Protéines', fat: 'Lipides', sugarIn: 'dont sucres', sugars: 'Sucres', sugarRef: function (n) { return 'repère : ' + n + ' g max'; }, calories: 'Calories', gCarbs: 'g de glucides', kcalInfo: function (n) { return '≈ ' + fmt(n) + ' kcal aujourd’hui'; },
     before: 'Avant', after: 'Objectif', slideHint: 'Glisse pour comparer',
     phBefore: 'Ta photo actuelle', phAfter: 'Ton objectif atteint',
     heroAddT: 'Mon avant / après', heroAddP: 'Ajoute ta photo actuelle (en pied) : on crée l’image de toi avec ton objectif atteint. Glisse le trait pour comparer.', heroAddBtn: 'Ajouter ma photo',
@@ -124,7 +126,7 @@ var T = {
     calT: 'Mon calendrier', legG: 'Dans ma limite', legO: 'Léger dépassement', legR: 'Dépassement', legN: 'Pas de repas',
     calDays: 'Jours réussis', calStreak: 'Série en cours', calPrev: 'Mois précédent', calNext: 'Mois suivant',
     dG: 'dans ta limite', dO: 'léger dépassement', dR: 'dépassement', dN: 'aucun repas',
-    enc: function (n) { return 'Tu as dépassé de ' + fmt(n) + ' kcal aujourd’hui. Pas de panique : tu peux tenir le coup. Demain tu repars à zéro et tu pourras remanger ce genre de plat.'; },
+    enc: function (n) { return 'Tu as dépassé de ' + fmt(n) + ' g de glucides aujourd’hui. Pas de panique : tu peux tenir le coup. Demain tu repars à zéro et tu pourras remanger ce genre de plat.'; },
     rem_b: 'C’est l’heure du petit-déjeuner : prends ton assiette en photo.',
     rem_l: 'N’oublie pas d’envoyer une photo de ton déjeuner.',
     rem_d: 'Avant ton dîner, prends-le en photo : je te dis s’il rentre dans ta limite.',
@@ -137,7 +139,7 @@ var T = {
     estimate: 'Estimation faite à partir de la photo. Ajuste la portion si besoin.',
     lowConf: 'Photo peu claire : vérifie la portion.',
     pctCustom: function (n) { return n + ' %'; },
-    wOver: function (n) { return 'Ce repas dépasse ton objectif de ' + fmt(n) + ' kcal.'; },
+    wOver: function (n) { return 'Ce repas dépasse ton objectif de ' + fmt(n) + ' g de glucides.'; },
     wHelp: 'Pour rester dans ta limite :',
     cQuarter: 'Un quart', cHalf: 'La moitié', cLimit: 'Rester dans ma limite', cSkip: 'Je ne le mange pas',
     logTitle: 'Mes repas du jour', empty: 'Aucun repas pour l’instant. Prends ton premier repas en photo.',
@@ -152,12 +154,12 @@ var T = {
     e_generic: 'L’analyse a échoué. Réessaie ou prends une autre photo.',
     // alarme
     aTitle: 'Sokkar Stop',
-    aProj: function (n) { return 'Ce repas te fait dépasser ton objectif de ' + fmt(n) + ' kcal.'; },
-    aAlready: 'Tu as déjà atteint ton objectif aujourd’hui.',
-    aQuarter: function (k) { return 'Un quart · ' + k + ' kcal'; }, aHalf: function (k) { return 'La moitié · ' + k + ' kcal'; },
-    aLimit: function (k) { return 'Rester dans ma limite · ' + k + ' kcal'; },
+    aProj: function (n) { return 'Ce repas te fait dépasser ton objectif de ' + fmt(n) + ' g de glucides.'; },
+    aAlready: 'Tu as déjà atteint ton objectif de glucides aujourd’hui.',
+    aQuarter: function (k) { return 'Un quart · ' + k + ' g'; }, aHalf: function (k) { return 'La moitié · ' + k + ' g'; },
+    aLimit: function (k) { return 'Rester dans ma limite · ' + k + ' g'; },
     aFits: 'dans ta limite', aSkip: 'Je ne mange pas ça', aAll: 'Je mange tout quand même',
-    aFinal: function (n) { return 'Tu as dépassé ton objectif de ' + fmt(n) + ' kcal. On arrête les calories pour aujourd’hui.'; },
+    aFinal: function (n) { return 'Tu as dépassé ton objectif de ' + fmt(n) + ' g de glucides. On arrête les glucides pour aujourd’hui.'; },
     aTip: 'Si l’envie de sucre est forte, utilise ton spray Sokkar Stop.',
     aOk: 'J’ai compris',
     // réglages
@@ -186,17 +188,17 @@ var T = {
     delOpen: 'حذف حسابي', delWarn: 'سيُحذف حسابك وسجلّك المحفوظ نهائياً من خوادمنا. تبقى بياناتك على هذا الهاتف حتى تحذفها (زر «احذف بياناتي»).', delGo: 'حذف نهائي', delDone: 'تم حذف حسابك.',
     legalPriv: 'الخصوصية', legalDel: 'حذف حسابي وبياناتي', welcomeGift: 'شهر مجاني من الاستعمال مع كل قارورة سكر ستوب.',
     txtBtn: 'اكتب وجبتك', manBtn: 'إضافة سريعة', txtTitle: 'صف وجبتك', txtHelp: 'مثال: 2 بريك بالتونة وسلطة، أو شاي بالنعناع بسكرتين.', txtPh: 'ماذا أكلت أو شربت؟', txtGo: 'احسب', txtShort: 'اكتب كلمة واحدة على الأقل.',
-    manTitle: 'إضافة سريعة', manHelp: 'تعرف السعرات؟ أدخلها مباشرة.', manName: 'الاسم (مثال: خبز، عصير…)', manKcal: 'السعرات', manGo: 'متابعة', entryClose: 'إلغاء',
-    itEdit: 'تعديل', itDel: 'إزالة', itAdd: 'إضافة صنف', itName: 'الاسم', itKcal: 'السعرات', itSave: 'تأكيد', itBad: 'أدخل اسماً وسعرات بين 1 و5000.',
-    manualHint: 'قيم أدخلتها بنفسك.', textHint: 'تقدير حسب نصّك: حدّد الكميات لتكون النتيجة أدق.', e_badtext: 'صف وجبتك بكلمات أكثر قليلاً.',
+    manTitle: 'إضافة سريعة', manHelp: 'تعرف الكربوهيدرات؟ أدخلها مباشرة.', manName: 'الاسم (مثال: خبز، عصير…)', manKcal: 'الكربوهيدرات (غ)', manGo: 'متابعة', entryClose: 'إلغاء',
+    itEdit: 'تعديل', itDel: 'إزالة', itAdd: 'إضافة صنف', itName: 'الاسم', itKcal: 'الكربوهيدرات (غ)', itSave: 'تأكيد', itBad: 'أدخل اسماً وكربوهيدرات بين 0 و1000 غ.',
+    manualHint: 'كربوهيدرات أدخلتها بنفسك: السعرات تقديرية (4 سعرات لكل غرام).', textHint: 'تقدير حسب نصّك: حدّد الكميات لتكون النتيجة أدق.', e_badtext: 'صف وجبتك بكلمات أكثر قليلاً.',
     trTitle: 'الاتجاهات', tr7: '7 أيام', tr30: '30 يوماً', trNone: 'لا توجد وجبات مسجّلة في هذه الفترة.', trGoal: 'الهدف', trAvg: 'المعدل اليومي في الأيام المسجّلة',
     trLogged: function (n, t) { return n + ' من ' + t + ' يوماً'; }, trKcal: 'سعرة', trCarbs: 'كربوهيدرات', trProt: 'بروتين', trFat: 'دهون', trWeight: 'الوزن',
-    trChart: function (n, avg) { return 'السعرات اليومية خلال ' + n + ' يوماً، المعدل ' + avg + ' سعرة.'; },
-    h1a: 'صوّر صحنك.', h1b: 'ونحسب لك السعرات.',
-    lead: 'جاوب على أسئلة قليلة ونحسبو سعراتك اليومية، ثم صوّر وجباتك.',
-    pill1: 'حساب بالصورة', pill2: 'منبّه سكر ستوب', pill3: 'قبل / بعد',
+    trChart: function (n, avg) { return 'الكربوهيدرات اليومية خلال ' + n + ' يوماً، المعدل ' + avg + ' غ.'; },
+    h1a: 'صوّر صحنك.', h1b: 'ونحسب لك الكربوهيدرات.',
+    lead: 'جاوب على أسئلة قليلة ونحسبو هدفك اليومي من الكربوهيدرات، ثم صوّر وجباتك.',
+    pill1: 'كربوهيدرات بالصورة', pill2: 'منبّه سكر ستوب', pill3: 'قبل / بعد',
     start: 'ابدأ', next: 'متابعة', back: 'رجوع',
-    codeLabel: 'رمز التفعيل', codeHelp: 'تجده مع قارورة سكر ستوب.', codeBtn: 'تأكيد',
+    codeLabel: 'رمز التفعيل', codeHelp: 'رمز من 4 أرقام داخل علبة سكر ستوب. يعمل على هاتف واحد فقط.', codeBtn: 'تأكيد',
     codeInvalid: 'هذا الرمز غير موجود. تأكد من الحروف والأرقام.', codeUsed: 'هذا الرمز مستعمل على هاتف آخر.',
     codeOk: function (d) { return 'الاشتراك فعّال حتى ' + d + '.'; }, codeNeed: 'أدخل رمزك للبدء.',
     formTitle: 'احسب هدفك اليومي',
@@ -211,10 +213,12 @@ var T = {
     lose: 'خسارة الوزن', loseD: 'حوالي 0,5 كغ في الأسبوع',
     keep: 'الحفاظ على وزني', keepD: 'البقاء مستقرًا',
     gain: 'زيادة الوزن', gainD: 'حوالي 0,25 كغ في الأسبوع',
-    medNote: 'تقدير عام وليس نصيحة طبية. إذا كنتِ حاملًا أو مرضعة أو لديك مرض، استشيري طبيبك.',
+    medNote: 'تقدير عام وليس نصيحة طبية. إذا كنتِ حاملًا أو مرضعة أو لديك السكري أو أي مرض آخر، استشيري طبيبك.',
     calc: 'متابعة',
     errForm: 'أكمل كل المعلومات بقيم صحيحة: العمر من 14 إلى 90 سنة، الوزن من 30 إلى 250 كغ، الطول من 120 إلى 230 سم.',
-    gTitle: 'هدفك', resTitle: 'هدفك اليومي', perDay: 'سعرة في اليوم',
+    gTitle: 'هدفك', resTitle: 'هدفك من الكربوهيدرات', perDay: 'غ كربوهيدرات في اليوم',
+    carbNote: function (p, k) { return 'هذا ' + p + '٪ من طاقتك اليومية (' + fmt(k) + ' سعرة)، ضمن توصيات منظمة الصحة العالمية (45 إلى 75٪). ينطلق المنبّه عندما تتجاوز هذا الحد.'; },
+    sugarNote: function (g) { return 'بالنسبة للسكر، توصي المنظمة بأقل من 10٪ من الطاقة من السكريات الحرة، أي حوالي ' + g + ' غ في اليوم (والأفضل أقل من 5٪).'; },
     adjLose: 'لخسارة الوزن، هدفك أقل بـ 500 سعرة من إنفاقك.',
     adjGain: 'لزيادة الوزن، هدفك أكثر بـ 300 سعرة من إنفاقك.',
     adjKeep: 'للحفاظ على وزنك، هدفك يساوي إنفاقك.',
@@ -238,12 +242,12 @@ var T = {
     rUnsup: 'هذا المتصفح لا يدعم الإشعارات. جرّب Chrome على أندرويد أو Safari على آيفون.',
     rIos: 'على آيفون: اضغط زر المشاركة في Safari ثم «إضافة إلى الشاشة الرئيسية». افتح التطبيق بعدها من الشاشة الرئيسية لتفعيل الإشعارات.',
     rFail: 'تعذّر تفعيل الإشعارات الآن. أعد المحاولة لاحقًا.',
-    goalLabel: 'هدف اليوم', goalHelp: 'السعرات التي لا يجب تجاوزها كل يوم.', save: 'حفظ',
-    unit: 'سعرة', g: 'غ', of: function (n) { return 'من ' + fmt(n) + ' سعرة'; },
-    left: function (n) { return 'باقي لك ' + fmt(n) + ' سعرة'; },
-    over: function (n) { return 'تجاوزت بـ ' + fmt(n) + ' سعرة. قف لهذا اليوم.'; },
-    goalBtn: function (n) { return 'الهدف: ' + fmt(n) + ' سعرة'; },
-    carbs: 'كربوهيدرات', protein: 'بروتين', fat: 'دهون', sugarIn: 'منها سكر',
+    goalLabel: 'هدف الكربوهيدرات اليوم', goalHelp: 'الكربوهيدرات التي لا يجب تجاوزها كل يوم.', goalRec: function (n) { return 'المقترح: ' + n + ' غ'; }, save: 'حفظ',
+    unit: 'سعرة', g: 'غ', of: function (n) { return 'من ' + fmt(n) + ' غ كربوهيدرات'; },
+    left: function (n) { return 'باقي لك ' + fmt(n) + ' غ كربوهيدرات'; },
+    over: function (n) { return 'تجاوزت بـ ' + fmt(n) + ' غ كربوهيدرات. قف لهذا اليوم.'; },
+    goalBtn: function (n) { return 'الهدف: ' + fmt(n) + ' غ كربوهيدرات'; },
+    carbs: 'كربوهيدرات', protein: 'بروتين', fat: 'دهون', sugarIn: 'منها سكر', sugars: 'السكر', sugarRef: function (n) { return 'المرجع: ' + n + ' غ كحد أقصى'; }, calories: 'السعرات', gCarbs: 'غ كربوهيدرات', kcalInfo: function (n) { return '≈ ' + fmt(n) + ' سعرة اليوم'; },
     before: 'قبل', after: 'الهدف', slideHint: 'اسحب للمقارنة',
     phBefore: 'صورتك الحالية', phAfter: 'هدفك محقّق',
     heroAddT: 'قبل / بعد', heroAddP: 'أضف صورة كاملة لك: ننشئ صورة هدفك.', heroAddBtn: 'أضف صورتي',
@@ -259,7 +263,7 @@ var T = {
     calT: 'تقويمي', legG: 'ضمن حدّي', legO: 'تجاوز خفيف', legR: 'تجاوز', legN: 'بلا وجبات',
     calDays: 'أيام ناجحة', calStreak: 'السلسلة الحالية', calPrev: 'الشهر السابق', calNext: 'الشهر التالي',
     dG: 'ضمن حدّك', dO: 'تجاوز خفيف', dR: 'تجاوز', dN: 'بلا وجبات',
-    enc: function (n) { return 'تجاوزت اليوم بـ ' + fmt(n) + ' سعرة. لا تقلق، تقدر تصبر. غدًا تبدأ من الصفر وتقدر تأكل هذا النوع من الأكل مرة أخرى.'; },
+    enc: function (n) { return 'تجاوزت اليوم بـ ' + fmt(n) + ' غ كربوهيدرات. لا تقلق، تقدر تصبر. غدًا تبدأ من الصفر وتقدر تأكل هذا النوع من الأكل مرة أخرى.'; },
     rem_b: 'حان وقت الفطور: صوّر صحنك.',
     rem_l: 'لا تنس إرسال صورة غدائك.',
     rem_d: 'قبل عشائك، صوّره: أقول لك إن كان يدخل في حدّك.',
@@ -271,7 +275,7 @@ var T = {
     estimate: 'تقدير مبني على الصورة. عدّل الحصة عند الحاجة.',
     lowConf: 'الصورة غير واضحة: راجع الحصة.',
     pctCustom: function (n) { return n + ' %'; },
-    wOver: function (n) { return 'هذه الوجبة تتجاوز هدفك بـ ' + fmt(n) + ' سعرة.'; },
+    wOver: function (n) { return 'هذه الوجبة تتجاوز هدفك بـ ' + fmt(n) + ' غ كربوهيدرات.'; },
     wHelp: 'لتبقى ضمن حدّك:',
     cQuarter: 'الربع', cHalf: 'النصف', cLimit: 'أبقَ ضمن حدّي', cSkip: 'لن آكلها',
     logTitle: 'وجباتي اليوم', empty: 'لا توجد وجبات بعد. صوّر وجبتك الأولى.',
@@ -285,12 +289,12 @@ var T = {
     e_soon: 'تحليل الصور قادم قريباً. تم حفظ ملفك.',
     e_generic: 'فشل التحليل. أعد المحاولة أو صوّر مرة أخرى.',
     aTitle: 'سكر ستوب',
-    aProj: function (n) { return 'هذه الوجبة تجعلك تتجاوز هدفك بـ ' + fmt(n) + ' سعرة.'; },
-    aAlready: 'لقد بلغت هدفك اليوم.',
-    aQuarter: function (k) { return 'الربع · ' + k + ' سعرة'; }, aHalf: function (k) { return 'النصف · ' + k + ' سعرة'; },
-    aLimit: function (k) { return 'أبقَ ضمن حدّي · ' + k + ' سعرة'; },
+    aProj: function (n) { return 'هذه الوجبة تجعلك تتجاوز هدفك بـ ' + fmt(n) + ' غ كربوهيدرات.'; },
+    aAlready: 'لقد بلغت هدفك من الكربوهيدرات اليوم.',
+    aQuarter: function (k) { return 'الربع · ' + k + ' غ'; }, aHalf: function (k) { return 'النصف · ' + k + ' غ'; },
+    aLimit: function (k) { return 'أبقَ ضمن حدّي · ' + k + ' غ'; },
     aFits: 'ضمن حدّك', aSkip: 'لن آكل هذا', aAll: 'سآكل كل شيء رغم ذلك',
-    aFinal: function (n) { return 'تجاوزت هدفك بـ ' + fmt(n) + ' سعرة. كفى سعرات لهذا اليوم.'; },
+    aFinal: function (n) { return 'تجاوزت هدفك بـ ' + fmt(n) + ' غ كربوهيدرات. كفى كربوهيدرات لهذا اليوم.'; },
     aTip: 'إذا كانت الرغبة في السكر قوية، استعمل بخاخ سكر ستوب.',
     aOk: 'فهمت',
     sTitle: 'الإعدادات', sRem: 'التذكيرات', sNotif: 'الإشعارات', sNotifOn: 'مفعّلة', sNotifOff: 'غير مفعّلة',
@@ -306,7 +310,7 @@ var KEY = 'ss2_state';
 function defaults() {
   return {
     v: 2, lang: ((navigator.language || '').indexOf('ar') === 0) ? 'ar' : 'fr', sound: true, device: uuid(),
-    step: 'welcome', profile: null, goal: 2000, consent: false,
+    step: 'welcome', profile: null, goal: 2000, carbGoal: 0, dayCarbGoal: {}, consent: false,
     weights: [], meals: [], dayGoal: {}, exceeded: {}, startDate: '',
     rem: { breakfast: true, lunch: true, dinner: true }, pushOn: false,
     gen: 'none', genErr: '', genLeft: null, photoRatio: 0.75,
@@ -325,7 +329,7 @@ var CFG = { requireCode: false, vapidPublic: '', accounts: false, loaded: false 
 
 /* ---------- compte (e-mail + mot de passe) : l'historique suit la personne ---------- */
 var ACC_KEY = 'ss2_acc', ACC = jget(ACC_KEY), accMsg = '', accBusy = false, accEmailVal = '', pushT = null, applying = false;
-var SYNC_FIELDS = ['lang', 'sound', 'step', 'profile', 'goal', 'weights', 'meals', 'dayGoal', 'exceeded', 'startDate', 'rem', 'photoRatio'];
+var SYNC_FIELDS = ['lang', 'sound', 'step', 'profile', 'goal', 'carbGoal', 'weights', 'meals', 'dayGoal', 'dayCarbGoal', 'exceeded', 'startDate', 'rem', 'photoRatio'];
 var IN_APP = /Instagram|FBAN|FBAV|FB_IAB|musical_ly|TikTok|BytedanceWebview|Snapchat|Line\//i.test(navigator.userAgent || '');
 function accOn() { return !!(CFG.accounts && HAS_API); }
 function accPost(action, data) { var b = { action: action }; for (var k in (data || {})) { b[k] = data[k]; } return post(API + 'account', b); }
@@ -346,15 +350,18 @@ function applyRemote(rs) {
   (rs.weights || []).concat(S.weights || []).forEach(function (x) { if (x && x.d) { w[x.d] = x; } });
   var takeRemote = !!rs.profile && (!S.profile || (rs.updatedAt || 0) >= (S.updatedAt || 0));
   if (takeRemote) {
-    ['lang', 'sound', 'profile', 'goal', 'startDate', 'rem', 'photoRatio'].forEach(function (f) { if (rs[f] !== undefined) { S[f] = rs[f]; } });
+    ['lang', 'sound', 'profile', 'goal', 'carbGoal', 'startDate', 'rem', 'photoRatio'].forEach(function (f) { if (rs[f] !== undefined) { S[f] = rs[f]; } });
+    if (!(rs.carbGoal > 0)) { S.carbGoal = 0; }          // ancien compte (calories seulement) : l’objectif glucides est recalculé
     S.step = 'home';
   }
   S.meals = Object.keys(m).map(function (i) { return m[i]; }).sort(function (a, b) { return a.t - b.t; });
   S.weights = Object.keys(w).map(function (i) { return w[i]; }).sort(function (a, b) { return a.d < b.d ? -1 : 1; });
-  var dg = {}, ex = {};
+  var dg = {}, ex = {}, dc = {};
   for (k in (rs.dayGoal || {})) { dg[k] = rs.dayGoal[k]; } for (k in (S.dayGoal || {})) { dg[k] = S.dayGoal[k]; }
+  for (k in (rs.dayCarbGoal || {})) { dc[k] = rs.dayCarbGoal[k]; } for (k in (S.dayCarbGoal || {})) { dc[k] = S.dayCarbGoal[k]; }
   for (k in (rs.exceeded || {})) { ex[k] = rs.exceeded[k]; } for (k in (S.exceeded || {})) { ex[k] = S.exceeded[k]; }
-  S.dayGoal = dg; S.exceeded = ex;
+  S.dayGoal = dg; S.dayCarbGoal = dc; S.exceeded = ex;
+  ensureCarb();
 }
 function accErr(r) {
   var e = r && r.j && r.j.error;
@@ -571,6 +578,20 @@ function compute(p) {
   var raw = tdee + adj, target = Math.max(floor, raw);
   return { bmr: Math.round(bmr / 10) * 10, tdee: Math.round(tdee / 10) * 10, target: Math.round(target / 10) * 10, eff: eff, minor: p.age < 18, floored: raw < floor, floor: floor };
 }
+/* Objectif glucides : une part de l'énergie du jour, dans les repères de l'OMS (45 à 75 % de l'énergie).
+   On reste dans le bas de la fourchette : 45 % pour perdre du poids, 50 % pour garder, 55 % pour prendre.
+   Plancher 130 g/jour (besoin minimal du cerveau). Sucres libres : moins de 10 % de l'énergie (OMS). */
+var CARB_PCT = { lose: 0.45, keep: 0.50, gain: 0.55 }, CARB_MIN = 130, CARB_MAX = 450;
+function carbPlan(kcal, eff) {
+  var g = clamp(Math.round(kcal * (CARB_PCT[eff] || 0.5) / 4 / 5) * 5, CARB_MIN, CARB_MAX);
+  return { g: g, pct: Math.round(g * 4 / kcal * 100), sugar: Math.round(kcal * 0.10 / 4) };
+}
+function planNow() { return carbPlan(S.goal || 2000, S.profile ? compute(S.profile).eff : 'keep'); }
+function ensureCarb() {
+  if (!(S.carbGoal > 0)) { S.carbGoal = planNow().g; }      // comptes créés avant le passage aux glucides
+  if (!S.dayCarbGoal) { S.dayCarbGoal = {}; }
+}
+ensureCarb();
 function targetOptions(p) {
   var hm = p.height / 100, minW = Math.ceil(20 * hm * hm), maxW = Math.floor(29 * hm * hm), opts, lo, hi;
   if (p.goal === 'lose') {
@@ -594,12 +615,12 @@ function sumMeals(list) {
 }
 function mealType(ts) { var h = new Date(ts).getHours(); return h < 11 ? 'b' : (h < 17 ? 'l' : 'd'); }
 function nameOf(o) { return S.lang === 'ar' ? (o.ar || o.fr) : (o.fr || o.ar); }
-function remaining() { return S.goal - sumMeals(todayMeals()).kcal; }
+function remaining() { return S.carbGoal - sumMeals(todayMeals()).carbs; }
 
 function dayInfo(key) {
   var list = S.meals.filter(function (m) { return m.day === key; });
   if (!list.length) { return null; }
-  var total = sumMeals(list).kcal, g = S.dayGoal[key] || S.goal, r = total / g;
+  var total = sumMeals(list).carbs, g = S.dayCarbGoal[key] || S.carbGoal, r = total / g;
   return { total: total, goal: g, status: r <= 1 ? 'good' : (r <= 1.15 ? 'mid' : 'bad') };
 }
 function calStats() {
@@ -692,7 +713,7 @@ function accessOk() { return !CFG.requireCode || (S.access.expires && S.access.e
 function codeForm(msg, isErr) {
   return '<form class="panel" id="codeForm"><div class="group"><label class="q" for="codeInput">' + esc(tx('codeLabel')) + '</label>' +
     '<p class="hint">' + esc(tx('codeHelp')) + '</p>' +
-    '<div class="codeform"><div class="inp"><input id="codeInput" type="text" inputmode="text" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="XXXX-XXXX"></div>' +
+    '<div class="codeform"><div class="inp"><input id="codeInput" type="text" inputmode="numeric" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="0000"></div>' +
     '<button class="btn" type="submit">' + esc(tx('codeBtn')) + '</button></div>' +
     (msg ? '<p class="' + (isErr ? 'err' : 'note') + '" role="alert">' + esc(msg) + '</p>' : '') + '</div></form>';
 }
@@ -765,10 +786,10 @@ function submitProfile() {
 
 /* ---------- 3. objectif ---------- */
 function viewGoal() {
-  var p = S.profile, r = compute(p), notes = [];
+  var p = S.profile, r = compute(p), cp = carbPlan(r.target, r.eff), notes = [tx('carbNote')(cp.pct, r.target), tx('sugarNote')(cp.sugar)];
   if (r.minor) { notes.push(tx('minorNote')); } else if (p.forcedKeep) { notes.push(tx('noRoom')); } else { notes.push(tx(r.eff === 'lose' ? 'adjLose' : r.eff === 'gain' ? 'adjGain' : 'adjKeep')); }
   if (r.floored) { notes.push(tx('floorNote')(r.floor)); }
-  var h = '<div class="view">' + dots('goal') + '<div class="res-card"><div class="res-title">' + esc(tx('resTitle')) + '</div><div class="res-num">' + fmt(r.target) + '</div><div class="res-title">' + esc(tx('perDay')) + '</div></div>' +
+  var h = '<div class="view">' + dots('goal') + '<div class="res-card"><div class="res-title">' + esc(tx('resTitle')) + '</div><div class="res-num">' + fmt(cp.g) + '</div><div class="res-title">' + esc(tx('perDay')) + '</div></div>' +
     '<div>' + notes.map(function (n) { return '<p class="note">' + esc(n) + '</p>'; }).join('') + '</div>';
   if (p.goal === 'lose' || p.goal === 'gain') {
     var o = targetOptions(p), dir = o.dir;
@@ -806,7 +827,9 @@ function setTarget(w, fromInput) {
   } else { $('tEst').textContent = ''; }
 }
 function afterGoal() {
-  S.goal = compute(S.profile).target;
+  var c = compute(S.profile);
+  S.goal = c.target; S.carbGoal = carbPlan(c.target, c.eff).g;
+  if (S.dayCarbGoal[dkey()]) { S.dayCarbGoal[dkey()] = S.carbGoal; }
   if (S.startDate) {                       // recalcul depuis l'accueil
     save();
     if (eligiblePhoto() && mem.before && S.gen !== 'running') { S.gen = 'stale'; }
@@ -891,7 +914,7 @@ function syncState(now) {
     var k = dkey(), list = todayMeals(), by = { b: false, l: false, d: false };
     list.forEach(function (m) { by[m.type || mealType(m.t)] = true; });
     var ex = Object.keys(S.exceeded).sort().pop() || '';
-    api('state', { date: k, total: sumMeals(list).kcal, goal: S.goal, count: list.length, byType: by, exceededAt: S.exceeded[k] || 0, lastExceededDate: ex, lang: S.lang, prefs: prefsPayload() }).catch(function () {});
+    api('state', { date: k, total: sumMeals(list).carbs, goal: S.carbGoal, count: list.length, byType: by, exceededAt: S.exceeded[k] || 0, lastExceededDate: ex, lang: S.lang, prefs: prefsPayload() }).catch(function () {});
   }, now ? 50 : 800);
 }
 function finishOnboarding() {
@@ -1006,7 +1029,7 @@ function bindSlider() {
 function bannersHTML() {
   var h = '', key = dkey(), ex = S.exceeded[key], now = new Date(), min = now.getHours() * 60 + now.getMinutes();
   if (ex) {
-    var over = sumMeals(todayMeals()).kcal - S.goal;
+    var over = sumMeals(todayMeals()).carbs - S.carbGoal;
     if (over > 0) { return '<div class="banner enc">' + ICON.heart + '<p>' + esc(tx('enc')(over)) + '</p></div>'; }
   }
   var by = { b: false, l: false, d: false };
@@ -1028,7 +1051,7 @@ function refreshBanners() { var el = $('banners'); if (el) { el.innerHTML = bann
 /* jauge du jour */
 function refreshDay() {
   var el = $('day'); if (!el) { return; }
-  var s = sumMeals(todayMeals()), goal = S.goal, ratio = goal ? s.kcal / goal : 0, u = tx('g');
+  var s = sumMeals(todayMeals()), goal = S.carbGoal, ratio = goal ? s.carbs / goal : 0, u = tx('g'), pl = planNow();
   var cls = ratio > 1 ? ' bad' : (ratio >= 0.85 ? ' warn' : '');
   var open = $('goalPanel') && !$('goalPanel').hidden;
   function tile(c, label, v, extra) { return '<div class="tile ' + c + '"><div class="lbl">' + esc(label) + '</div><div class="val">' + v + '<small>' + u + '</small></div>' + (extra ? '<div class="sg">' + esc(extra) + '</div>' : '') + '</div>'; }
@@ -1036,22 +1059,23 @@ function refreshDay() {
   el.innerHTML = '<p class="date">' + esc(date) + '</p>' +
     '<div class="gauge' + cls + '" id="gauge" aria-live="polite"><div class="ring-wrap"><svg class="ring" viewBox="0 0 220 220" aria-hidden="true"><circle class="track" cx="110" cy="110" r="88"/>' +
     '<circle class="prog" cx="110" cy="110" r="88" stroke-dasharray="552.92" stroke-dashoffset="' + (552.92 * (1 - Math.min(ratio, 1))) + '" transform="rotate(-90 110 110)"/></svg>' +
-    '<div class="ring-center"><div class="num">' + fmt(s.kcal) + '</div><div class="sub">' + esc(tx('of')(goal)) + '</div></div></div>' +
-    '<p class="remain">' + esc(ratio > 1 ? tx('over')(s.kcal - goal) : tx('left')(goal - s.kcal)) + '</p>' +
+    '<div class="ring-center"><div class="num">' + fmt(s.carbs) + '</div><div class="sub">' + esc(tx('of')(goal)) + '</div></div></div>' +
+    '<p class="remain">' + esc(ratio > 1 ? tx('over')(s.carbs - goal) : tx('left')(goal - s.carbs)) + '</p>' +
+    '<p class="kcal-line">' + esc(tx('kcalInfo')(s.kcal)) + '</p>' +
     '<button class="goal-btn" type="button" data-act="goal-toggle" aria-expanded="' + open + '" aria-controls="goalPanel">' + ICON.pencil + '<span>' + esc(tx('goalBtn')(goal)) + '</span></button>' +
     '<form class="goal-panel" id="goalPanel"' + (open ? '' : ' hidden') + '><label for="goalInput">' + esc(tx('goalLabel')) + '</label><p class="hint">' + esc(tx('goalHelp')) + '</p>' +
-    '<div class="chips">' + [1500, 1800, 2000, 2200, 2500].map(function (n) { return '<button type="button" class="chip" data-act="goal-chip" data-v="' + n + '" aria-pressed="' + (n === goal) + '">' + n + '</button>'; }).join('') + '</div>' +
-    '<div class="goal-row"><input id="goalInput" type="number" inputmode="numeric" min="800" max="6000" step="50" value="' + goal + '"><button class="btn" type="submit">' + esc(tx('save')) + '</button></div></form></div>' +
-    '<div class="macros">' + tile('c', tx('carbs'), s.carbs, tx('sugarIn') + ' ' + s.sugar + ' ' + u) + tile('p', tx('protein'), s.protein, '') + tile('f', tx('fat'), s.fat, '') + '</div>';
+    '<div class="chips">' + [pl.g].concat([150, 200, 250, 300].filter(function (n) { return n !== pl.g; })).map(function (n, i) { return '<button type="button" class="chip" data-act="goal-chip" data-v="' + n + '" aria-pressed="' + (n === goal) + '">' + (i === 0 ? esc(tx('goalRec')(n)) : n) + '</button>'; }).join('') + '</div>' +
+    '<div class="goal-row"><input id="goalInput" type="number" inputmode="numeric" min="50" max="600" step="5" value="' + goal + '"><button class="btn" type="submit">' + esc(tx('save')) + '</button></div></form></div>' +
+    '<div class="macros">' + tile('c', tx('sugars'), s.sugar, tx('sugarRef')(pl.sugar)) + tile('p', tx('protein'), s.protein, '') + tile('f', tx('fat'), s.fat, '') + '</div>';
 }
 
 /* repas du jour */
 function refreshMeals() {
   var el = $('meals'); if (!el) { return; }
-  var list = todayMeals(), u = tx('unit');
+  var list = todayMeals();
   el.innerHTML = '<h2>' + esc(tx('logTitle')) + '</h2>' + (list.length ? '<ul>' + list.map(function (m) {
     var d = new Date(m.t);
-    return '<li class="meal"><span class="time">' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</span><span class="nm">' + esc(nameOf(m)) + '</span><span class="kc">' + m.kcal + ' ' + u + '</span>' +
+    return '<li class="meal"><span class="time">' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</span><span class="nm">' + esc(nameOf(m)) + '</span><span class="kc">' + m.carbs + ' ' + tx('g') + '</span>' +
       '<button type="button" class="del" data-act="del" data-id="' + esc(m.id) + '" aria-label="' + esc(tx('del')) + '">&times;</button></li>';
   }).join('') + '</ul>' : '<p class="empty">' + esc(tx('empty')) + '</p>');
 }
@@ -1101,14 +1125,14 @@ function trendsHTML() {
   var tot = { kcal: 0, carbs: 0, protein: 0, fat: 0 };
   logged.forEach(function (x) { tot.kcal += x.sum.kcal; tot.carbs += x.sum.carbs; tot.protein += x.sum.protein; tot.fat += x.sum.fat; });
   var avg = { kcal: Math.round(tot.kcal / cnt), carbs: Math.round(tot.carbs / cnt), protein: Math.round(tot.protein / cnt), fat: Math.round(tot.fat / cnt) };
-  var W = 320, H = 150, top = 12, base = 118, mx = S.goal * 1.25;
-  logged.forEach(function (x) { if (x.sum.kcal * 1.08 > mx) { mx = x.sum.kcal * 1.08; } });
+  var W = 320, H = 150, top = 12, base = 118, mx = S.carbGoal * 1.25;
+  logged.forEach(function (x) { if (x.sum.carbs * 1.08 > mx) { mx = x.sum.carbs * 1.08; } });
   var slot = W / n, bw = Math.max(4, slot * (n === 7 ? 0.56 : 0.64)), svg = '';
   function yOf(v) { return base - (v / mx) * (base - top); }
   days.forEach(function (x, idx) {
     var cx = idx * slot + slot / 2;
     if (x.has) {
-      var y = yOf(x.sum.kcal), col = x.inf.status === 'good' ? 'var(--ok)' : (x.inf.status === 'mid' ? 'var(--warn)' : 'var(--bad)');
+      var y = yOf(x.sum.carbs), col = x.inf.status === 'good' ? 'var(--ok)' : (x.inf.status === 'mid' ? 'var(--warn)' : 'var(--bad)');
       svg += '<rect x="' + (cx - bw / 2).toFixed(1) + '" y="' + y.toFixed(1) + '" width="' + bw.toFixed(1) + '" height="' + Math.max(2, base - y).toFixed(1) + '" rx="3" style="fill:' + col + '"/>';
     } else {
       svg += '<rect x="' + (cx - bw / 2).toFixed(1) + '" y="' + (base - 3) + '" width="' + bw.toFixed(1) + '" height="3" rx="1.5" style="fill:var(--line)"/>';
@@ -1121,14 +1145,14 @@ function trendsHTML() {
   if (n === 30) {
     [0, 14, 29].forEach(function (idx) { var x = days[idx]; svg += '<text x="' + (idx === 0 ? 2 : idx === 29 ? W - 2 : idx * slot + slot / 2).toFixed(1) + '" y="' + (base + 18) + '" text-anchor="' + (idx === 0 ? 'start' : idx === 29 ? 'end' : 'middle') + '" style="fill:var(--muted);font-size:11px;font-weight:700">' + x.date.getDate() + '/' + (x.date.getMonth() + 1) + '</text>'; });
   }
-  var gy = yOf(S.goal);
+  var gy = yOf(S.carbGoal);
   svg += '<line x1="0" x2="' + W + '" y1="' + gy.toFixed(1) + '" y2="' + gy.toFixed(1) + '" stroke-dasharray="5 4" style="stroke:var(--ink);stroke-width:1.2;opacity:.55"/>';
-  var u = tx('unit');
+  var u = tx('unit'), gg = tx('g');
   return '<div class="card tr" style="margin-top:14px">' + head +
-    '<svg class="tr-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(tx('trChart')(n, avg.kcal)) + '" dir="ltr">' + svg + '</svg>' +
-    '<p class="note tr-key"><i aria-hidden="true"></i>' + esc(tx('trGoal')) + ' : ' + fmt(S.goal) + ' ' + esc(u) + ' · ' + esc(tx('trLogged')(cnt, n)) + '</p>' +
+    '<svg class="tr-chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + esc(tx('trChart')(n, avg.carbs)) + '" dir="ltr">' + svg + '</svg>' +
+    '<p class="note tr-key"><i aria-hidden="true"></i>' + esc(tx('trGoal')) + ' : ' + fmt(S.carbGoal) + ' ' + esc(gg) + ' · ' + esc(tx('trLogged')(cnt, n)) + '</p>' +
     '<p class="note">' + esc(tx('trAvg')) + '</p>' +
-    '<div class="tr-stats"><div><b>' + fmt(avg.kcal) + '</b>' + esc(u) + '</div><div><b>' + avg.carbs + ' ' + esc(tx('g')) + '</b>' + esc(tx('trCarbs')) + '</div><div><b>' + avg.protein + ' ' + esc(tx('g')) + '</b>' + esc(tx('trProt')) + '</div><div><b>' + avg.fat + ' ' + esc(tx('g')) + '</b>' + esc(tx('trFat')) + '</div></div>' +
+    '<div class="tr-stats"><div><b>' + avg.carbs + ' ' + esc(tx('g')) + '</b>' + esc(tx('trCarbs')) + '</div><div><b>' + fmt(avg.kcal) + '</b>' + esc(u) + '</div><div><b>' + avg.protein + ' ' + esc(tx('g')) + '</b>' + esc(tx('trProt')) + '</div><div><b>' + avg.fat + ' ' + esc(tx('g')) + '</b>' + esc(tx('trFat')) + '</div></div>' +
     weightTrend() + '</div>';
 }
 function weightTrend() {
@@ -1146,11 +1170,11 @@ function weightTrend() {
 }
 function dayDetail(key) {
   if (!key) { return '<p class="note" style="text-align:center;margin-top:12px">' + esc(tx('histTap')) + '</p>'; }
-  var list = S.meals.filter(function (m) { return m.day === key; }).sort(function (a, b) { return a.t - b.t; }), u = tx('unit'), inf = dayInfo(key), dt = key;
+  var list = S.meals.filter(function (m) { return m.day === key; }).sort(function (a, b) { return a.t - b.t; }), u = tx('g'), inf = dayInfo(key), dt = key;
   try { var p = key.split('-'); dt = new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString(tx('locale'), { weekday: 'long', day: 'numeric', month: 'long' }); } catch (e) {}
   return '<div class="card log" style="margin-top:14px"><h2>' + esc(tx('histTitle')) + ' : ' + esc(dt) + '</h2><p class="note"><b>' + fmt(inf.total) + '</b> / ' + fmt(inf.goal) + ' ' + esc(u) + '</p><ul>' + list.map(function (m) {
     var d = new Date(m.t);
-    return '<li class="meal"><span class="time">' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</span><span class="nm">' + esc(nameOf(m)) + '</span><span class="kc">' + m.kcal + ' ' + esc(u) + '</span></li>';
+    return '<li class="meal"><span class="time">' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</span><span class="nm">' + esc(nameOf(m)) + '</span><span class="kc">' + m.carbs + ' ' + esc(u) + '</span></li>';
   }).join('') + '</ul></div>';
 }
 
@@ -1219,8 +1243,8 @@ function generateAfter() {
 }
 
 var PORTIONS = [[0.25, '¼'], [0.5, '½'], [1, '1'], [1.5, '1½'], [2, '2']];
-function mealBase() { return cur.items.reduce(function (a, i) { return a + i.kcal; }, 0); }
-function mealKcal(mult) { return Math.round(mealBase() * mult); }
+function mealBase() { return cur.items.reduce(function (a, i) { return a + i.carbs; }, 0); }
+function mealCarbs(mult) { return Math.round(mealBase() * mult); }
 function limitMult() {
   var rem = remaining(), full = mealBase();
   if (rem <= 0 || !full) { return 0; }
@@ -1261,7 +1285,7 @@ function runAnalysis(job) {
       var items = normalise(r.j);
       if (!items.length) { job.status = 'error'; job.err = 'notfood'; renderCapture(); return; }
       job.items = items; job.conf = r.j.confidence; job.mult = 1; job.status = 'result'; renderCapture();
-      if (mealKcal(1) > remaining()) { job.alarmed = true; decisionAlarm(); }
+      if (mealCarbs(1) > 0 && mealCarbs(1) > remaining()) { job.alarmed = true; decisionAlarm(); }
     })
     .catch(function (e) {
       if (cur !== job || (e && e.name === 'AbortError')) { return; }
@@ -1278,32 +1302,32 @@ function startTextAnalysis(desc) {
   var job = cur = { status: 'analyzing', items: [], mult: 1, conf: '', thumb: '', text: desc, ctl: null, alarmed: false };
   renderCapture(); runAnalysis(job);
 }
-function startManual(name, kcal) {
+function startManual(name, carbs) {
   closeCur();
-  var job = cur = { status: 'result', items: [{ fr: name, ar: name, kcal: kcal, carbs: 0, protein: 0, fat: 0, sugar: 0 }], mult: 1, conf: 'manual', thumb: '', manual: true, ctl: null, alarmed: false };
+  var job = cur = { status: 'result', items: [{ fr: name, ar: name, kcal: carbs * 4, carbs: carbs, protein: 0, fat: 0, sugar: 0 }], mult: 1, conf: 'manual', thumb: '', manual: true, ctl: null, alarmed: false };
   renderCapture();
-  if (mealKcal(1) > remaining()) { job.alarmed = true; decisionAlarm(); }
+  if (mealCarbs(1) > 0 && mealCarbs(1) > remaining()) { job.alarmed = true; decisionAlarm(); }
 }
-function readKcal(v) { var n = Math.round(parseFloat(String(v).replace(',', '.'))); return isFinite(n) && n >= 1 && n <= 5000 ? n : 0; }
+function readCarb(v) { var n = Math.round(parseFloat(String(v).replace(',', '.'))); return isFinite(n) && n >= 0 && n <= 1000 ? n : -1; }
 function applyItemForm() {
   if (!cur || cur.status !== 'result') { return; }
   var nm = $('itName'), kc = $('itKcal'); if (!nm || !kc) { return; }
-  var name = nm.value.replace(/\s+/g, ' ').trim().slice(0, 60), shown = readKcal(kc.value), mult = cur.mult > 0 ? cur.mult : 1;
-  if (!name || !shown) { cur.editErr = tx('itBad'); renderCapture(); return; }
+  var name = nm.value.replace(/\s+/g, ' ').trim().slice(0, 60), shown = readCarb(kc.value), mult = cur.mult > 0 ? cur.mult : 1;
+  if (!name || shown < 0) { cur.editErr = tx('itBad'); renderCapture(); return; }
   var base = shown / mult;                       // la valeur saisie est celle affichée pour la portion choisie
   if (cur.edit === 'new') {
     if (cur.items.length >= 12) { cur.edit = undefined; renderCapture(); return; }
-    cur.items.push({ fr: name, ar: name, kcal: base, carbs: 0, protein: 0, fat: 0, sugar: 0 });
+    cur.items.push({ fr: name, ar: name, kcal: base * 4, carbs: base, protein: 0, fat: 0, sugar: 0 });
   } else {
     var it = cur.items[cur.edit]; if (!it) { cur.edit = undefined; renderCapture(); return; }
-    var ratio = it.kcal > 0 ? base / it.kcal : 1, same = nameOf(it) === name;
-    cur.items[cur.edit] = { fr: same ? it.fr : name, ar: same ? it.ar : name, kcal: base, carbs: it.carbs * ratio, protein: it.protein * ratio, fat: it.fat * ratio, sugar: it.sugar * ratio };
+    var same = nameOf(it) === name;       // les glucides changent : les calories suivent (4 kcal par g), le reste ne bouge pas
+    cur.items[cur.edit] = { fr: same ? it.fr : name, ar: same ? it.ar : name, kcal: Math.max(0, it.kcal + (base - it.carbs) * 4), carbs: base, protein: it.protein, fat: it.fat, sugar: it.carbs > 0 ? Math.min(base, it.sugar * base / it.carbs) : 0 };
   }
   cur.edit = undefined; cur.editErr = ''; renderCapture();
 }
 function itemRow(i, idx, mult, u) {
-  var shown = Math.round(i.kcal * mult), multi = cur.items.length > 1;
-  return '<li><span>' + esc(nameOf(i)) + '</span><span class="k">' + shown + ' ' + u + '</span><span class="row-act">' +
+  var shown = Math.round(i.carbs * mult), multi = cur.items.length > 1;
+  return '<li><span>' + esc(nameOf(i)) + '</span><span class="k">' + shown + ' ' + tx('g') + '</span><span class="row-act">' +
     '<button type="button" class="ico-btn" data-act="it-edit" data-i="' + idx + '" aria-label="' + esc(tx('itEdit') + ' : ' + nameOf(i)) + '">' + ICON.pencil + '</button>' +
     (multi ? '<button type="button" class="ico-btn" data-act="it-del" data-i="' + idx + '" aria-label="' + esc(tx('itDel') + ' : ' + nameOf(i)) + '">&times;</button>' : '') + '</span></li>';
 }
@@ -1311,7 +1335,7 @@ function itemForm(idx, mult) {
   var it = idx === 'new' ? null : cur.items[idx];
   return '<li class="edit"><form id="itemForm" novalidate>' +
     '<div class="inp"><input id="itName" type="text" maxlength="60" autocomplete="off" aria-label="' + esc(tx('itName')) + '" placeholder="' + esc(tx('itName')) + '" value="' + esc(it ? nameOf(it) : '') + '"></div>' +
-    '<div class="inp"><input id="itKcal" type="number" inputmode="numeric" min="1" max="5000" step="1" aria-label="' + esc(tx('itKcal')) + '" placeholder="' + esc(tx('itKcal')) + '" value="' + (it ? Math.round(it.kcal * mult) : '') + '" dir="ltr"><span class="u">' + esc(tx('unit')) + '</span></div>' +
+    '<div class="inp"><input id="itKcal" type="number" inputmode="numeric" min="0" max="1000" step="1" aria-label="' + esc(tx('itKcal')) + '" placeholder="' + esc(tx('itKcal')) + '" value="' + (it ? Math.round(it.carbs * mult) : '') + '" dir="ltr"><span class="u">' + esc(tx('g')) + '</span></div>' +
     (cur.editErr ? '<p class="err" role="alert">' + esc(cur.editErr) + '</p>' : '') +
     '<div class="acc-row"><button class="btn" type="submit" style="min-height:44px">' + esc(tx('itSave')) + '</button><button class="btn ghost" type="button" data-act="it-cancel" style="min-height:44px">' + esc(tx('entryClose')) + '</button></div></form></li>';
 }
@@ -1324,7 +1348,7 @@ function entryForm() {
   }
   return '<form class="card" id="manForm" novalidate><h2>' + esc(tx('manTitle')) + '</h2><p class="hint">' + esc(tx('manHelp')) + '</p>' +
     '<div class="inp"><input id="manName" type="text" maxlength="60" autocomplete="off" aria-label="' + esc(tx('manName')) + '" placeholder="' + esc(tx('manName')) + '"></div>' +
-    '<div class="inp"><input id="manKcal" type="number" inputmode="numeric" min="1" max="5000" step="1" aria-label="' + esc(tx('manKcal')) + '" placeholder="' + esc(tx('manKcal')) + '" dir="ltr"><span class="u">' + esc(tx('unit')) + '</span></div>' +
+    '<div class="inp"><input id="manKcal" type="number" inputmode="numeric" min="0" max="1000" step="1" aria-label="' + esc(tx('manKcal')) + '" placeholder="' + esc(tx('manKcal')) + '" dir="ltr"><span class="u">' + esc(tx('g')) + '</span></div>' +
     (entryErr ? '<p class="err" role="alert">' + esc(entryErr) + '</p>' : '') +
     '<div class="actions"><button type="submit" class="btn">' + esc(tx('manGo')) + '</button><button type="button" class="btn ghost" data-act="entry-close">' + esc(tx('entryClose')) + '</button></div></form>';
 }
@@ -1350,11 +1374,11 @@ function renderCapture() {
       '<button type="button" class="btn ghost" data-act="cancel">' + esc(tx('cancel')) + '</button></div></div>';
     return;
   }
-  var t = totalsOf(cur.items, cur.mult), rem = remaining(), over = t.kcal - rem;
+  var t = totalsOf(cur.items, cur.mult), rem = remaining(), over = t.carbs - rem;
   var rows = cur.items.map(function (i, idx) { return cur.edit === idx ? itemForm(idx, cur.mult) : itemRow(i, idx, cur.mult, u); }).join('') +
     (cur.edit === 'new' ? itemForm('new', cur.mult) : (cur.edit === undefined && cur.items.length < 12 ? '<li class="add-row"><button type="button" class="link add-it" data-act="it-add">+ ' + esc(tx('itAdd')) + '</button></li>' : ''));
   var known = PORTIONS.some(function (p) { return p[0] === cur.mult; });
-  var chips = PORTIONS.map(function (p) { return '<button type="button" class="chip' + (mealKcal(p[0]) <= rem ? ' fit' : '') + '" data-act="mult" data-v="' + p[0] + '" aria-pressed="' + (p[0] === cur.mult) + '">' + p[1] + '</button>'; }).join('') +
+  var chips = PORTIONS.map(function (p) { return '<button type="button" class="chip' + (mealCarbs(p[0]) <= rem ? ' fit' : '') + '" data-act="mult" data-v="' + p[0] + '" aria-pressed="' + (p[0] === cur.mult) + '">' + p[1] + '</button>'; }).join('') +
     (known ? '' : '<button type="button" class="chip" aria-pressed="true">' + esc(tx('pctCustom')(Math.round(cur.mult * 100))) + '</button>');
   var warn = '';
   if (over > 0) {
@@ -1363,8 +1387,8 @@ function renderCapture() {
       '<button type="button" class="chip" data-act="mult" data-v="0.25">' + esc(tx('cQuarter')) + '</button><button type="button" class="chip" data-act="mult" data-v="0.5">' + esc(tx('cHalf')) + '</button>' +
       (lm > 0 ? '<button type="button" class="chip" data-act="limit">' + esc(tx('cLimit')) + '</button>' : '<button type="button" class="chip" data-act="cancel">' + esc(tx('cSkip')) + '</button>') + '</div></div>';
   }
-  el.innerHTML = '<div class="card"><div class="card-head">' + thumb + '<div><div class="kcal-big">' + t.kcal + '<small>' + u + '</small></div>' +
-    '<div class="mini"><span>' + esc(tx('carbs')) + ' <b>' + t.carbs + ' ' + g + '</b></span><span>' + esc(tx('protein')) + ' <b>' + t.protein + ' ' + g + '</b></span><span>' + esc(tx('fat')) + ' <b>' + t.fat + ' ' + g + '</b></span></div></div></div>' +
+  el.innerHTML = '<div class="card"><div class="card-head">' + thumb + '<div><div class="kcal-big">' + t.carbs + '<small>' + esc(tx('gCarbs')) + '</small></div>' +
+    '<div class="mini"><span>' + esc(tx('calories')) + ' <b>' + t.kcal + ' ' + u + '</b></span><span>' + esc(tx('protein')) + ' <b>' + t.protein + ' ' + g + '</b></span><span>' + esc(tx('fat')) + ' <b>' + t.fat + ' ' + g + '</b></span></div></div></div>' +
     '<ul class="items">' + rows + '</ul>' + warn +
     '<div class="portion"><span class="t">' + esc(tx('portion')) + '</span>' + chips + '</div>' +
     '<p class="hint">' + esc(cur.manual ? tx('manualHint') : (cur.conf === 'low' ? tx('lowConf') : (cur.text ? tx('textHint') : tx('estimate')))) + '</p>' +
@@ -1406,11 +1430,11 @@ function openAlarm(text, choices) {
 }
 function closeAlarm() { $('alarm').hidden = true; stopSiren(); }
 function decisionAlarm() {
-  var rem = remaining(), over = mealKcal(1) - rem, fits = tx('aFits'), ch = [];
-  var q = mealKcal(0.25), h = mealKcal(0.5), lm = limitMult();
+  var rem = remaining(), over = mealCarbs(1) - rem, fits = tx('aFits'), ch = [];
+  var q = mealCarbs(0.25), h = mealCarbs(0.5), lm = limitMult();
   ch.push({ act: 'dec-mult', v: 0.25, label: tx('aQuarter')(q), sub: q <= rem ? fits : '' });
   ch.push({ act: 'dec-mult', v: 0.5, label: tx('aHalf')(h), sub: h <= rem ? fits : '' });
-  if (lm > 0) { ch.push({ act: 'dec-mult', v: lm, label: tx('aLimit')(mealKcal(lm)), sub: fits }); }
+  if (lm > 0) { ch.push({ act: 'dec-mult', v: lm, label: tx('aLimit')(mealCarbs(lm)), sub: fits }); }
   ch.push({ act: 'dec-skip', label: tx('aSkip') });
   ch.push({ act: 'dec-all', label: tx('aAll'), out: true });
   openAlarm(rem <= 0 ? tx('aAlready') : tx('aProj')(over), ch);
@@ -1426,12 +1450,13 @@ function addMeal() {
   var wasAlarmed = cur.alarmed;
   S.meals.push({ id: String(now) + Math.random().toString(36).slice(2, 6), t: now, day: k, type: mealType(now), fr: joined('fr'), ar: joined('ar'), kcal: t.kcal, carbs: t.carbs, protein: t.protein, fat: t.fat, sugar: t.sugar });
   if (!S.dayGoal[k]) { S.dayGoal[k] = S.goal; }
-  var total = sumMeals(todayMeals()).kcal, over = total - S.goal;
+  if (!S.dayCarbGoal[k]) { S.dayCarbGoal[k] = S.carbGoal; }
+  var total = sumMeals(todayMeals()).carbs, over = total - S.carbGoal;
   if (over > 0 && !S.exceeded[k]) { S.exceeded[k] = Math.floor(now / 1000); }
   save(); closeCur();
   refreshAll(); syncState(over > 0);
   try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) {}
-  if (over > 0 && !wasAlarmed) { openAlarm(tx('aFinal')(over), [{ act: 'alarm-close', label: tx('aOk') }]); }
+  if (t.carbs > 0 && over > 0 && !wasAlarmed) { openAlarm(tx('aFinal')(over), [{ act: 'alarm-close', label: tx('aOk') }]); }
 }
 
 function applyPrefs() { save(); syncState(true); }
@@ -1481,7 +1506,7 @@ function handleClick(ev) {
       break;
     case 'goal-toggle':
       var p = $('goalPanel'), open = p.hidden; p.hidden = !open; b.setAttribute('aria-expanded', String(open));
-      if (open) { $('goalInput').value = S.goal; }
+      if (open) { $('goalInput').value = S.carbGoal; }
       break;
     case 'goal-chip': $('goalInput').value = b.getAttribute('data-v'); break;
     case 'recalc': S.step = 'profile'; save(); renderMain(); break;
@@ -1561,8 +1586,8 @@ function handleSubmit(ev) {
     startTextAnalysis(tv.slice(0, 300)); return;
   }
   if (f === 'manForm') {
-    var mn = ($('manName').value || '').replace(/\s+/g, ' ').trim().slice(0, 60), mk = readKcal($('manKcal').value);
-    if (!mn || !mk) { entryErr = tx('itBad'); renderCapture(); return; }
+    var mn = ($('manName').value || '').replace(/\s+/g, ' ').trim().slice(0, 60), mk = readCarb($('manKcal').value);
+    if (!mn || mk < 0) { entryErr = tx('itBad'); renderCapture(); return; }
     startManual(mn, mk); return;
   }
   if (f === 'profileForm') { submitProfile(); }
@@ -1572,8 +1597,8 @@ function handleSubmit(ev) {
     p.targetWeight = Math.round(v * 10) / 10; afterGoal();
   }
   else if (f === 'goalPanel') {
-    S.goal = clamp(Math.round(Number($('goalInput').value) || S.goal), 800, 6000);
-    var k = dkey(); if (S.dayGoal[k]) { S.dayGoal[k] = S.goal; }
+    S.carbGoal = clamp(Math.round(Number($('goalInput').value) || S.carbGoal), 50, 600);
+    var k = dkey(); if (S.dayCarbGoal[k]) { S.dayCarbGoal[k] = S.carbGoal; }
     save(); refreshDay(); refreshCal(); syncState();
   }
   else if (f === 'weighForm') {
@@ -1586,7 +1611,7 @@ function handleSubmit(ev) {
     var code = $('codeInput').value;
     api('activate', { code: code }).then(function (j) {
       if (j && j.ok) { S.access.expires = j.expires; save(); flash = ''; if (S.step === 'welcome') { renderMain(); } else if (cur) { runAnalysis(cur); } return; }
-      flash = j && j.error === 'used' ? tx('codeUsed') : tx('codeInvalid');
+      flash = j && j.error === 'used' ? tx('codeUsed') : (j && j.error === 'rate_limited' ? tx('accRate') : tx('codeInvalid'));
       if (S.step === 'welcome') { renderMain(); flash = ''; } else { var c = $('codeForm'); if (c) { var pn = document.createElement('p'); pn.className = 'err'; pn.textContent = flash; c.appendChild(pn); } flash = ''; }
     }).catch(function () { flash = tx('e_offline'); if (S.step === 'welcome') { renderMain(); } flash = ''; });
   }

@@ -163,6 +163,7 @@ button,input{font:inherit;color:inherit}
 .num{font-size:clamp(2.6rem,14vw,3.7rem);font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
 .sub{color:var(--muted);font-weight:600;font-size:.95rem}
 .remain{margin:0;font-weight:800;font-size:1.1rem}
+.kcal-line{margin:-4px 0 0;color:var(--muted);font-weight:600;font-size:.9rem}
 .gauge.bad .remain{color:var(--bad)}
 .goal-btn{background:none;border:0;color:var(--accent);font-weight:700;display:inline-flex;align-items:center;gap:8px;min-height:44px;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
 .goal-btn svg{width:18px;height:18px}
