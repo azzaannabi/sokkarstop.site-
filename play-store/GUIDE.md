@@ -11,7 +11,7 @@ L'appli est une PWA (https://sokkarstop.site/app/). On la met sur Google Play so
 | Suppression de compte dans l'appli | Objectif → Compte → « Supprimer mon compte » |
 | Icône 512×512 | `app/icons/icon-512.png` |
 | Image de présentation 1024×500 | `play-store/feature-graphic-1024x500.png` |
-| Captures d'écran téléphone 1080×1920 | `play-store/screenshots/` |
+| Captures d'écran téléphone 1080×1920 (6, version glucides, refaites le 21/11/2026) | `play-store/screenshots/` |
 | `.nojekyll` (pour que `/.well-known/` soit servi par GitHub Pages) | racine du dépôt |
 | Modèle de `assetlinks.json` | `play-store/assetlinks.template.json` |
 
@@ -58,26 +58,26 @@ Sans cela, l'appli affiche une barre d'adresse Chrome au lieu de s'ouvrir en ple
 
 **Titre (30 car. max)** : `Sokkar Stop App`
 
-**Description courte (80 car. max)** : `Compte tes calories en photo ou en texte. Objectifs, historique, tendances.`
+**Description courte (80 car. max)** : `Compte tes glucides en photo. Alarme quand tu dépasses ta limite du jour.`
 
 **Description complète (FR)** :
 
-> Sokkar Stop App compte tes calories sans prise de tête.
+> Sokkar Stop App compte tes glucides sans prise de tête.
 >
-> • Photographie ton repas : l'appli estime les calories, les glucides, les protéines et les lipides.
-> • Ou écris-le en quelques mots, ou ajoute-le rapidement avec son nombre de calories.
-> • Corrige chaque aliment (nom, calories) et choisis ta portion : ¼, ½, 1, 1½ ou 2.
-> • Calcule ton objectif de calories du jour d'après ton profil.
-> • Alarme Sokkar Stop quand un repas te ferait dépasser ton objectif.
-> • Calendrier avec un visage par jour, détail des repas, série de jours réussis.
-> • Tendances sur 7 et 30 jours : moyenne de calories, glucides, protéines, lipides et courbe de poids.
+> • Photographie ton repas : l'appli estime les glucides, les calories, les protéines et les lipides.
+> • Ou écris-le en quelques mots, ou ajoute-le rapidement avec son nombre de grammes de glucides.
+> • Corrige chaque aliment (nom, glucides) et choisis ta portion : ¼, ½, 1, 1½ ou 2.
+> • Calcule ton objectif de glucides du jour d'après ton profil, dans les repères de l'OMS (45 à 75 % de l'énergie).
+> • Alarme Sokkar Stop quand un repas te ferait dépasser ton objectif de glucides.
+> • Repère pour les sucres, calendrier avec un visage par jour, détail des repas, série de jours réussis.
+> • Tendances sur 7 et 30 jours : moyenne de glucides, calories, protéines, lipides et courbe de poids.
 > • Rappels de repas (facultatifs).
 > • Compte gratuit (e-mail + mot de passe) pour retrouver ton historique sur un autre téléphone.
 > • Français et arabe.
 >
 > Avec chaque flacon Sokkar Stop, 1 mois d'accès offert.
 >
-> Les calories sont des estimations indicatives. L'appli ne remplace pas l'avis d'un médecin ou d'un diététicien.
+> Les valeurs sont des estimations indicatives. L'appli ne remplace pas l'avis d'un médecin ou d'un diététicien, en particulier en cas de diabète.
 
 **Description complète (AR)** : ajoute une traduction arabe de la fiche (Fiche Play Store → Gérer les traductions). Reprends le même texte.
 
@@ -93,7 +93,7 @@ Ce sont des propositions fondées sur ce que fait réellement l'appli ; relis ch
 - **Applications de santé** : l'appli suit la nutrition et le poids : coche la déclaration correspondante, précise que ce n'est **pas un dispositif médical** et ne fait pas de diagnostic.
 - **Suppression de compte** : la console demande une URL : `https://sokkarstop.site/app/suppression-compte.html` (suppression aussi possible dans l'appli).
 - **Sécurité des données** (réponses proposées) :
-  - Données collectées : **adresse e-mail** (compte, facultatif) ; **informations de santé et de forme** (poids, repas, calories ; sauvegardées seulement si le compte est créé) ; **photos** (repas et photo « avant », envoyées pour traitement par IA, non conservées) ; **identifiant d'appareil** (aléatoire, limitation des abus et activation du code).
+  - Données collectées : **adresse e-mail** (compte, facultatif) ; **informations de santé et de forme** (poids, repas, glucides, calories ; sauvegardées seulement si le compte est créé) ; **photos** (repas et photo « avant », envoyées pour traitement par IA, non conservées) ; **identifiant d'appareil** (aléatoire, limitation des abus et activation du code).
   - Finalité : fonctionnement de l'appli ; gestion du compte. Pas de publicité, pas d'analyse marketing.
   - Partage : les fournisseurs techniques (Cloudflare, Google Gemini) traitent les données pour notre compte ; vérifie dans l'aide de la console si ce cas est à déclarer comme « partage ».
   - Chiffrement en transit : **oui** (HTTPS). Suppression possible par l'utilisateur : **oui**.

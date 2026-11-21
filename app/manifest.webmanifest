@@ -2,7 +2,7 @@
   "id": "/app/",
   "name": "Sokkar Stop App",
   "short_name": "Sokkar Stop",
-  "description": "Compte tes calories en photo ou en texte, suis ton historique et tes tendances. Alarme Sokkar Stop quand tu dépasses ton objectif.",
+  "description": "Compte tes glucides en photo ou en texte, suis ton historique et tes tendances. Alarme Sokkar Stop quand tu dépasses ton objectif de glucides.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
