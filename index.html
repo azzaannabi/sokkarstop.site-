@@ -748,6 +748,10 @@ fbq('track','PageView');
               <span data-lang="ar">لا حاجة للدفع الآن — لن تدفع إلا بعد استلام طلبك</span>
               <span data-lang="fr">Aucun paiement maintenant — tu ne paies qu'après avoir reçu ta commande</span>
             </p>
+            <p class="form-note">
+              <span data-lang="ar">بترك رقم هاتفك، توافق على التواصل معك عبر واتساب بخصوص طلبك</span>
+              <span data-lang="fr">En laissant ton numéro, tu acceptes d'être contacté sur WhatsApp pour ta commande</span>
+            </p>
             <div class="form-trust">
               <span class="item"><span data-lang="ar">توصيل مجاني</span><span data-lang="fr">Livraison gratuite</span></span>
               <span class="item"><span data-lang="ar">الدفع عند الاستلام</span><span data-lang="fr">Paiement à la réception</span></span>
@@ -1315,6 +1319,29 @@ fbq('track','PageView');
     form.addEventListener('reset', ()=>say(''));
   })();
 
+  // ---- relance des commandes abandonnées : on garde le numéro dès qu'il est valide ----
+  const field = n => form.querySelector('[name="'+n+'"]');
+  let lastLead = '';
+  function sendLead(){
+    if(submitBtn.disabled) return;
+    const phone = (field('phone').value || '').trim();
+    if(phone.replace(/\D/g,'').length < 8) return;
+    const body = JSON.stringify({
+      type:'abandon', phone,
+      name:(field('name').value || '').trim(),
+      city:(field('city').value || '').trim(),
+      format:field('format').value, qty:field('qty').value,
+      lang:html.getAttribute('lang')
+    });
+    if(body === lastLead) return;
+    lastLead = body;
+    try{
+      fetch(SHEET_WEBHOOK_URL, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body});
+    }catch(err){}
+  }
+  ['phone','name','city'].forEach(n=>field(n).addEventListener('change', sendLead));
+  document.addEventListener('visibilitychange', ()=>{ if(document.visibilityState === 'hidden') sendLead(); });
+
   form.addEventListener('submit', (e)=>{
     e.preventDefault();
     if(!form.checkValidity()){
@@ -1350,6 +1377,10 @@ fbq('track','PageView');
       }catch(err){}
       confirmMsg.classList.add('show');
       confirmMsg.scrollIntoView({behavior:'smooth', block:'nearest'});
+      try{
+        fetch(SHEET_WEBHOOK_URL, {method:'POST', mode:'no-cors', keepalive:true, headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({type:'abandon_done', phone:payload.phone})});
+      }catch(err){}
+      lastLead = '';
       form.reset();
       updateSummary();
     })
