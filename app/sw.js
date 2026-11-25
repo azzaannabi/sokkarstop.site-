@@ -1,5 +1,5 @@
 /* Sokkar Stop : service worker (fonctionne hors ligne + reçoit les notifications) */
-var CACHE = 'sokkar-stop-v14';
+var CACHE = 'sokkar-stop-v15';
 try { importScripts('config.js'); } catch (e) {}
 var API = (self.SS_API || '').replace(/\/?$/, '/');
 var SHELL = ['./', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'config.js', 'icons/icon-192.png', 'icons/icon-512.png', 'confidentialite.html', 'suppression-compte.html'];
@@ -27,7 +27,7 @@ self.addEventListener('fetch', function (e) {
       var timer = setTimeout(function () {
         caches.match(req).then(function (r) { if (r && !done) { done = true; resolve(r); } });
       }, 3000);
-      fetch(req).then(function (res) {
+      fetch(req, { cache: "no-cache" }).then(function (res) {
         clearTimeout(timer);
         if (res && res.ok) {
           var copy = res.clone();
