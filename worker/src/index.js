@@ -178,7 +178,8 @@ async function analyze(req, env) {
       !(await counter(env, ck, parseInt(cfg(env, 'DAILY_ANALYZE', '40'), 10), 2 * DAY))) { return out(req, { error: 'rate_limited' }, 429); }
   let text = '';
   if (useGem) {
-    const models = [cfg(env, 'GEMINI_TEXT_MODEL', ''), 'gemini-3.8-flash-lite', 'gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-3.8-flash'].filter((v, k, a) => v && a.indexOf(v) === k);
+    const reqBody2 = JSON.stringify({ contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: 'image/jpeg', data: img } }] }], generationConfig: { responseModalities: ['TEXT', 'IMAGE'] } });
+  const models = [cfg(env, 'GEMINI_TEXT_MODEL', ''), 'gemini-3.8-flash-lite', 'gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-3.8-flash'].filter((v, k, a) => v && a.indexOf(v) === k);
     const body = JSON.stringify({ contents: [{ parts: isText ? [{ text: userText }] : [{ text: PROMPT }, { inline_data: { mime_type: mime, data: img } }] }], generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 1500 } });
     let gdata = null, lastSt = 0, lastDt = '';
     const tried = [];
@@ -242,14 +243,17 @@ async function transform(req, env) {
   const reqBody = JSON.stringify({ contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: 'image/jpeg', data: img } }] }], generationConfig: { responseModalities: ['IMAGE'] } });
   const models = [cfg(env, 'GEMINI_MODEL', 'gemini-3.1-flash-image'), 'gemini-3.1-flash-image', 'gemini-3-pro-image'].filter((x, i, a) => x && a.indexOf(x) === i);
   let r = null, m = null, lastStatus = 0;
-  for (const mdl of models) {
+  const tries = [];
+  models.slice(0, 2).forEach((mm, i) => { tries.push([mm, 0]); tries.push([mm, 1]); });
+  for (const [mdl, tryN] of tries) {
     try {
       r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(mdl) + ':generateContent', {
-        method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: reqBody, signal: AbortSignal.timeout(45000),
+        method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: (tryN === 0 ? reqBody : reqBody2), signal: AbortSignal.timeout(45000),
       });
     } catch (e) { r = null; continue; }
     lastStatus = r.status;
     const body = await r.text();                     // pas de JSON.parse : la réponse est lourde
+    if (!r.ok || !body.includes('"data"')) { console.log('transform-fail', mdl, r.status, body.replace(/\s+/g, ' ').slice(0, 400)); }
     m = r.ok ? body.match(/"(?:mimeType|mime_type)"\s*:\s*"([^"]+)"\s*,\s*"data"\s*:\s*"([A-Za-z0-9+/=]+)"/) : null;
     if (m) { break; }
     if (r.status === 429) { break; }                 // quota : inutile d'essayer un autre modèle
