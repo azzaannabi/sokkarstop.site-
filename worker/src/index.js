@@ -271,7 +271,10 @@ async function sync(req, env) {
       /* appareils activés avant le jeton secret : on leur en remet un une seule fois */
       let newtk;
       const d0 = await getJ(env, dk);
-      if (d0 && d0.expires && !d0.tk) { newtk = newTk(); d0.tk = await sha('tk:' + newtk); await putJ(env, dk, d0); }
+      /* période de grâce de 7 jours : un téléphone qui a reçu son jeton sans le garder (ancienne version de l'appli en cache) peut en recevoir un nouveau */
+      if (d0 && d0.expires && (!d0.tk || (!inp.tk && (!d0.mig || nowS() - d0.mig < 7 * 86400)))) {
+        newtk = newTk(); d0.tk = await sha('tk:' + newtk); if (!d0.mig) { d0.mig = nowS(); } await putJ(env, dk, d0);
+      }
       const st = { ok: true, access: await access(env, device, newtk || inp.tk), transformLeft: await left(env, 'tr:' + device, parseInt(cfg(env, 'MAX_TRANSFORM', '3'), 10)) };
       if (newtk) { st.tk = newtk; }
       return out(req, st);
