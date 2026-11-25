@@ -1,5 +1,5 @@
 /* Sokkar Stop : service worker (fonctionne hors ligne + reçoit les notifications) */
-var CACHE = 'sokkar-stop-v11';
+var CACHE = 'sokkar-stop-v12';
 try { importScripts('config.js'); } catch (e) {}
 var API = (self.SS_API || '').replace(/\/?$/, '/');
 var SHELL = ['./', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'config.js', 'icons/icon-192.png', 'icons/icon-512.png', 'confidentialite.html', 'suppression-compte.html'];

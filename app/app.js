@@ -57,8 +57,8 @@ var T = {
     lead: 'Réponds à quelques questions : on calcule ton objectif de glucides du jour, puis tu scannes tes repas en photo.',
     pill1: 'Glucides par photo', pill2: 'Alarme Sokkar Stop', pill3: 'Avant / après',
     start: 'Commencer', next: 'Continuer', back: 'Retour',
-    codeLabel: 'Code d’activation', codeHelp: 'Le code à 6 chiffres est dans la boîte Sokkar Stop. Il fonctionne sur 2 téléphones au plus (en cas de changement de téléphone).', codeBtn: 'Valider',
-    codeInvalid: 'Ce code n’existe pas. Vérifie les 6 chiffres.', codeUsed: 'Ce code est déjà utilisé sur un autre téléphone.',
+    codeLabel: 'Code d’activation', codeHelp: 'Le code à 6 chiffres est dans la boîte Sokkar Stop. Il fonctionne sur 2 téléphones au plus (en cas de changement de téléphone).', codeBtn: 'Valider', codeChecking: 'Vérification…', codeHelpLink: 'Un problème avec ton code ? Écris-nous', codeRate: 'Trop d’essais pour le moment. Réessaie dans une heure, ou écris-nous : on t’aide tout de suite.',
+    codeInvalid: 'Ce code n’est pas reconnu. Vérifie les 6 chiffres sur la carte dans la boîte.', codeUsed: 'Ce code est déjà utilisé sur un autre téléphone.',
     codeOk: function (d) { return 'Accès actif jusqu’au ' + d + '.'; }, codeNeed: 'Entre ton code pour commencer.',
     formTitle: 'Calcule ton objectif du jour',
     sexQ: 'Tu es', female: 'Une femme', male: 'Un homme',
@@ -82,7 +82,7 @@ var T = {
     aiConsentText: 'Ta photo (ou ton texte) est envoyée à un service d’intelligence artificielle tiers (Google Gemini ou Anthropic Claude), hébergé hors de Tunisie, uniquement pour estimer les glucides. Sokkar Stop ne la conserve pas. Tu peux retirer ton accord à tout moment dans les réglages.',
     aiConsentYes: 'J’accepte', aiConsentNo: 'Annuler', aiConsentOff: 'Retirer mon accord pour l’analyse par IA',
     e_timeout: 'L’analyse prend trop de temps. Réessaie.', e_network: 'Le serveur ne répond pas. Réessaie dans un moment.',
-    sExport: 'Télécharger mes données',
+    sExport: 'Télécharger mes données', heroGoal: 'Cet objectif de poids est trop éloigné pour créer une image réaliste. Choisis un poids cible plus proche (2 à 25 % de différence).',
     // objectif
     gTitle: 'Ton objectif', resTitle: 'Ton objectif de glucides', perDay: 'g de glucides par jour',
     carbNote: function (p, k) { return 'C’est ' + p + ' % de ton énergie du jour (' + fmt(k) + ' kcal), dans les repères de l’OMS (45 à 75 %). L’alarme sonne quand tu dépasses cette limite.'; },
@@ -206,7 +206,7 @@ var T = {
     lead: 'جاوب على أسئلة قليلة ونحسبو هدفك اليومي من الكربوهيدرات، ثم صوّر وجباتك.',
     pill1: 'كربوهيدرات بالصورة', pill2: 'منبّه سكر ستوب', pill3: 'قبل / بعد',
     start: 'ابدأ', next: 'متابعة', back: 'رجوع',
-    codeLabel: 'رمز التفعيل', codeHelp: 'رمز من 6 أرقام داخل علبة سكر ستوب. يعمل على هاتفين على الأكثر (في حال تغيير الهاتف).', codeBtn: 'تأكيد',
+    codeLabel: 'رمز التفعيل', codeHelp: 'رمز من 6 أرقام داخل علبة سكر ستوب. يعمل على هاتفين على الأكثر (في حال تغيير الهاتف).', codeBtn: 'تأكيد', codeChecking: 'جارٍ التحقق…', codeHelpLink: 'مشكلة في رمزك؟ راسلنا', codeRate: 'محاولات كثيرة حاليًا. أعد المحاولة بعد ساعة، أو راسلنا لنساعدك فورًا.',
     codeInvalid: 'هذا الرمز غير موجود. تأكد من الأرقام الستة.', codeUsed: 'هذا الرمز مستعمل على هاتف آخر.',
     codeOk: function (d) { return 'الاشتراك فعّال حتى ' + d + '.'; }, codeNeed: 'أدخل رمزك للبدء.',
     formTitle: 'احسب هدفك اليومي',
@@ -231,7 +231,7 @@ var T = {
     aiConsentText: 'ترسل صورتك (أو نصك) إلى خدمة ذكاء اصطناعي خارجية (Google Gemini أو Anthropic Claude) مستضافة خارج تونس، فقط لتقدير الكربوهيدرات. لا يحتفظ بها سكر ستوب. يمكنك سحب موافقتك في أي وقت من الإعدادات.',
     aiConsentYes: 'أوافق', aiConsentNo: 'إلغاء', aiConsentOff: 'سحب موافقتي على التحليل بالذكاء الاصطناعي',
     e_timeout: 'التحليل يستغرق وقتًا طويلًا. أعد المحاولة.', e_network: 'الخادم لا يستجيب. أعد المحاولة بعد قليل.',
-    sExport: 'نزّل بياناتي',
+    sExport: 'نزّل بياناتي', heroGoal: 'هدف الوزن بعيد جدًا لإنشاء صورة واقعية. اختر وزنًا مستهدفًا أقرب (فرق من 2 إلى 25٪).',
     gTitle: 'هدفك', resTitle: 'هدفك من الكربوهيدرات', perDay: 'غ كربوهيدرات في اليوم',
     carbNote: function (p, k) { return 'هذا ' + p + '٪ من طاقتك اليومية (' + fmt(k) + ' سعرة)، ضمن توصيات منظمة الصحة العالمية (45 إلى 75٪). ينطلق المنبّه عندما تتجاوز هذا الحد.'; },
     sugarNote: function (g) { return 'بالنسبة للسكر، توصي المنظمة بأقل من 10٪ من الطاقة من السكريات الحرة، أي حوالي ' + g + ' غ في اليوم (والأفضل أقل من 5٪).'; },
@@ -564,18 +564,18 @@ function loadImages() {
 }
 
 /* ---------- réseau ---------- */
-function post(url, data) {
-  return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+function post(url, data, keep) {
+  return fetch(url, { method: 'POST', keepalive: !!keep, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); });
 }
 var API = (window.SS_API || '').replace(/\/?$/, '/');
 var HAS_API = !!window.SS_API;
 function tkv() { return (S.access && S.access.tk) || ''; }
-function api(action, data) {
+function api(action, data, keep) {
   if (!HAS_API) { return Promise.reject({ code: 'offline' }); }
   var body = { device: S.device, tk: tkv(), action: action };
   for (var k in (data || {})) { body[k] = data[k]; }
-  return post(API + 'sync.php', body).then(function (r) { if (r.j && r.j.tk) { S.access = S.access || { expires: null }; S.access.tk = r.j.tk; save(); } return r.j; });
+  return post(API + 'sync.php', body, keep).then(function (r) { if (r.j && r.j.tk) { S.access = S.access || { expires: null }; S.access.tk = r.j.tk; save(); } return r.j; });
 }
 function ensureConfig() {
   if (CFG.loaded) { return Promise.resolve(CFG); }
@@ -730,9 +730,10 @@ function accessOk() { return !CFG.requireCode || (S.access.expires && S.access.e
 function codeForm(msg, isErr) {
   return '<form class="panel" id="codeForm"><div class="group"><label class="q" for="codeInput">' + esc(tx('codeLabel')) + '</label>' +
     '<p class="hint">' + esc(tx('codeHelp')) + '</p>' +
-    '<div class="codeform"><div class="inp"><input id="codeInput" type="text" inputmode="numeric" autocomplete="off" autocapitalize="characters" maxlength="12" placeholder="000 000"></div>' +
-    '<button class="btn" type="submit">' + esc(tx('codeBtn')) + '</button></div>' +
-    (msg ? '<p class="' + (isErr ? 'err' : 'note') + '" role="alert">' + esc(msg) + '</p>' : '') + '</div></form>';
+    '<div class="codeform"><div class="inp"><input id="codeInput" dir="ltr" type="text" inputmode="numeric" pattern="[0-9 ]*" autocomplete="one-time-code" maxlength="7" placeholder="000 000" aria-describedby="codeMsg" autofocus></div>' +
+    '<button class="btn" id="codeBtn" type="submit" disabled>' + esc(tx('codeBtn')) + '</button></div>' +
+    '<p class="' + (isErr ? 'err' : 'note') + '" id="codeMsg" role="alert" aria-live="polite">' + (msg ? esc(msg) : '') + '</p>' +
+    '<p class="hint"><a href="mailto:sokkarstop@gmail.com?subject=Code%20Sokkar%20Stop">' + esc(tx('codeHelpLink')) + '</a></p></div></form>';
 }
 function viewWelcome() {
   var need = CFG.requireCode && !accessOk();
@@ -861,8 +862,8 @@ function viewPhoto() {
   var prev = BODY ? BODY.dataURL : (IMG.before || '');
   var h = '<div class="view"><div class="hero"><h1 style="font-size:1.9rem">' + esc(tx('pTitle')) + '</h1><p class="lead">' + esc(tx('pLead')) + '</p></div>';
   h += '<div class="panel">' + (prev ? '<img class="photo-prev" src="' + prev + '" alt="">' : '') +
-    '<div class="upload"><label class="snap" for="bodyCam">' + ICON.camera + '<span>' + esc(prev ? tx('pAgain') : tx('pTake')) + '</span></label>' +
-    '<label class="link" for="bodyPick">' + esc(tx('pPick')) + '</label></div>' +
+    '<div class="upload"><button type="button" class="snap" data-act="body-cam">' + ICON.camera + '<span>' + esc(prev ? tx('pAgain') : tx('pTake')) + '</span></button>' +
+    '<button type="button" class="link" data-act="body-pick">' + esc(tx('pPick')) + '</button></div>' +
     '<label class="check"><input type="checkbox" id="consent"' + (S.consent ? ' checked' : '') + '><span>' + esc(tx('pConsent')) + '</span></label>' +
     '<p class="note">' + esc(tx('pNote')) + '</p>' +
     '<button class="btn big" type="button" data-act="photo-next" id="photoNext"' + (prev && S.consent ? '' : ' disabled') + '>' + esc(tx('next')) + '</button></div>' +
@@ -983,7 +984,7 @@ function refreshHero() {
         '<span class="tag l">' + esc(tx('before')) + '</span><span class="tag r">' + esc(tx('after')) + '</span><div class="line"></div>' +
         '<div class="knob" id="knob" role="slider" tabindex="0" aria-label="' + esc(tx('slideHint')) + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">' + ICON.arrows + '</div></div>';
       var em = '';
-      if (S.gen === 'error' && S.genErr && S.genErr !== 'noai') { em = S.genErr === 'soon' ? tx('e_soon') : S.genErr === 'interrupted' ? tx('heroErrInt') : (S.genLeft === 0 ? tx('heroLimit') : tx('heroErr')); }
+      if (S.gen === 'error' && S.genErr && S.genErr !== 'noai') { em = S.genErr === 'goal_unrealistic' ? tx('heroGoal') : S.genErr === 'access' ? tx('e_access') : S.genErr === 'soon' ? tx('e_soon') : S.genErr === 'interrupted' ? tx('heroErrInt') : (S.genLeft === 0 ? tx('heroLimit') : tx('heroErr')); }
       h += (em ? '<p class="err" style="text-align:center">' + esc(em) + '</p>' : '') +
         '<div class="two-btns"><button class="btn ghost" type="button" data-act="goto-photo">' + esc(IMG.before ? tx('heroNew') : tx('heroAddBtn')) + '</button>' +
         (IMG.before && S.genLeft !== 0 ? '<button class="btn ghost" type="button" data-act="gen-retry">' + esc(IMG.after ? tx('heroRegen') : tx('heroRetry')) + '</button>' : '') + '</div>';
@@ -1495,6 +1496,8 @@ function handleClick(ev) {
   var act = b.getAttribute('data-act');
   switch (act) {
     case 'snap': unlockAudio(); break;
+    case 'body-cam': if ($('bodyCam')) { $('bodyCam').click(); } break;
+    case 'body-pick': if ($('bodyPick')) { $('bodyPick').click(); } break;
     case 'snap-pick': unlockAudio(); if ($('foodPick')) { $('foodPick').click(); } break;
     case 'snap-cam': unlockAudio(); if ($('foodCam')) { $('foodCam').click(); } break;
     case 'ai-yes': S.aiConsent = Date.now(); save(); consentAsk = false; var _p = consentPending; consentPending = null; if (_p) { _p(); } else { renderCapture(); } break;
@@ -1598,7 +1601,7 @@ function exportData() {
   } catch (e) {}
 }
 function resetEverything() {
-  if (HAS_API) { api('erase').catch(function () {}); }
+  if (HAS_API) { api('erase', null, true).catch(function () {}); }
   try { navigator.serviceWorker.ready.then(function (r) { return r.pushManager.getSubscription(); }).then(function (s) { if (s) { api('unsubscribe').catch(function () {}); return s.unsubscribe(); } }).catch(function () {}); } catch (e) {}
   if (ACC) { accPost('logout', { token: ACC.token }).catch(function () {}); }
   try { localStorage.removeItem(KEY); localStorage.removeItem(ACC_KEY); } catch (e) {}
@@ -1652,17 +1655,27 @@ function handleSubmit(ev) {
     var m2 = $('weighMsg'); if (m2) { m2.textContent = tx('weighDone'); }
   }
   else if (f === 'codeForm') {
-    var code = $('codeInput').value;
+    var code = String($('codeInput').value).replace(/\D/g, '');
+    if (code.length !== 6) { var em = $('codeMsg'); if (em) { em.className = 'err'; em.textContent = tx('codeInvalid'); } return; }
+    var cb = $('codeBtn'); if (cb) { cb.disabled = true; cb.textContent = tx('codeChecking'); }
     api('activate', { code: code }).then(function (j) {
       if (j && j.ok) { S.access.expires = j.expires; save(); flash = ''; if (S.step === 'welcome') { renderMain(); } else if (cur) { runAnalysis(cur); } return; }
-      flash = j && j.error === 'used' ? tx('codeUsed') : (j && j.error === 'rate_limited' ? tx('accRate') : tx('codeInvalid'));
+      flash = j && j.error === 'used' ? tx('codeUsed') : (j && j.error === 'rate_limited' ? tx('codeRate') : tx('codeInvalid'));
       if (S.step === 'welcome') { renderMain(); flash = ''; } else { var c = $('codeForm'); if (c) { var pn = document.createElement('p'); pn.className = 'err'; pn.textContent = flash; c.appendChild(pn); } flash = ''; }
-    }).catch(function () { flash = tx('e_offline'); if (S.step === 'welcome') { renderMain(); } flash = ''; });
+    }).catch(function () { flash = tx('e_offline'); if (S.step === 'welcome') { renderMain(); } else { var c2 = $('codeForm'); if (c2) { var p2 = document.createElement('p'); p2.className = 'err'; p2.textContent = flash; c2.appendChild(p2); var b2 = $('codeBtn'); if (b2) { b2.disabled = false; b2.textContent = tx('codeBtn'); } } } flash = ''; });
   }
 }
 
 document.addEventListener('click', handleClick);
 document.addEventListener('change', handleChange);
+document.addEventListener('input', function (ev) {
+  var t = ev.target; if (!t || t.id !== 'codeInput') { return; }
+  var d = String(t.value).replace(/[٠-٩]/g, function (c) { return String(c.charCodeAt(0) - 1632); }).replace(/\D/g, '').slice(0, 6);
+  t.value = d.length > 3 ? d.slice(0, 3) + ' ' + d.slice(3) : d;
+  var b = $('codeBtn'); if (b) { b.disabled = d.length !== 6; }
+  var m = $('codeMsg'); if (m && d.length) { m.textContent = ''; }
+  if (d.length === 6 && b && ev.inputType !== 'deleteContentBackward') { var fm = $('codeForm'); if (fm && fm.requestSubmit) { fm.requestSubmit(); } else { b.click(); } }
+});
 document.addEventListener('submit', handleSubmit);
 window.addEventListener('beforeinstallprompt', function (e) { e.preventDefault(); deferredInstall = e; if ($('settings')) { refreshSettings(); } });
 document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !$('alarm').hidden) { var ob = $('alarmChoices').querySelector('[data-act="dec-all"],[data-act="alarm-close"]'); if (ob) { ob.click(); } } });

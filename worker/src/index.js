@@ -117,7 +117,7 @@ async function adminOk(req, env, url) {
   const fk = 'ip:adm:' + ip + ':' + hr;
   if (parseInt((await env.KV.get(fk)) || '0', 10) >= 10) { return false; }
   const h = req.headers.get('Authorization') || '';
-  const t = h.startsWith('Bearer ') ? h.slice(7) : (url.searchParams.get('token') || '');
+  const t = h.startsWith('Bearer ') ? h.slice(7) : '';
   if (env.ADMIN_TOKEN && t && sameStr(t, env.ADMIN_TOKEN)) { return true; }
   await counter(env, fk, 1000, 2 * 3600);
   return false;
@@ -201,6 +201,7 @@ async function analyze(req, env) {
     method: 'POST',
     headers: { 'x-api-key': env.ANTHROPIC_API_KEY, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
     body: JSON.stringify({ model: cfg(env, 'ANTHROPIC_MODEL', 'claude-sonnet-5-5'), max_tokens: 1200, messages: [{ role: 'user', content: isText ? [{ type: 'text', text: userText }] : [{ type: 'image', source: { type: 'base64', media_type: mime, data: img } }, { type: 'text', text: PROMPT }] }] }),
+    signal: AbortSignal.timeout(25000),
   });
   if (!r.ok) {
     await refund(env, ck, 2 * DAY);
@@ -238,14 +239,22 @@ async function transform(req, env) {
     ? `a realistic, healthy result after losing weight, going from ${f(w)} kg to ${f(t)} kg (height ${h} cm). The body is slimmer with less body fat, in natural proportions`
     : `a realistic, healthy result after gaining weight and muscle, going from ${f(w)} kg to ${f(t)} kg (height ${h} cm). The body is a bit fuller and more muscular, in natural proportions`;
   const prompt = `Edit this full-body photo of a real adult ${sex} to show ${change_txt}. Keep exactly the same person: same face and facial features, hairstyle, skin tone, pose, background, lighting, camera angle, framing and image proportions. Keep the same clothes (same garments, colors and style), only adjusted to fit the new body naturally. The change must look believable and moderate, like a real photo taken after months of progress, not exaggerated, no filters, no skin retouching. Do not add or remove clothing, text, logos or watermarks. Return one photo.`;
-  const r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(cfg(env, 'GEMINI_MODEL', 'gemini-2.5-flash-image')) + ':generateContent', {
-    method: 'POST',
-    headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: 'image/jpeg', data: img } }] }], generationConfig: { responseModalities: ['IMAGE'] } }),
-  });
-  const body = await r.text();                       // pas de JSON.parse : la réponse est lourde
-  const m = body.match(/"(?:mimeType|mime_type)"\s*:\s*"([^"]+)"\s*,\s*"data"\s*:\s*"([A-Za-z0-9+/=]+)"/);
-  if (!r.ok || !m) { await refund(env, ck); return out(req, { error: r.status === 429 ? 'rate_limited' : 'upstream' }, 502); }
+  const reqBody = JSON.stringify({ contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: 'image/jpeg', data: img } }] }], generationConfig: { responseModalities: ['IMAGE'] } });
+  const models = [cfg(env, 'GEMINI_MODEL', 'gemini-3.1-flash-image'), 'gemini-3.1-flash-image', 'gemini-3-pro-image'].filter((x, i, a) => x && a.indexOf(x) === i);
+  let r = null, m = null, lastStatus = 0;
+  for (const mdl of models) {
+    try {
+      r = await fetch('https://generativelanguage.googleapis.com/v1beta/models/' + encodeURIComponent(mdl) + ':generateContent', {
+        method: 'POST', headers: { 'x-goog-api-key': env.GEMINI_API_KEY, 'Content-Type': 'application/json' }, body: reqBody, signal: AbortSignal.timeout(45000),
+      });
+    } catch (e) { r = null; continue; }
+    lastStatus = r.status;
+    const body = await r.text();                     // pas de JSON.parse : la réponse est lourde
+    m = r.ok ? body.match(/"(?:mimeType|mime_type)"\s*:\s*"([^"]+)"\s*,\s*"data"\s*:\s*"([A-Za-z0-9+/=]+)"/) : null;
+    if (m) { break; }
+    if (r.status === 429) { break; }                 // quota : inutile d'essayer un autre modèle
+  }
+  if (!m) { await refund(env, ck); return out(req, { error: lastStatus === 429 ? 'rate_limited' : 'upstream' }, 502); }
   return out(req, { image: m[2], mime: m[1], left: await left(env, ck, max) });
 }
 
