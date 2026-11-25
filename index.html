@@ -1209,12 +1209,7 @@ fbq('track','PageView');
   document.addEventListener('click', e=>{ if(!headerEl.contains(e.target)) setMenu(false); });
   window.addEventListener('resize', ()=>{ if(window.innerWidth>920) setMenu(false); });
 
-  // ---- barre collante : cachée quand le formulaire est visible ----
-  const sticky = document.getElementById('stickyCta');
-  const orderSec = document.getElementById('order');
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(es=> sticky.classList.toggle('hide', es[0].isIntersecting), {threshold:0.15}).observe(orderSec);
-  }
+  // ---- barre collante : toujours visible sur mobile ----
 
   // ---- total dynamique (livraison gratuite) ----
   const UNIT_PRICE = 49;
