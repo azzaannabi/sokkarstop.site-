@@ -523,15 +523,17 @@
     .header-inner{flex-wrap:wrap;}
     nav.primary{
       display:flex;order:3;flex:0 0 100%;position:static;
-      flex-direction:row;align-items:stretch;justify-content:space-between;gap:4px;
+      flex-direction:row;align-items:stretch;justify-content:center;gap:0;
       overflow:visible;white-space:nowrap;
-      margin:2px 0 0;padding:7px 0 0;border-top:1px solid var(--line);
+      margin:0;padding:0;border-top:1px solid var(--line);
     }
     nav.primary a{
       display:block;flex:1 1 auto;min-width:0;text-align:center;
-      padding:6px 3px;font-size:clamp(0.62rem,3.1vw,0.8rem);color:var(--ink);
-      border:1px solid var(--line);border-radius:14px;background:var(--cream-soft);
+      padding:12px 4px 11px;font-size:clamp(0.66rem,3.2vw,0.9rem);font-weight:700;letter-spacing:.01em;
+      color:var(--ink);border:none;border-radius:0;background:transparent;
+      border-bottom:2px solid transparent;
     }
+    nav.primary a:active,nav.primary a:hover{color:var(--terracotta);border-bottom-color:var(--terracotta);}
     html[dir="rtl"] nav.primary a[data-lang="fr"],
     html[dir="ltr"] nav.primary a[data-lang="ar"]{display:none;}
     nav.primary a.nav-cta{display:none !important;}
