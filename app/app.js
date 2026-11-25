@@ -82,7 +82,14 @@ var T = {
     aiConsentText: 'Ta photo (ou ton texte) est envoyée à un service d’intelligence artificielle tiers (Google Gemini ou Anthropic Claude), hébergé hors de Tunisie, uniquement pour estimer les glucides. Sokkar Stop ne la conserve pas. Tu peux retirer ton accord à tout moment dans les réglages.',
     aiConsentYes: 'J’accepte', aiConsentNo: 'Annuler', aiConsentOff: 'Retirer mon accord pour l’analyse par IA',
     e_timeout: 'L’analyse prend trop de temps. Réessaie.', e_network: 'Le serveur ne répond pas. Réessaie dans un moment.',
-    sExport: 'Télécharger mes données', heroGoal: 'Cet objectif de poids est trop éloigné pour créer une image réaliste. Choisis un poids cible plus proche (2 à 25 % de différence).',
+    sExport: 'Télécharger mes données',
+    pTitle: 'Ta photo du jour 1', pLead: 'Prends-toi en photo en entier, de la tête aux pieds, de face. Ce sera ton point de départ : on te rappellera de refaire la même photo après 2 semaines, 1 mois, 2 mois et 3 mois pour voir ton évolution.',
+    evoT: 'Mon évolution', evoP: 'Compare tes photos : glisse le trait pour voir la différence entre ta première photo et la plus récente.',
+    evoNext: 'Ta prochaine photo', evoFirst: 'Ta première photo',
+    evoPriv: 'Tes photos restent uniquement sur ton téléphone. Personne d’autre n’y a accès : ni nous, ni aucun autre utilisateur, ni aucun service d’intelligence artificielle.',
+    tipsT: 'Pour une comparaison fiable, à chaque fois :', tip1: 'Au même endroit (même mur, même fond).', tip2: 'Avec la même lumière et à la même heure.', tip3: 'Avec la même tenue (ou une tenue ajustée similaire), de face, pieds au même endroit.', tip4: 'Même distance du téléphone, à hauteur de poitrine, en entier de la tête aux pieds.',
+    sl_d1: 'Jour 1', sl_w2: 'Après 2 semaines', sl_m1: 'Après 1 mois', sl_m2: 'Après 2 mois', sl_m3: 'Après 3 mois',
+    slotAvail: function (d) { return 'À partir du ' + d; }, slotRetake: 'Refaire', slotDel: 'Supprimer', phTake: 'Prendre la photo', phDelAsk: 'Supprimer cette photo de ton téléphone ?', heroGoal: 'Cet objectif de poids est trop éloigné pour créer une image réaliste. Choisis un poids cible plus proche (2 à 25 % de différence).',
     // objectif
     gTitle: 'Ton objectif', resTitle: 'Ton objectif de glucides', perDay: 'g de glucides par jour',
     carbNote: function (p, k) { return 'C’est ' + p + ' % de ton énergie du jour (' + fmt(k) + ' kcal), dans les repères de l’OMS (45 à 75 %). L’alarme sonne quand tu dépasses cette limite.'; },
@@ -231,7 +238,14 @@ var T = {
     aiConsentText: 'ترسل صورتك (أو نصك) إلى خدمة ذكاء اصطناعي خارجية (Google Gemini أو Anthropic Claude) مستضافة خارج تونس، فقط لتقدير الكربوهيدرات. لا يحتفظ بها سكر ستوب. يمكنك سحب موافقتك في أي وقت من الإعدادات.',
     aiConsentYes: 'أوافق', aiConsentNo: 'إلغاء', aiConsentOff: 'سحب موافقتي على التحليل بالذكاء الاصطناعي',
     e_timeout: 'التحليل يستغرق وقتًا طويلًا. أعد المحاولة.', e_network: 'الخادم لا يستجيب. أعد المحاولة بعد قليل.',
-    sExport: 'نزّل بياناتي', heroGoal: 'هدف الوزن بعيد جدًا لإنشاء صورة واقعية. اختر وزنًا مستهدفًا أقرب (فرق من 2 إلى 25٪).',
+    sExport: 'نزّل بياناتي',
+    pTitle: 'صورتك في اليوم الأول', pLead: 'صوّر نفسك كاملًا من الرأس إلى القدمين ومن الأمام. ستكون نقطة البداية: سنذكّرك بإعادة الصورة نفسها بعد أسبوعين وشهر وشهرين و3 أشهر لترى تطورك.',
+    evoT: 'تطورك', evoP: 'قارن صورك: حرّك الخط لترى الفرق بين أول صورة وأحدثها.',
+    evoNext: 'صورتك القادمة', evoFirst: 'أول صورة لك',
+    evoPriv: 'صورك تبقى على هاتفك فقط. لا أحد غيرك يمكنه الاطلاع عليها: لا نحن ولا أي مستخدم آخر ولا أي خدمة ذكاء اصطناعي.',
+    tipsT: 'للحصول على مقارنة دقيقة، في كل مرة:', tip1: 'في المكان نفسه (الجدار والخلفية نفسها).', tip2: 'بالإضاءة نفسها وفي الوقت نفسه من اليوم.', tip3: 'باللباس نفسه (أو لباس مشابه ملائم)، من الأمام وبوضعية القدمين نفسها.', tip4: 'على المسافة نفسها من الهاتف وبمستوى الصدر، كاملًا من الرأس إلى القدمين.',
+    sl_d1: 'اليوم الأول', sl_w2: 'بعد أسبوعين', sl_m1: 'بعد شهر', sl_m2: 'بعد شهرين', sl_m3: 'بعد 3 أشهر',
+    slotAvail: function (d) { return 'ابتداءً من ' + d; }, slotRetake: 'أعد', slotDel: 'احذف', phTake: 'التقط الصورة', phDelAsk: 'حذف هذه الصورة من هاتفك؟', heroGoal: 'هدف الوزن بعيد جدًا لإنشاء صورة واقعية. اختر وزنًا مستهدفًا أقرب (فرق من 2 إلى 25٪).',
     gTitle: 'هدفك', resTitle: 'هدفك من الكربوهيدرات', perDay: 'غ كربوهيدرات في اليوم',
     carbNote: function (p, k) { return 'هذا ' + p + '٪ من طاقتك اليومية (' + fmt(k) + ' سعرة)، ضمن توصيات منظمة الصحة العالمية (45 إلى 75٪). ينطلق المنبّه عندما تتجاوز هذا الحد.'; },
     sugarNote: function (g) { return 'بالنسبة للسكر، توصي المنظمة بأقل من 10٪ من الطاقة من السكريات الحرة، أي حوالي ' + g + ' غ في اليوم (والأفضل أقل من 5٪).'; },
@@ -329,7 +343,7 @@ function defaults() {
     step: 'welcome', profile: null, goal: 2000, carbGoal: 0, dayCarbGoal: {}, consent: false,
     weights: [], meals: [], dayGoal: {}, exceeded: {}, startDate: '',
     rem: { breakfast: true, lunch: true, dinner: true }, pushOn: false,
-    gen: 'none', genErr: '', genLeft: null, photoRatio: 0.75,
+    gen: 'none', genErr: '', genLeft: null, photoRatio: 0.75, photos: [],
     access: (jget('ss2_dev') || {}).access || { expires: null }
   };
 }
@@ -559,11 +573,39 @@ function setBlobURL(k, dataURL) {
   }).catch(function () { IMG[k] = dataURL; });
 }
 function putImage(k, dataURL) { mem[k] = dataURL; return idb.set(k, dataURL).then(function () { return setBlobURL(k, dataURL); }); }
-function loadImages() {
-  return Promise.all(['before', 'after'].map(function (k) {
-    return idb.get(k).then(function (v) { if (v) { mem[k] = v; return setBlobURL(k, v); } });
-  }));
+var PURL = {}, pendingSlot = null;
+var SLOTS = [['d1', 0], ['w2', 14], ['m1', 30], ['m2', 60], ['m3', 90]];
+function purlSet(id, dataURL) {
+  return fetch(dataURL).then(function (r) { return r.blob(); }).then(function (b) {
+    if (PURL[id] && PURL[id].indexOf('blob:') === 0) { URL.revokeObjectURL(PURL[id]); }
+    PURL[id] = URL.createObjectURL(b);
+  }).catch(function () { PURL[id] = dataURL; });
 }
+function photoOf(slot) { return (S.photos || []).filter(function (p) { return p.slot === slot; })[0]; }
+function loadImages() {
+  S.photos = S.photos || [];
+  var mig = Promise.resolve();
+  if (!S.photos.length) {                      // ancienne photo « avant » : devient la photo du jour 1
+    mig = idb.get('before').then(function (v) {
+      if (!v) { return; }
+      var id = 'm' + Date.now();
+      return idb.set('ph:' + id, v).then(function () { S.photos.push({ id: id, slot: 'd1', t: Date.now(), day: S.startDate || dkey() }); save(); });
+    });
+  }
+  return mig.then(function () { return Promise.all(S.photos.map(function (ph) { return idb.get('ph:' + ph.id).then(function (v) { if (v) { return purlSet(ph.id, v); } }); })); });
+}
+function addPhoto(slot, r) {
+  var old = photoOf(slot), id = 'p' + Date.now();
+  return idb.set('ph:' + id, r.dataURL).then(function () {
+    if (old) { idb.set('ph:' + old.id, null); S.photos = S.photos.filter(function (x) { return x.id !== old.id; }); }
+    S.photos.push({ id: id, slot: slot, t: Date.now(), day: dkey() });
+    S.photoRatio = r.ratio; save();
+    return purlSet(id, r.dataURL);
+  });
+}
+function slotLabel(k) { return tx('sl_' + k); }
+function slotDueDate(days) { var d = new Date((S.startDate || dkey()) + 'T12:00:00'); d.setDate(d.getDate() + days); return d; }
+function slotDue(days) { return dkey(slotDueDate(days)) <= dkey(); }
 
 /* ---------- réseau ---------- */
 function post(url, data, keep) {
@@ -852,7 +894,6 @@ function afterGoal() {
   if (S.dayCarbGoal[dkey()]) { S.dayCarbGoal[dkey()] = S.carbGoal; }
   if (S.startDate) {                       // recalcul depuis l'accueil
     save();
-    if (eligiblePhoto() && mem.before && S.gen !== 'running') { S.gen = 'stale'; }
     go('home'); syncState(); return;
   }
   save();
@@ -861,21 +902,26 @@ function afterGoal() {
 
 /* ---------- 4. photo avant ---------- */
 function viewPhoto() {
-  var prev = BODY ? BODY.dataURL : (IMG.before || '');
+  var prev = BODY ? BODY.dataURL : '';
   var h = '<div class="view"><div class="hero"><h1 style="font-size:1.9rem">' + esc(tx('pTitle')) + '</h1><p class="lead">' + esc(tx('pLead')) + '</p></div>';
-  h += '<div class="panel">' + (prev ? '<img class="photo-prev" src="' + prev + '" alt="">' : '') +
+  h += '<div class="panel">' + (prev ? '<img class="photo-prev" src="' + prev + '" alt="">' : '') + tipsHTML() +
     '<div class="upload"><button type="button" class="snap" data-act="body-cam">' + ICON.camera + '<span>' + esc(prev ? tx('pAgain') : tx('pTake')) + '</span></button>' +
     '<button type="button" class="link" data-act="body-pick">' + esc(tx('pPick')) + '</button></div>' +
-    '<label class="check"><input type="checkbox" id="consent"' + (S.consent ? ' checked' : '') + '><span>' + esc(tx('pConsent')) + '</span></label>' +
-    '<p class="note">' + esc(tx('pNote')) + '</p>' +
-    '<button class="btn big" type="button" data-act="photo-next" id="photoNext"' + (prev && S.consent ? '' : ' disabled') + '>' + esc(tx('next')) + '</button></div>' +
+    '<p class="note">' + esc(tx('evoPriv')) + '</p>' +
+    '<button class="btn big" type="button" data-act="photo-next" id="photoNext"' + (prev ? '' : ' disabled') + '>' + esc(tx('next')) + '</button></div>' +
     '<button class="link" type="button" data-act="photo-skip">' + esc(tx('pSkip')) + '</button></div>';
   return h;
+}
+function tipsHTML() {
+  return '<div class="tips"><b>' + esc(tx('tipsT')) + '</b><ul><li>' + esc(tx('tip1')) + '</li><li>' + esc(tx('tip2')) + '</li><li>' + esc(tx('tip3')) + '</li><li>' + esc(tx('tip4')) + '</li></ul></div>';
 }
 function onBodyFile(input) {
   var f = input.files && input.files[0]; input.value = '';
   if (!f) { return; }
-  shrink(f, 1280, 0.86).then(function (r) { BODY = r; renderMain(); }).catch(function () {});
+  shrink(f, 1280, 0.86).then(function (r) {
+    if (pendingSlot && S.step === 'home') { var sl = pendingSlot; pendingSlot = null; return addPhoto(sl, r).then(function () { refreshHero(); }); }
+    BODY = r; renderMain();
+  }).catch(function () {});
 }
 
 /* ---------- 5. rappels ---------- */
@@ -941,9 +987,8 @@ function finishOnboarding() {
   S.startDate = dkey();
   S.weights = [{ d: S.startDate, kg: S.profile.startWeight }];
   S.step = 'home';
-  var withPhoto = BODY && S.consent;
-  var chain = withPhoto ? putImage('before', BODY.dataURL).then(function () { S.photoRatio = BODY.ratio; BODY = null; }) : Promise.resolve();
-  chain.then(function () { save(); renderMain(); if (withPhoto && eligiblePhoto()) { generateAfter(); } });
+  var chain = BODY ? addPhoto('d1', BODY).then(function () { BODY = null; }) : Promise.resolve();
+  chain.then(function () { save(); renderMain(); });
 }
 
 /* ---------- accueil ---------- */
@@ -975,23 +1020,24 @@ function refreshAll() { showTab(tab); refreshHero(); refreshBanners(); refreshDa
 /* avant / après + score */
 function refreshHero() {
   var el = $('hero'); if (!el) { return; }
-  var h = '', r = S.photoRatio ? clamp(S.photoRatio, 0.55, 1.2) : 0.75;
-  if (S.profile && S.profile.age >= 18) {
-    if (S.gen === 'running' && IMG.before) {
-      h += '<div class="ba gen" style="aspect-ratio:' + r + '"><img src="' + IMG.before + '" alt=""><div class="over"><span class="spinner"></span><span>' + esc(tx('heroGen')) + '</span><span style="font-weight:600;font-size:.9rem">' + esc(tx('heroGenSub')) + '</span></div></div>';
-    } else {
-      function side(cls, src, text) { return src ? '<img class="' + cls + '" src="' + src + '" alt="">' : '<div class="' + cls + ' ph"><span>' + esc(text) + '</span></div>'; }
-      h += '<div class="card pad-sm"><h2>' + esc(tx('heroAddT')) + '</h2><p class="hint">' + esc(tx('heroAddP')) + '</p></div>' +
-        '<div class="ba" id="ba" style="aspect-ratio:' + r + '">' + side('after', IMG.after, tx('phAfter')) + side('before', IMG.before, tx('phBefore')) +
-        '<span class="tag l">' + esc(tx('before')) + '</span><span class="tag r">' + esc(tx('after')) + '</span><div class="line"></div>' +
-        '<div class="knob" id="knob" role="slider" tabindex="0" aria-label="' + esc(tx('slideHint')) + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">' + ICON.arrows + '</div></div>';
-      var em = '';
-      if (S.gen === 'error' && S.genErr && S.genErr !== 'noai') { em = S.genErr === 'goal_unrealistic' ? tx('heroGoal') : S.genErr === 'access' ? tx('e_access') : S.genErr === 'soon' ? tx('e_soon') : S.genErr === 'interrupted' ? tx('heroErrInt') : (S.genLeft === 0 ? tx('heroLimit') : tx('heroErr')); }
-      h += (em ? '<p class="err" style="text-align:center">' + esc(em) + '</p>' : '') +
-        '<div class="two-btns"><button class="btn ghost" type="button" data-act="goto-photo">' + esc(IMG.before ? tx('heroNew') : tx('heroAddBtn')) + '</button>' +
-        (IMG.before && S.genLeft !== 0 ? '<button class="btn ghost" type="button" data-act="gen-retry">' + esc(IMG.after ? tx('heroRegen') : tx('heroRetry')) + '</button>' : '') + '</div>';
-    }
-  }
+  var r = S.photoRatio ? clamp(S.photoRatio, 0.55, 1.2) : 0.75, h = '';
+  var list = SLOTS.map(function (sl) { return photoOf(sl[0]); }).filter(function (x) { return x && PURL[x.id]; });
+  function side(cls, src, text) { return src ? '<img class="' + cls + '" src="' + src + '" alt="">' : '<div class="' + cls + ' ph"><span>' + esc(text) + '</span></div>'; }
+  var first = list[0], last = list.length > 1 ? list[list.length - 1] : null;
+  h += '<div class="card pad-sm"><h2>' + esc(tx('evoT')) + '</h2><p class="hint">' + esc(tx('evoP')) + '</p></div>';
+  h += '<div class="ba" id="ba" style="aspect-ratio:' + r + '">' + side('after', last ? PURL[last.id] : '', tx('evoNext')) + side('before', first ? PURL[first.id] : '', tx('evoFirst')) +
+    '<span class="tag l">' + esc(first ? slotLabel(first.slot) : tx('before')) + '</span><span class="tag r">' + esc(last ? slotLabel(last.slot) : tx('after')) + '</span><div class="line"></div>' +
+    '<div class="knob" id="knob" role="slider" tabindex="0" aria-label="' + esc(tx('slideHint')) + '" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">' + ICON.arrows + '</div></div>';
+  h += '<div class="slots">' + SLOTS.map(function (sl) {
+    var ph = photoOf(sl[0]), due = slotDue(sl[1]), k = sl[0];
+    var thumb = ph && PURL[ph.id] ? '<img src="' + PURL[ph.id] + '" alt="' + esc(slotLabel(k)) + '">' : '<div class="empty" aria-hidden="true">+</div>';
+    var date = ph ? longDate(new Date(ph.t)) : (due ? '' : tx('slotAvail')(longDate(slotDueDate(sl[1]))));
+    var acts = '';
+    if (ph) { acts = '<button type="button" class="link" data-act="ph-cam" data-v="' + k + '">' + esc(tx('slotRetake')) + '</button><button type="button" class="link" data-act="ph-del" data-v="' + k + '">' + esc(tx('slotDel')) + '</button>'; }
+    else if (due) { acts = '<button type="button" class="btn ghost sm" data-act="ph-cam" data-v="' + k + '">' + esc(tx('phTake')) + '</button><button type="button" class="link" data-act="ph-pick" data-v="' + k + '">' + esc(tx('pPick')) + '</button>'; }
+    return '<div class="slot' + (due || ph ? '' : ' wait') + '">' + thumb + '<b>' + esc(slotLabel(k)) + '</b><small>' + esc(date) + '</small>' + acts + '</div>';
+  }).join('') + '</div>';
+  h += '<div class="card pad-sm">' + tipsHTML() + '<p class="note"><b>' + esc(tx('evoPriv')) + '</b></p></div>';
   el.innerHTML = h + scoreHTML();
   bindSlider();
 }
@@ -1247,20 +1293,6 @@ function reencode(dataURL) {
     im.onerror = function () { rej(new Error('img')); };
     im.src = dataURL;
   });
-}
-function generateAfter() {
-  if (!HAS_API) { S.gen = 'error'; S.genErr = 'soon'; save(); refreshHero(); return; }
-  var p = S.profile; if (!mem.before || !p) { return; }
-  S.gen = 'running'; S.genErr = ''; save(); refreshHero();
-  post(API + 'transform.php', { device: S.device, tk: tkv(), image: mem.before.split(',')[1], sex: p.sex, age: p.age, height: p.height, weight: p.startWeight, target: p.targetWeight, goal: p.goal })
-    .then(function (r) {
-      if (typeof r.j.left === 'number') { S.genLeft = r.j.left; }
-      if (!r.ok || !r.j.image) { throw { code: r.j.error || 'upstream' }; }
-      return reencode('data:' + (r.j.mime || 'image/png') + ';base64,' + r.j.image);
-    })
-    .then(function (url) { return putImage('after', url); })
-    .then(function () { S.gen = 'done'; S.genErr = ''; save(); refreshHero(); })
-    .catch(function (e) { S.gen = 'error'; S.genErr = (e && e.code) || 'network'; if (S.genErr === 'limit') { S.genLeft = 0; } save(); refreshHero(); });
 }
 
 var PORTIONS = [[0.25, '¼'], [0.5, '½'], [1, '1'], [1.5, '1½'], [2, '2']];
@@ -1529,7 +1561,9 @@ function handleClick(ev) {
       break;
     case 'finish': finishOnboarding(); break;
     case 'goto-photo': S.step = 'photo'; save(); renderMain(); break;
-    case 'gen-retry': generateAfter(); break;
+    case 'ph-cam': pendingSlot = b.getAttribute('data-v'); if ($('bodyCam')) { $('bodyCam').click(); } break;
+    case 'ph-pick': pendingSlot = b.getAttribute('data-v'); if ($('bodyPick')) { $('bodyPick').click(); } break;
+    case 'ph-del': var dp = photoOf(b.getAttribute('data-v')); if (dp && window.confirm(tx('phDelAsk'))) { idb.set('ph:' + dp.id, null); S.photos = S.photos.filter(function (x) { return x.id !== dp.id; }); delete PURL[dp.id]; save(); refreshHero(); } break;
     case 'cancel': closeCur(); renderCapture(); break;
     case 'retry': if (cur) { runAnalysis(cur); } break;
     case 'mult': if (cur) { cur.mult = Number(b.getAttribute('data-v')); cur.alarmed = false; renderCapture(); } break;
@@ -1585,13 +1619,9 @@ function handleClick(ev) {
   }
 }
 function finishPhotoStep() {
-  if (!(BODY || IMG.before) || !S.consent) { return; }
-  if (S.startDate) {                                      // photo ajoutée ou changée depuis l'accueil
-    var fresh = !!BODY;
-    var chain = fresh ? putImage('before', BODY.dataURL).then(function () { S.photoRatio = BODY.ratio; BODY = null; }) : Promise.resolve();
-    chain.then(function () { save(); go('home'); if (eligiblePhoto() && (fresh || !IMG.after)) { generateAfter(); } });
-    return;
-  }
+  if (!BODY) { return; }
+  var fresh = BODY;
+  if (S.startDate) { addPhoto('d1', fresh).then(function () { BODY = null; save(); go('home'); }); return; }
   go('remind');
 }
 function exportData() {
@@ -1614,7 +1644,6 @@ function handleChange(ev) {
   var t = ev.target;
   if (t.id === 'foodPick' || t.id === 'foodCam') { var f = t.files && t.files[0]; t.value = ''; if (f) { unlockAudio(); startAnalysis(f); } return; }
   if (t.id === 'bodyPick' || t.id === 'bodyCam') { onBodyFile(t); return; }
-  if (t.id === 'consent') { S.consent = t.checked; save(); var n = $('photoNext'); if (n) { n.disabled = !((BODY || IMG.before) && S.consent); } return; }
   var act = t.getAttribute && t.getAttribute('data-act');
   if (act === 'rem-toggle') { S.rem[t.getAttribute('data-k')] = t.checked; applyPrefs(); }
   else if (act === 'push-toggle') {

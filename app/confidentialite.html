@@ -41,12 +41,12 @@ form.del button[disabled]{opacity:.6}
 <p><b>Sokkar Stop App</b> est une application de suivi des glucides et des calories éditée par Sokkar Stop (marque tunisienne, responsable du traitement des données ; contact ci-dessous), et réservée aux personnes de 18 ans et plus. Cette page explique quelles données sont utilisées, pourquoi, avec qui elles sont partagées et comment les supprimer. Contact : <a href="mailto:sokkarstop@gmail.com">sokkarstop@gmail.com</a>.</p>
 
 <h2>1. Ce qui reste sur ton téléphone</h2>
-<p>Sans compte, tout est enregistré uniquement sur ton téléphone : profil (sexe, âge, taille, poids, objectif), repas, poids, réglages et, si tu en ajoutes, ta photo « avant » et l’image « après ». Nous n’y avons pas accès. Le bouton « Effacer mes données » (Objectif → Réglages) les supprime.</p>
+<p>Sans compte, tout est enregistré uniquement sur ton téléphone : profil (sexe, âge, taille, poids, objectif), repas, poids, réglages et, si tu en ajoutes, tes photos de progression. Nous n’y avons pas accès. Le bouton « Effacer mes données » (Objectif → Réglages) les supprime.</p>
 
 <h2>2. Ce qui est envoyé à nos serveurs</h2>
 <ul>
 <li><b>Analyse d’un repas</b> : <b>après ton accord explicite</b> (demandé avant la première analyse et révocable dans Objectif → Réglages), la photo (ou le texte que tu écris) est envoyée à notre serveur, puis à un service d’intelligence artificielle tiers (par défaut Google Gemini ; Anthropic Claude en secours) qui renvoie les glucides et calories estimés. Les photos et textes de repas sont des données liées à ton alimentation, donc à ta santé. <b>Nous ne conservons ni la photo ni le texte.</b> Selon l’offre utilisée, le fournisseur peut les conserver brièvement pour ses propres besoins de sécurité, selon ses conditions.</li>
-<li><b>Image « après »</b> (facultative, réservée aux adultes) : ta photo « avant » et ton profil sont envoyés au service d’intelligence artificielle de Google pour générer une image d’objectif. Nous ne conservons pas la photo envoyée.</li>
+<li><b>Photos de suivi</b> (facultatives) : tes photos de progression (jour 1, 2 semaines, 1 mois…) sont enregistrées <b>uniquement sur ton téléphone</b>. Elles ne sont jamais envoyées à nos serveurs ni à un service d’intelligence artificielle, et personne d’autre que toi n’y a accès. Elles sont supprimées avec « Effacer mes données » ou si tu désinstalles l’application.</li>
 <li><b>Identifiant d’appareil</b> : un identifiant aléatoire sert à limiter les abus, à activer ton code d’accès (1 mois offert avec le flacon) et à gérer les rappels.</li>
 <li><b>Rappels</b> (facultatifs) : si tu les actives, nous gardons l’adresse technique de notification de ton appareil, tes choix de rappel et un résumé de ta journée (total de calories, objectif, nombre de repas) pour envoyer des messages utiles.</li>
 <li><b>Compte (facultatif)</b> : e-mail, mot de passe (conservé uniquement sous forme chiffrée, jamais en clair), code de récupération (chiffré), et la sauvegarde de ton historique (profil, objectifs, poids, repas) pour le retrouver sur un autre téléphone. Tes photos ne sont jamais sauvegardées.</li>
@@ -59,7 +59,7 @@ form.del button[disabled]{opacity:.6}
 <h2>4. Avec qui, et hors de Tunisie</h2>
 <ul>
 <li><b>Cloudflare</b> héberge notre serveur et son stockage.</li>
-<li><b>Google (Gemini)</b> et, selon la configuration, <b>Anthropic (Claude)</b> traitent les photos et textes de repas pour l’estimation des calories, selon leurs propres conditions.</li>
+<li><b>Google (Gemini)</b> et, selon la configuration, <b>Anthropic (Claude)</b> traitent les photos et textes de repas (jamais tes photos de progression) pour l’estimation des calories, selon leurs propres conditions.</li>
 <li><b>Google Fonts</b> fournit la police d’écriture (ton adresse IP est vue par Google à ce moment).</li>
 </ul>
 <p><b>Ces prestataires sont situés hors de Tunisie</b> (notamment aux États-Unis et dans l’Union européenne) : tes données y sont donc transférées pour être traitées. Nous ne transmettons tes données à personne d’autre, sauf obligation légale.</p>
@@ -82,12 +82,12 @@ form.del button[disabled]{opacity:.6}
 <p><b>تطبيق سكر ستوب (Sokkar Stop App)</b> تطبيق لمتابعة الكربوهيدرات والسعرات الحرارية من إصدار Sokkar Stop (علامة تونسية، وهي المسؤولة عن معالجة البيانات؛ للتواصل أدناه)، وهو مخصص لمن بلغ 18 سنة فما فوق. توضّح هذه الصفحة البيانات المستعملة ولماذا ومع من تُشارك وكيف تحذفها. للتواصل: <a href="mailto:sokkarstop@gmail.com">sokkarstop@gmail.com</a>.</p>
 
 <h2>1. ما يبقى على هاتفك</h2>
-<p>بدون حساب، كل شيء يُحفظ على هاتفك فقط: الملف الشخصي (الجنس والعمر والطول والوزن والهدف) والوجبات والأوزان والإعدادات، وإن أضفتها صورتك «قبل» وصورة «بعد». ليس لنا وصول إليها. زر «احذف بياناتي» (الهدف ← الإعدادات) يمسحها.</p>
+<p>بدون حساب، كل شيء يُحفظ على هاتفك فقط: الملف الشخصي (الجنس والعمر والطول والوزن والهدف) والوجبات والأوزان والإعدادات، وإن أضفتها صور تقدمك. ليس لنا وصول إليها. زر «احذف بياناتي» (الهدف ← الإعدادات) يمسحها.</p>
 
 <h2>2. ما يُرسل إلى خوادمنا</h2>
 <ul>
 <li><b>تحليل وجبة</b>: <b>بعد موافقتك الصريحة</b> (تُطلب قبل أول تحليل ويمكن سحبها من الهدف ← الإعدادات) تُرسل الصورة (أو النص الذي تكتبه) إلى خادمنا ثم إلى خدمة ذكاء اصطناعي خارجية (افتراضيًا Google Gemini، وAnthropic Claude احتياطيًا) تعيد الكربوهيدرات والسعرات المقدّرة. صور الوجبات ونصوصها بيانات تتعلق بغذائك، أي بصحتك. <b>لا نحتفظ بالصورة ولا بالنص.</b> وقد يحتفظ بها المزوّد مؤقتًا لأغراضه الأمنية حسب شروطه.</li>
-<li><b>صورة «بعد»</b> (اختيارية وللبالغين فقط): تُرسل صورتك «قبل» وملفك إلى خدمة الذكاء الاصطناعي من Google لإنشاء صورة الهدف. لا نحتفظ بالصورة المرسلة.</li>
+<li><b>صور المتابعة</b> (اختيارية): صور تقدمك (اليوم الأول وبعد أسبوعين وبعد شهر…) تُحفظ <b>على هاتفك فقط</b>. لا تُرسل أبداً إلى خوادمنا ولا إلى أي خدمة ذكاء اصطناعي، ولا يطّلع عليها أحد غيرك. تُحذف مع «احذف بياناتي» أو عند حذف التطبيق.</li>
 <li><b>معرّف الجهاز</b>: معرّف عشوائي لتقييد الإساءة وتفعيل رمز الاستعمال (شهر مجاني مع القارورة) وإدارة التذكيرات.</li>
 <li><b>التذكيرات</b> (اختيارية): إن فعّلتها نحتفظ بعنوان الإشعارات التقني لجهازك واختياراتك وملخص يومك (مجموع السعرات والهدف وعدد الوجبات) لإرسال رسائل مفيدة.</li>
 <li><b>الحساب (اختياري)</b>: البريد الإلكتروني وكلمة السر (محفوظة مشفّرة فقط، ولا تُحفظ أبداً بشكل صريح) ورمز الاسترجاع (مشفّر) ونسخة من سجلّك (الملف والأهداف والأوزان والوجبات) لتجده على هاتف آخر. لا تُحفظ صورك أبداً.</li>

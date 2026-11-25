@@ -88,7 +88,7 @@ Ce sont des propositions fondées sur ce que fait réellement l'appli ; relis ch
 - **Politique de confidentialité** : `https://sokkarstop.site/app/confidentialite.html`
 - **Accès à l'appli** : tout est accessible sans identifiants (le compte est facultatif).
 - **Publicités** : non.
-- **Public cible** : **18 ans et plus** (la fonction « image après » est réservée aux adultes ; évite aussi les règles « Familles »).
+- **Public cible** : **18 ans et plus** (application de suivi de poids et de glucides, réservée aux adultes ; évite aussi les règles « Familles »).
 - **Classification du contenu** : questionnaire IARC, catégorie utilitaire/santé ; aucune violence, aucun contenu sensible → classification tous publics.
 - **Applications de santé** : l'appli suit la nutrition et le poids : coche la déclaration correspondante, précise que ce n'est **pas un dispositif médical** et ne fait pas de diagnostic.
 - **Suppression de compte** : la console demande une URL : `https://sokkarstop.site/app/suppression-compte.html` (suppression aussi possible dans l'appli).

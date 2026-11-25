@@ -218,6 +218,7 @@ async function analyze(req, env) {
 }
 
 async function transform(req, env) {
+  return out(req, { error: 'gone' }, 410);   // génération d'image par IA retirée : les photos de suivi restent sur le téléphone
   const inp = await req.json().catch(() => ({}));
   const device = validDevice(inp.device);
   if (!device) { return out(req, { error: 'bad_device' }, 400); }

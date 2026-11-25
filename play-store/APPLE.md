@@ -43,6 +43,6 @@ On enveloppe l'appli web dans **Capacitor** (gratuit) :
 
 ## 6. Points de vigilance
 
-- **Santé** : Apple regarde de près les applis de nutrition. Pas de promesse de perte de poids garantie, pas de diagnostic. L'image « avant / après » est une simulation : garde la mention.
+- **Santé** : Apple regarde de près les applis de nutrition. Pas de promesse de perte de poids garantie, pas de diagnostic. Les photos de progression restent sur le téléphone (aucune génération d'image par IA) : dis-le dans les étiquettes de confidentialité.
 - **Paiement** : si un jour l'abonnement payant se fait dans l'appli, Apple impose son achat intégré (commission 15 à 30 %). Un code offert avec un produit physique (le flacon) est accepté.
 - **Délais** : revue Apple 1 à 3 jours en général ; prévoir 2 à 4 semaines au total avec le compte.
