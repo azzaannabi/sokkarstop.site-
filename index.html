@@ -522,15 +522,15 @@
     .menu-toggle{display:none !important;}
     .header-inner{flex-wrap:wrap;}
     nav.primary{
-      display:flex;order:3;flex:0 0 calc(100% + 32px);position:static;
-      flex-direction:row;align-items:center;gap:4px;
-      overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none;
-      margin:2px -16px 0;padding:6px 16px 4px;border-top:1px solid var(--line);
+      display:flex;order:3;flex:0 0 100%;position:static;
+      flex-direction:row;align-items:stretch;justify-content:space-between;gap:4px;
+      overflow:visible;white-space:nowrap;
+      margin:2px 0 0;padding:7px 0 0;border-top:1px solid var(--line);
     }
-    nav.primary::-webkit-scrollbar{display:none;}
     nav.primary a{
-      display:block;flex:0 0 auto;padding:6px 7px;font-size:0.74rem;color:var(--ink);
-      border:1px solid var(--line);border-radius:18px;background:var(--cream-soft);
+      display:block;flex:1 1 auto;min-width:0;text-align:center;
+      padding:6px 3px;font-size:clamp(0.62rem,3.1vw,0.8rem);color:var(--ink);
+      border:1px solid var(--line);border-radius:14px;background:var(--cream-soft);
     }
     html[dir="rtl"] nav.primary a[data-lang="fr"],
     html[dir="ltr"] nav.primary a[data-lang="ar"]{display:none;}
