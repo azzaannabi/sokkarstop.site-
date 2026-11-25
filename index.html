@@ -1281,6 +1281,11 @@ fbq('track','PageView');
   // Remplace cette URL par celle obtenue lors du déploiement de ton Google Apps Script (voir guide fourni).
   const SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbwywgoRu_s38WT452EWEU5wbhepLFb6PWInsSi38V08VZTmJFI5cQpQy2BJSPR6PCfwiA/exec';
 
+  /* Suivi influenceurs : le lien ?ref=nom est memorise 30 jours, puis envoye avec la commande */
+  try{ const _r=new URLSearchParams(location.search).get('ref');
+    if(_r){ const _c=_r.toLowerCase().trim().replace(/[^a-z0-9_.-]/g,'').slice(0,40);
+      if(_c) localStorage.setItem('ref',JSON.stringify({c:_c,t:Date.now()})); } }catch(e){}
+  function getRef(){ try{ const r=JSON.parse(localStorage.getItem('ref')||'null'); if(r&&r.c&&Date.now()-r.t<30*864e5) return r.c; }catch(e){} return ''; }
   const form = document.getElementById('orderForm');
   const confirmMsg = document.getElementById('confirmMsg');
   const errorMsg = document.getElementById('errorMsg');
@@ -1330,6 +1335,7 @@ fbq('track','PageView');
       format: data.get('format'),
       qty: data.get('qty'),
       delivery: 'gratuite',
+      ref: getRef(),
       total: calcTotal(data.get('qty'))
     };
 
