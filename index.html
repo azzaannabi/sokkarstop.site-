@@ -1353,6 +1353,7 @@ fbq('track','PageView');
       qty: data.get('qty'),
       delivery: 'gratuite',
       ref: getRef(),
+      lang: html.getAttribute('lang') === 'ar' ? 'ar' : 'fr',
       total: calcTotal(data.get('qty'))
     };
 
