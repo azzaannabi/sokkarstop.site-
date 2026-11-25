@@ -709,6 +709,7 @@ fbq('track','PageView');
               <div class="field">
                 <label><span data-lang="ar">رقم الهاتف</span><span data-lang="fr">Téléphone</span></label>
                 <input type="tel" name="phone" required pattern="[0-9+ ]{8,}" inputmode="tel" autocomplete="tel" placeholder="XX XXX XXX">
+                <small class="wa-note" style="display:block;margin-top:4px;font-size:11px;opacity:.7"><span data-lang="ar">برقمك يمكن نتواصلو معاك على واتساب بخصوص طلبك.</span><span data-lang="fr">Avec ton numéro, on peut te contacter sur WhatsApp au sujet de ta commande.</span></small>
               </div>
               <div class="field">
                 <label><span data-lang="ar">المدينة</span><span data-lang="fr">Ville</span></label>
@@ -1290,6 +1291,22 @@ fbq('track','PageView');
   const confirmMsg = document.getElementById('confirmMsg');
   const errorMsg = document.getElementById('errorMsg');
   const submitBtn = form.querySelector('.submit-btn');
+
+  // ---- panier abandonné : on note le numéro dès qu'il est saisi (relance WhatsApp si la commande n'est pas validée) ----
+  (function(){
+    const ph = form.querySelector('input[name="phone"]'); if(!ph) return;
+    let sent = '';
+    function lead(){
+      const d = ph.value.replace(/\D/g,''); if(d.length < 8 || d === sent) return; sent = d;
+      try{
+        fetch(SHEET_WEBHOOK_URL, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain;charset=utf-8'},
+          body: JSON.stringify({ type:'lead', name: (form.querySelector('input[name="name"]')||{}).value || '', phone: ph.value,
+            lang: html.getAttribute('lang') === 'ar' ? 'ar' : 'fr', ref: getRef() }) });
+      }catch(err){}
+    }
+    ph.addEventListener('change', lead); ph.addEventListener('blur', lead);
+    form.addEventListener('reset', ()=>{ sent = ''; });
+  })();
 
   // ---- bouton facultatif : utiliser ma position (ajoute un lien Google Maps à l'adresse) ----
   (function(){
