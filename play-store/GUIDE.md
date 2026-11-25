@@ -77,7 +77,7 @@ Sans cela, l'appli affiche une barre d'adresse Chrome au lieu de s'ouvrir en ple
 >
 > Avec chaque flacon Sokkar Stop, 1 mois d'accès offert.
 >
-> Les valeurs sont des estimations indicatives. L'appli ne remplace pas l'avis d'un médecin ou d'un diététicien, en particulier en cas de diabète.
+> Les valeurs sont des estimations indicatives. L'appli ne remplace pas l'avis d'un médecin ou d'un diététicien. Elle n'est pas un dispositif médical.
 
 **Description complète (AR)** : ajoute une traduction arabe de la fiche (Fiche Play Store → Gérer les traductions). Reprends le même texte.
 
@@ -108,5 +108,5 @@ Ce sont des propositions fondées sur ce que fait réellement l'appli ; relis ch
 ## 9. Ce qu'il faut garder à l'esprit
 
 - Google refuse les « simples sites dans une coquille ». L'appli a de vraies fonctions (analyse, comptes, rappels, hors-ligne), mentionne-les dans la fiche.
-- Le mois d'accès offert fonctionne avec les codes d'activation (variable `REQUIRE_CODE` du serveur). Si tu actives l'obligation de code, prévois une explication dans la fiche (« code fourni avec le flacon ») et un moyen d'essayer l'appli pour les relecteurs de Google (par exemple un code de test fourni dans les « Instructions d'accès » de la console).
+- Le mois d'accès offert fonctionne avec les codes d'activation (variable `REQUIRE_CODE` du serveur). Si tu actives l'obligation de code (`REQUIRE_CODE="true"`, recommandé), crée un **code de démonstration** pour les relecteurs Google/Apple, indique-le dans « Accès à l'appli » (au lieu de « sans identifiants »), et prévois une explication dans la fiche (« code fourni avec le flacon ») et un moyen d'essayer l'appli pour les relecteurs de Google (par exemple un code de test fourni dans les « Instructions d'accès » de la console).
 - Garde la clé de signature PWABuilder, le mot de passe et l'accès au compte Google de la console en lieu sûr.

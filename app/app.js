@@ -57,7 +57,7 @@ var T = {
     lead: 'Réponds à quelques questions : on calcule ton objectif de glucides du jour, puis tu scannes tes repas en photo.',
     pill1: 'Glucides par photo', pill2: 'Alarme Sokkar Stop', pill3: 'Avant / après',
     start: 'Commencer', next: 'Continuer', back: 'Retour',
-    codeLabel: 'Code d’activation', codeHelp: 'Le code à 6 chiffres est dans la boîte Sokkar Stop. Il fonctionne sur un seul téléphone.', codeBtn: 'Valider',
+    codeLabel: 'Code d’activation', codeHelp: 'Le code à 6 chiffres est dans la boîte Sokkar Stop. Il fonctionne sur 2 téléphones au plus (en cas de changement de téléphone).', codeBtn: 'Valider',
     codeInvalid: 'Ce code n’existe pas. Vérifie les 6 chiffres.', codeUsed: 'Ce code est déjà utilisé sur un autre téléphone.',
     codeOk: function (d) { return 'Accès actif jusqu’au ' + d + '.'; }, codeNeed: 'Entre ton code pour commencer.',
     formTitle: 'Calcule ton objectif du jour',
@@ -74,7 +74,15 @@ var T = {
     gain: 'Prendre du poids', gainD: 'Environ 0,25 kg par semaine',
     medNote: 'Estimation générale, pas un avis médical. Si tu es enceinte, si tu allaites, si tu as un diabète ou une autre maladie, demande conseil à ton médecin.',
     calc: 'Continuer',
-    errForm: 'Complète toutes les infos avec des valeurs correctes : âge de 14 à 90 ans, poids de 30 à 250 kg, taille de 120 à 230 cm.',
+    errForm: 'Complète toutes les infos avec des valeurs correctes : âge de 18 à 90 ans, poids de 40 à 250 kg, taille de 140 à 215 cm.',
+    adultOnly: 'Réservé aux adultes (18 ans et plus).',
+    medShort: 'Estimation générale, pas un avis médical. Si tu as un diabète, si tu es enceinte ou si tu as un trouble alimentaire, demande conseil à un professionnel de santé. Si manger te cause de l’angoisse, parles-en à un médecin.',
+    goalMin: 'Minimum conseillé : 130 g par jour.',
+    aiConsentTitle: 'Avant d’analyser ton repas',
+    aiConsentText: 'Ta photo (ou ton texte) est envoyée à un service d’intelligence artificielle tiers (Google Gemini ou Anthropic Claude), hébergé hors de Tunisie, uniquement pour estimer les glucides. Sokkar Stop ne la conserve pas. Tu peux retirer ton accord à tout moment dans les réglages.',
+    aiConsentYes: 'J’accepte', aiConsentNo: 'Annuler', aiConsentOff: 'Retirer mon accord pour l’analyse par IA',
+    e_timeout: 'L’analyse prend trop de temps. Réessaie.', e_network: 'Le serveur ne répond pas. Réessaie dans un moment.',
+    sExport: 'Télécharger mes données',
     // objectif
     gTitle: 'Ton objectif', resTitle: 'Ton objectif de glucides', perDay: 'g de glucides par jour',
     carbNote: function (p, k) { return 'C’est ' + p + ' % de ton énergie du jour (' + fmt(k) + ' kcal), dans les repères de l’OMS (45 à 75 %). L’alarme sonne quand tu dépasses cette limite.'; },
@@ -160,12 +168,12 @@ var T = {
     aLimit: function (k) { return 'Rester dans ma limite · ' + k + ' g'; },
     aFits: 'dans ta limite', aSkip: 'Je ne mange pas ça', aAll: 'Je mange tout quand même',
     aFinal: function (n) { return 'Tu as dépassé ton objectif de ' + fmt(n) + ' g de glucides. On arrête les glucides pour aujourd’hui.'; },
-    aTip: 'Si l’envie de sucre est forte, utilise ton spray Sokkar Stop.',
+    aTip: 'Si l’envie de sucre est forte, utilise tes gouttes Sokkar Stop.',
     aOk: 'J’ai compris',
     // réglages
     sTitle: 'Réglages', sRem: 'Rappels', sNotif: 'Notifications', sNotifOn: 'Activées', sNotifOff: 'Désactivées',
     sRecalc: 'Recalculer avec mon profil', sInstall: 'Installer l’appli sur mon téléphone', sReset: 'Effacer mes données',
-    sResetAsk: 'Appuie encore pour tout effacer', sResetNote: 'Efface ton profil, tes repas et tes photos sur ce téléphone.'
+    sResetAsk: 'Appuie encore pour tout effacer', sResetNote: 'Efface ton profil, tes repas et tes photos sur ce téléphone, et tes rappels sur le serveur. Ton code d’accès reste valable.'
   },
   ar: {
     locale: 'ar-TN-u-nu-latn', soundOn: 'إيقاف الصوت', soundOff: 'تشغيل الصوت',
@@ -198,8 +206,8 @@ var T = {
     lead: 'جاوب على أسئلة قليلة ونحسبو هدفك اليومي من الكربوهيدرات، ثم صوّر وجباتك.',
     pill1: 'كربوهيدرات بالصورة', pill2: 'منبّه سكر ستوب', pill3: 'قبل / بعد',
     start: 'ابدأ', next: 'متابعة', back: 'رجوع',
-    codeLabel: 'رمز التفعيل', codeHelp: 'رمز من 6 أرقام داخل علبة سكر ستوب. يعمل على هاتف واحد فقط.', codeBtn: 'تأكيد',
-    codeInvalid: 'هذا الرمز غير موجود. تأكد من الحروف والأرقام.', codeUsed: 'هذا الرمز مستعمل على هاتف آخر.',
+    codeLabel: 'رمز التفعيل', codeHelp: 'رمز من 6 أرقام داخل علبة سكر ستوب. يعمل على هاتفين على الأكثر (في حال تغيير الهاتف).', codeBtn: 'تأكيد',
+    codeInvalid: 'هذا الرمز غير موجود. تأكد من الأرقام الستة.', codeUsed: 'هذا الرمز مستعمل على هاتف آخر.',
     codeOk: function (d) { return 'الاشتراك فعّال حتى ' + d + '.'; }, codeNeed: 'أدخل رمزك للبدء.',
     formTitle: 'احسب هدفك اليومي',
     sexQ: 'أنت', female: 'امرأة', male: 'رجل',
@@ -215,7 +223,15 @@ var T = {
     gain: 'زيادة الوزن', gainD: 'حوالي 0,25 كغ في الأسبوع',
     medNote: 'تقدير عام وليس نصيحة طبية. إذا كنتِ حاملًا أو مرضعة أو لديك السكري أو أي مرض آخر، استشيري طبيبك.',
     calc: 'متابعة',
-    errForm: 'أكمل كل المعلومات بقيم صحيحة: العمر من 14 إلى 90 سنة، الوزن من 30 إلى 250 كغ، الطول من 120 إلى 230 سم.',
+    errForm: 'أكمل كل المعلومات بقيم صحيحة: العمر من 18 إلى 90 سنة، الوزن من 40 إلى 250 كغ، الطول من 140 إلى 215 سم.',
+    adultOnly: 'للبالغين فقط (18 سنة فما فوق).',
+    medShort: 'تقدير عام وليس رأيًا طبيًا. إذا كان لديك سكري أو كنتِ حاملًا أو تعانين من اضطراب في الأكل، استشر مختصًا في الصحة. وإذا كان الأكل يسبب لك قلقًا، تحدث إلى طبيب.',
+    goalMin: 'الحد الأدنى المنصوح به: 130 غ في اليوم.',
+    aiConsentTitle: 'قبل تحليل وجبتك',
+    aiConsentText: 'ترسل صورتك (أو نصك) إلى خدمة ذكاء اصطناعي خارجية (Google Gemini أو Anthropic Claude) مستضافة خارج تونس، فقط لتقدير الكربوهيدرات. لا يحتفظ بها سكر ستوب. يمكنك سحب موافقتك في أي وقت من الإعدادات.',
+    aiConsentYes: 'أوافق', aiConsentNo: 'إلغاء', aiConsentOff: 'سحب موافقتي على التحليل بالذكاء الاصطناعي',
+    e_timeout: 'التحليل يستغرق وقتًا طويلًا. أعد المحاولة.', e_network: 'الخادم لا يستجيب. أعد المحاولة بعد قليل.',
+    sExport: 'نزّل بياناتي',
     gTitle: 'هدفك', resTitle: 'هدفك من الكربوهيدرات', perDay: 'غ كربوهيدرات في اليوم',
     carbNote: function (p, k) { return 'هذا ' + p + '٪ من طاقتك اليومية (' + fmt(k) + ' سعرة)، ضمن توصيات منظمة الصحة العالمية (45 إلى 75٪). ينطلق المنبّه عندما تتجاوز هذا الحد.'; },
     sugarNote: function (g) { return 'بالنسبة للسكر، توصي المنظمة بأقل من 10٪ من الطاقة من السكريات الحرة، أي حوالي ' + g + ' غ في اليوم (والأفضل أقل من 5٪).'; },
@@ -295,11 +311,11 @@ var T = {
     aLimit: function (k) { return 'أبقَ ضمن حدّي · ' + k + ' غ'; },
     aFits: 'ضمن حدّك', aSkip: 'لن آكل هذا', aAll: 'سآكل كل شيء رغم ذلك',
     aFinal: function (n) { return 'تجاوزت هدفك بـ ' + fmt(n) + ' غ كربوهيدرات. كفى كربوهيدرات لهذا اليوم.'; },
-    aTip: 'إذا كانت الرغبة في السكر قوية، استعمل بخاخ سكر ستوب.',
+    aTip: 'إذا كانت الرغبة في السكر قوية، استعمل قطرات سكر ستوب.',
     aOk: 'فهمت',
     sTitle: 'الإعدادات', sRem: 'التذكيرات', sNotif: 'الإشعارات', sNotifOn: 'مفعّلة', sNotifOff: 'غير مفعّلة',
     sRecalc: 'أعد الحساب من ملفي', sInstall: 'ثبّت التطبيق على هاتفي', sReset: 'احذف بياناتي',
-    sResetAsk: 'اضغط مرة أخرى لحذف كل شيء', sResetNote: 'يحذف ملفك ووجباتك وصورك من هذا الهاتف.'
+    sResetAsk: 'اضغط مرة أخرى لحذف كل شيء', sResetNote: 'يحذف ملفك ووجباتك وصورك من هذا الهاتف، وتذكيراتك من الخادم. يبقى رمز الدخول صالحًا.'
   }
 };
 
@@ -309,17 +325,17 @@ var T = {
 var KEY = 'ss2_state';
 function defaults() {
   return {
-    v: 2, lang: ((navigator.language || '').indexOf('ar') === 0) ? 'ar' : 'fr', sound: true, device: uuid(),
+    v: 2, lang: ((navigator.language || '').indexOf('ar') === 0) ? 'ar' : 'fr', sound: true, device: (jget('ss2_dev') || {}).device || uuid(),
     step: 'welcome', profile: null, goal: 2000, carbGoal: 0, dayCarbGoal: {}, consent: false,
     weights: [], meals: [], dayGoal: {}, exceeded: {}, startDate: '',
     rem: { breakfast: true, lunch: true, dinner: true }, pushOn: false,
     gen: 'none', genErr: '', genLeft: null, photoRatio: 0.75,
-    access: { expires: null }
+    access: (jget('ss2_dev') || {}).access || { expires: null }
   };
 }
 var S = (function () { var d = defaults(), s = jget(KEY) || {}; for (var k in s) { d[k] = s[k]; } return d; })();
 if (S.gen === 'running') { S.gen = 'error'; S.genErr = 'interrupted'; }
-function save() { S.updatedAt = Date.now(); jset(KEY, S); pushAcc(); }
+function save() { S.updatedAt = Date.now(); jset(KEY, S); jset('ss2_dev', { device: S.device, access: S.access }); pushAcc(); }
 (function prune() {
   var cut = Date.now() - 400 * 86400000;
   S.meals = (S.meals || []).filter(function (m) { return m && m.t > cut; });
@@ -554,11 +570,12 @@ function post(url, data) {
 }
 var API = (window.SS_API || '').replace(/\/?$/, '/');
 var HAS_API = !!window.SS_API;
+function tkv() { return (S.access && S.access.tk) || ''; }
 function api(action, data) {
   if (!HAS_API) { return Promise.reject({ code: 'offline' }); }
-  var body = { device: S.device, action: action };
+  var body = { device: S.device, tk: tkv(), action: action };
   for (var k in (data || {})) { body[k] = data[k]; }
-  return post(API + 'sync.php', body).then(function (r) { return r.j; });
+  return post(API + 'sync.php', body).then(function (r) { if (r.j && r.j.tk) { S.access = S.access || { expires: null }; S.access.tk = r.j.tk; save(); } return r.j; });
 }
 function ensureConfig() {
   if (CFG.loaded) { return Promise.resolve(CFG); }
@@ -737,14 +754,14 @@ function viewProfile() {
     '<div class="group"><div class="q" id="qSex">' + esc(tx('sexQ')) + '</div><div class="seg" role="radiogroup" aria-labelledby="qSex">' +
     opt('sex', 'f', tx('female'), '', false) + opt('sex', 'm', tx('male'), '', false) + '</div></div>' +
     '<div class="fields">' +
-    '<div class="field"><label for="pfAge">' + esc(tx('age')) + '</label><div class="inp"><input id="pfAge" type="number" inputmode="numeric" min="14" max="90" autocomplete="off"><span class="u">' + esc(tx('ageU')) + '</span></div></div>' +
-    '<div class="field"><label for="pfWeight">' + esc(tx('weight')) + '</label><div class="inp"><input id="pfWeight" type="number" inputmode="decimal" min="30" max="250" step="0.1" autocomplete="off"><span class="u">' + esc(tx('weightU')) + '</span></div></div>' +
-    '<div class="field"><label for="pfHeight">' + esc(tx('height')) + '</label><div class="inp"><input id="pfHeight" type="number" inputmode="numeric" min="120" max="230" autocomplete="off"><span class="u">' + esc(tx('heightU')) + '</span></div></div></div>' +
+    '<div class="field"><label for="pfAge">' + esc(tx('age')) + '</label><div class="inp"><input id="pfAge" type="number" inputmode="numeric" min="18" max="90" autocomplete="off"><span class="u">' + esc(tx('ageU')) + '</span></div></div>' +
+    '<div class="field"><label for="pfWeight">' + esc(tx('weight')) + '</label><div class="inp"><input id="pfWeight" type="number" inputmode="decimal" min="40" max="250" step="0.1" autocomplete="off"><span class="u">' + esc(tx('weightU')) + '</span></div></div>' +
+    '<div class="field"><label for="pfHeight">' + esc(tx('height')) + '</label><div class="inp"><input id="pfHeight" type="number" inputmode="numeric" min="140" max="215" autocomplete="off"><span class="u">' + esc(tx('heightU')) + '</span></div></div></div>' +
     '<div class="group"><div class="q" id="qAct">' + esc(tx('actQ')) + '</div><div class="stack" role="radiogroup" aria-labelledby="qAct">' +
     opt('act', 'sed', tx('sed'), tx('sedD'), false) + opt('act', 'light', tx('light'), tx('lightD'), true) + opt('act', 'mod', tx('mod'), tx('modD'), false) + opt('act', 'high', tx('high'), tx('highD'), false) + '</div></div>' +
     '<div class="group"><div class="q" id="qGoal">' + esc(tx('goalQ')) + '</div><div class="stack" role="radiogroup" aria-labelledby="qGoal">' +
     opt('goal', 'lose', tx('lose'), tx('loseD'), false) + opt('goal', 'keep', tx('keep'), tx('keepD'), false) + opt('goal', 'gain', tx('gain'), tx('gainD'), false) + '</div></div>' +
-    '<p class="err" id="formErr" role="alert" hidden></p><p class="note">' + esc(tx('medNote')) + '</p>' +
+    '<p class="err" id="formErr" role="alert" hidden></p><p class="note"><b>' + esc(tx('adultOnly')) + '</b> ' + esc(tx('medNote')) + '</p>' +
     '<button class="btn big" type="submit">' + esc(tx('calc')) + '</button></form>' +
     (S.startDate ? '<button class="link" type="button" data-act="to-home">' + esc(tx('back')) + '</button>' : '') + '</div>';
 }
@@ -765,14 +782,14 @@ function readForm() {
 }
 function validProfile(p) {
   return (p.sex === 'f' || p.sex === 'm') && ACT[p.act] && (p.goal === 'lose' || p.goal === 'keep' || p.goal === 'gain') &&
-    p.age >= 14 && p.age <= 90 && p.weight >= 30 && p.weight <= 250 && p.height >= 120 && p.height <= 230;
+    p.age >= 18 && p.age <= 90 && p.weight >= 40 && p.weight <= 250 && p.height >= 140 && p.height <= 215;
 }
 function submitProfile() {
   var p = readForm(), fe = $('formErr');
   if (!validProfile(p)) { fe.textContent = tx('errForm'); fe.hidden = false; return; }
   fe.hidden = true;
   var old = S.profile;
-  p.startWeight = old && S.startDate ? old.startWeight : p.weight;
+  p.startWeight = old && S.startDate && old.goal === p.goal ? old.startWeight : p.weight;
   p.forcedKeep = false;
   if (p.age < 18) { p.goal = 'keep'; }
   if (p.goal !== 'keep' && !targetOptions(p).opts.length) { p.goal = 'keep'; p.forcedKeep = true; }
@@ -1063,10 +1080,11 @@ function refreshDay() {
     '<p class="remain">' + esc(ratio > 1 ? tx('over')(s.carbs - goal) : tx('left')(goal - s.carbs)) + '</p>' +
     '<p class="kcal-line">' + esc(tx('kcalInfo')(s.kcal)) + '</p>' +
     '<button class="goal-btn" type="button" data-act="goal-toggle" aria-expanded="' + open + '" aria-controls="goalPanel">' + ICON.pencil + '<span>' + esc(tx('goalBtn')(goal)) + '</span></button>' +
-    '<form class="goal-panel" id="goalPanel"' + (open ? '' : ' hidden') + '><label for="goalInput">' + esc(tx('goalLabel')) + '</label><p class="hint">' + esc(tx('goalHelp')) + '</p>' +
+    '<form class="goal-panel" id="goalPanel"' + (open ? '' : ' hidden') + '><label for="goalInput">' + esc(tx('goalLabel')) + '</label><p class="hint">' + esc(tx('goalHelp') + ' ' + tx('goalMin')) + '</p>' +
     '<div class="chips">' + [pl.g].concat([150, 200, 250, 300].filter(function (n) { return n !== pl.g; })).map(function (n, i) { return '<button type="button" class="chip" data-act="goal-chip" data-v="' + n + '" aria-pressed="' + (n === goal) + '">' + (i === 0 ? esc(tx('goalRec')(n)) : n) + '</button>'; }).join('') + '</div>' +
-    '<div class="goal-row"><input id="goalInput" type="number" inputmode="numeric" min="50" max="600" step="5" value="' + goal + '"><button class="btn" type="submit">' + esc(tx('save')) + '</button></div></form></div>' +
-    '<div class="macros">' + tile('c', tx('sugars'), s.sugar, tx('sugarRef')(pl.sugar)) + tile('p', tx('protein'), s.protein, '') + tile('f', tx('fat'), s.fat, '') + '</div>';
+    '<div class="goal-row"><input id="goalInput" type="number" inputmode="numeric" min="130" max="600" step="5" value="' + goal + '"><button class="btn" type="submit">' + esc(tx('save')) + '</button></div></form></div>' +
+    '<div class="macros">' + tile('c', tx('sugars'), s.sugar, tx('sugarRef')(pl.sugar)) + tile('p', tx('protein'), s.protein, '') + tile('f', tx('fat'), s.fat, '') + '</div>' +
+    '<p class="note med-note">' + esc(tx('medShort')) + '</p>';
 }
 
 /* repas du jour */
@@ -1188,7 +1206,7 @@ function refreshSettings() {
     '<div>' + remindRows() + '</div></div>' + (msg && !S.pushOn ? '<p class="note" role="status">' + esc(msg) + '</p>' : '') +
     '<button class="btn ghost" type="button" data-act="recalc">' + esc(tx('sRecalc')) + '</button>' +
     (deferredInstall ? '<button class="btn ghost" type="button" data-act="install">' + esc(tx('sInstall')) + '</button>' : '') +
-    '<button class="link" type="button" data-act="reset">' + esc(resetArmed ? tx('sResetAsk') : tx('sReset')) + '</button><p class="note" style="text-align:center">' + esc(tx('sResetNote')) + '</p>' + legalLinks() + '</div>';
+    '<button class="btn ghost" type="button" data-act="export">' + esc(tx('sExport')) + '</button>' + (S.aiConsent ? '<button class="link" type="button" data-act="ai-off">' + esc(tx('aiConsentOff')) + '</button>' : '') + '<button class="link" type="button" data-act="reset">' + esc(resetArmed ? tx('sResetAsk') : tx('sReset')) + '</button><p class="note" style="text-align:center">' + esc(tx('sResetNote')) + '</p>' + legalLinks() + '</div>';
 }
 
 /* ======================================================================
@@ -1231,7 +1249,7 @@ function generateAfter() {
   if (!HAS_API) { S.gen = 'error'; S.genErr = 'soon'; save(); refreshHero(); return; }
   var p = S.profile; if (!mem.before || !p) { return; }
   S.gen = 'running'; S.genErr = ''; save(); refreshHero();
-  post(API + 'transform.php', { device: S.device, image: mem.before.split(',')[1], sex: p.sex, age: p.age, height: p.height, weight: p.startWeight, target: p.targetWeight, goal: p.goal })
+  post(API + 'transform.php', { device: S.device, tk: tkv(), image: mem.before.split(',')[1], sex: p.sex, age: p.age, height: p.height, weight: p.startWeight, target: p.targetWeight, goal: p.goal })
     .then(function (r) {
       if (typeof r.j.left === 'number') { S.genLeft = r.j.left; }
       if (!r.ok || !r.j.image) { throw { code: r.j.error || 'upstream' }; }
@@ -1264,9 +1282,15 @@ function normalise(data) {
   }).filter(function (i) { return i.fr && i.kcal > 0; });
 }
 var entry = '', entryErr = '';      // saisie sans photo : '' | 'text' | 'manual'
-function closeCur() { if (cur && cur.ctl) { try { cur.ctl.abort(); } catch (e) {} } cur = null; entry = ''; entryErr = ''; }
+function closeCur() { consentAsk = false; if (cur && cur.ctl) { try { cur.ctl.abort(); } catch (e) {} } cur = null; entry = ''; entryErr = ''; }
 
+var consentAsk = false, consentPending = null;
+function consentCard() {
+  return '<div class="card" role="dialog" aria-labelledby="aiT"><h2 id="aiT">' + esc(tx('aiConsentTitle')) + '</h2><p>' + esc(tx('aiConsentText')) + '</p>' +
+    '<div class="actions"><button type="button" class="btn" data-act="ai-yes">' + esc(tx('aiConsentYes')) + '</button><button type="button" class="btn ghost" data-act="ai-no">' + esc(tx('aiConsentNo')) + '</button></div></div>';
+}
 function startAnalysis(file) {
+  if (!S.aiConsent) { consentPending = function () { startAnalysis(file); }; closeCur(); consentAsk = true; renderCapture(); return; }
   closeCur();
   var job = cur = { status: 'analyzing', items: [], mult: 1, conf: '', thumb: '', ctl: null, alarmed: false };
   renderCapture();
@@ -1277,9 +1301,11 @@ function runAnalysis(job) {
   if (!HAS_API) { job.status = 'error'; job.err = 'soon'; renderCapture(); return; }
   job.status = 'analyzing'; job.err = ''; renderCapture();
   var ctl = job.ctl = (window.AbortController ? new AbortController() : null);
-  fetch(API + 'analyze.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl ? ctl.signal : undefined, body: JSON.stringify(job.text ? { device: S.device, text: job.text, lang: S.lang } : { device: S.device, image: job.b64, mime: 'image/jpeg', lang: S.lang }) })
+  job.timedOut = false; clearTimeout(job.timer); job.timer = setTimeout(function () { job.timedOut = true; if (ctl) { try { ctl.abort(); } catch (e) {} } }, 45000);
+  fetch(API + 'analyze.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctl ? ctl.signal : undefined, body: JSON.stringify(job.text ? { device: S.device, tk: tkv(), text: job.text, lang: S.lang } : { device: S.device, tk: tkv(), image: job.b64, mime: 'image/jpeg', lang: S.lang }) })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
     .then(function (r) {
+      clearTimeout(job.timer);
       if (cur !== job) { return; }
       if (!r.ok) { throw { code: r.j.error || 'generic' }; }
       var items = normalise(r.j);
@@ -1288,9 +1314,10 @@ function runAnalysis(job) {
       if (mealCarbs(1) > 0 && mealCarbs(1) > remaining()) { job.alarmed = true; decisionAlarm(); }
     })
     .catch(function (e) {
-      if (cur !== job || (e && e.name === 'AbortError')) { return; }
+      clearTimeout(job.timer);
+      if (cur !== job || (e && e.name === 'AbortError' && !job.timedOut)) { return; }
       var c = e && e.code; job.status = 'error';
-      job.err = c === 'rate_limited' ? 'busy' : c === 'bad_image' ? 'badimg' : c === 'bad_text' ? 'badtext' : c === 'access' ? 'access' : c === 'config' ? 'config' : (e && e.name === 'TypeError' ? 'offline' : 'generic');
+      job.err = c === 'rate_limited' ? 'busy' : c === 'bad_image' ? 'badimg' : c === 'bad_text' ? 'badtext' : c === 'access' ? 'access' : c === 'config' ? 'config' : (job.timedOut ? 'timeout' : (e && e.name === 'TypeError' ? (navigator.onLine === false ? 'offline' : 'network') : 'generic'));
       if (job.err === 'access') { S.access.expires = null; save(); }
       renderCapture();
     });
@@ -1298,6 +1325,7 @@ function runAnalysis(job) {
 
 /* repas décrit en texte, ou ajout rapide nom + calories */
 function startTextAnalysis(desc) {
+  if (!S.aiConsent) { consentPending = function () { startTextAnalysis(desc); }; closeCur(); consentAsk = true; renderCapture(); return; }
   closeCur();
   var job = cur = { status: 'analyzing', items: [], mult: 1, conf: '', thumb: '', text: desc, ctl: null, alarmed: false };
   renderCapture(); runAnalysis(job);
@@ -1355,9 +1383,10 @@ function entryForm() {
 function renderCapture() {
   var el = $('capture'); if (!el) { return; }
   var u = tx('unit'), g = tx('g');
+  if (consentAsk) { el.innerHTML = consentCard(); return; }
   if (!cur) {
     if (entry) { el.innerHTML = entryForm(); var fi = $(entry === 'text' ? 'txtIn' : 'manName'); if (fi) { fi.focus(); } return; }
-    el.innerHTML = '<label class="snap" for="foodPick" data-act="snap">' + ICON.camera + '<span>' + esc(tx('snap')) + '</span></label><label class="link" for="foodCam" data-act="snap">' + esc(tx('camNow')) + '</label>' +
+    el.innerHTML = '<button type="button" class="snap" data-act="snap-pick">' + ICON.camera + '<span>' + esc(tx('snap')) + '</span></button><button type="button" class="link" data-act="snap-cam">' + esc(tx('camNow')) + '</button>' +
       '<div class="alt-row"><button type="button" class="btn ghost" data-act="entry-text">' + ICON.pencil + '<span>' + esc(tx('txtBtn')) + '</span></button><button type="button" class="btn ghost" data-act="entry-manual"><b aria-hidden="true">+</b><span>' + esc(tx('manBtn')) + '</span></button></div>';
     return;
   }
@@ -1466,6 +1495,12 @@ function handleClick(ev) {
   var act = b.getAttribute('data-act');
   switch (act) {
     case 'snap': unlockAudio(); break;
+    case 'snap-pick': unlockAudio(); if ($('foodPick')) { $('foodPick').click(); } break;
+    case 'snap-cam': unlockAudio(); if ($('foodCam')) { $('foodCam').click(); } break;
+    case 'ai-yes': S.aiConsent = Date.now(); save(); consentAsk = false; var _p = consentPending; consentPending = null; if (_p) { _p(); } else { renderCapture(); } break;
+    case 'ai-no': consentAsk = false; consentPending = null; renderCapture(); break;
+    case 'ai-off': S.aiConsent = 0; save(); refreshSettings(); break;
+    case 'export': exportData(); break;
     case 'tab':
       unlockAudio();
       var tv = b.getAttribute('data-v');
@@ -1492,8 +1527,8 @@ function handleClick(ev) {
     case 'gen-retry': generateAfter(); break;
     case 'cancel': closeCur(); renderCapture(); break;
     case 'retry': if (cur) { runAnalysis(cur); } break;
-    case 'mult': if (cur) { cur.mult = Number(b.getAttribute('data-v')); renderCapture(); } break;
-    case 'limit': if (cur) { cur.mult = limitMult() || 0.25; renderCapture(); } break;
+    case 'mult': if (cur) { cur.mult = Number(b.getAttribute('data-v')); cur.alarmed = false; renderCapture(); } break;
+    case 'limit': if (cur) { cur.mult = limitMult() || 0.25; cur.alarmed = false; renderCapture(); } break;
     case 'add': if (cur && cur.status === 'result') { addMeal(); } break;
     case 'dec-mult': if (cur) { cur.mult = Number(b.getAttribute('data-v')); } closeAlarm(); renderCapture(); break;
     case 'dec-skip': closeAlarm(); closeCur(); renderCapture(); break;
@@ -1554,7 +1589,16 @@ function finishPhotoStep() {
   }
   go('remind');
 }
+function exportData() {
+  var o = { app: 'Sokkar Stop', exportedAt: new Date().toISOString(), profile: S.profile, carbGoal: S.carbGoal, goal: S.goal, startDate: S.startDate, weights: S.weights, meals: S.meals, dayCarbGoal: S.dayCarbGoal, dayGoal: S.dayGoal, exceeded: S.exceeded };
+  try {
+    var url = URL.createObjectURL(new Blob([JSON.stringify(o, null, 2)], { type: 'application/json' })), a = document.createElement('a');
+    a.href = url; a.download = 'sokkar-stop-mes-donnees.json'; document.body.appendChild(a); a.click();
+    setTimeout(function () { URL.revokeObjectURL(url); a.remove(); }, 1500);
+  } catch (e) {}
+}
 function resetEverything() {
+  if (HAS_API) { api('erase').catch(function () {}); }
   try { navigator.serviceWorker.ready.then(function (r) { return r.pushManager.getSubscription(); }).then(function (s) { if (s) { api('unsubscribe').catch(function () {}); return s.unsubscribe(); } }).catch(function () {}); } catch (e) {}
   if (ACC) { accPost('logout', { token: ACC.token }).catch(function () {}); }
   try { localStorage.removeItem(KEY); localStorage.removeItem(ACC_KEY); } catch (e) {}
@@ -1569,7 +1613,7 @@ function handleChange(ev) {
   var act = t.getAttribute && t.getAttribute('data-act');
   if (act === 'rem-toggle') { S.rem[t.getAttribute('data-k')] = t.checked; applyPrefs(); }
   else if (act === 'push-toggle') {
-    if (!t.checked) { S.pushOn = false; save(); api('unsubscribe').catch(function () {}); refreshSettings(); }
+    if (!t.checked) { S.pushOn = false; save(); api('unsubscribe').catch(function () {}); try { navigator.serviceWorker.ready.then(function (r) { return r.pushManager.getSubscription(); }).then(function (sb) { if (sb) { sb.unsubscribe(); } }).catch(function () {}); } catch (e2) {} refreshSettings(); }
   }
 }
 function handleSubmit(ev) {
@@ -1597,7 +1641,7 @@ function handleSubmit(ev) {
     p.targetWeight = Math.round(v * 10) / 10; afterGoal();
   }
   else if (f === 'goalPanel') {
-    S.carbGoal = clamp(Math.round(Number($('goalInput').value) || S.carbGoal), 50, 600);
+    S.carbGoal = clamp(Math.round(Number($('goalInput').value) || S.carbGoal), CARB_MIN, 600);
     var k = dkey(); if (S.dayCarbGoal[k]) { S.dayCarbGoal[k] = S.carbGoal; }
     save(); refreshDay(); refreshCal(); syncState();
   }

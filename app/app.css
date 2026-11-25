@@ -2,7 +2,7 @@
 :root{
   color-scheme:light;
   --bg:#F4EBDB; --glow:#FCF6EA; --surface:#FFFDF8;
-  --ink:#2A1A14; --muted:#7B6A5F;
+  --ink:#2A1A14; --muted:#6B5B50;
   --accent:#A33A2E; --accent-deep:#862D24; --accent-ink:#FFF8EE; --accent-tint:#FBE9E3;
   --line:#E2D3BD;
   --ok:#3E8E5E; --warn:#E08A1E; --bad:#C62828;
@@ -342,3 +342,6 @@ button.cal-cell{background:none;border:0;font:inherit;color:inherit;cursor:point
 .tr-wh{display:flex;justify-content:space-between;gap:8px;font-size:.92rem}
 .tr-wh span{color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
 .tr-weight svg{width:100%;height:auto;display:block}
+
+.med-note{margin-top:14px;font-size:.78rem;line-height:1.45;color:var(--muted)}
+button.snap{font-family:inherit;cursor:pointer}

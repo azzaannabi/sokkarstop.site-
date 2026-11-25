@@ -29,14 +29,14 @@ On enveloppe l'appli web dans **Capacitor** (gratuit) :
 3. Icône 1024×1024 sans transparence (à partir de `app/icons/icon-512.png`).
 4. **Confidentialité** : URL `https://sokkarstop.site/app/confidentialite.html`, plus le questionnaire « étiquettes de confidentialité » (e-mail, données de santé et forme, photos, identifiant d'appareil).
 5. **Suppression de compte dans l'appli** : obligatoire pour Apple, déjà présente (Objectif, Compte).
-6. **Classification d'âge** : 17+ à cause de la santé et de la nutrition (à confirmer dans le questionnaire).
-7. **Compte de démonstration** pour le relecteur : si `REQUIRE_CODE` est actif, fournis un code à 6 chiffres de test dans « Informations de connexion », sinon l'appli est bloquée pour lui.
+6. **Classification d'âge** : réponds de façon cohérente avec la politique de confidentialité (application réservée aux **18 ans et plus**) : choisis la tranche la plus haute proposée (17+ ou 18+ selon le questionnaire).
+7. **Compte de démonstration** pour le relecteur : si `REQUIRE_CODE` est actif, fournis un code **de démonstration** à 6 chiffres (à créer avec la route admin, longue durée, 2 appareils) dans « Informations de connexion », sinon l'appli est bloquée pour lui.
 
 ## 5. Textes de la fiche (français)
 
 - **Nom** (30 car.) : `Sokkar Stop App`
 - **Sous-titre** (30 car.) : `Compte tes glucides en photo`
-- **Mots-clés** (100 car.) : `glucides,sucre,calories,régime,nutrition,diabète,photo repas,alarme,Tunisie`
+- **Mots-clés** (100 car.) : `glucides,sucre,calories,nutrition,photo repas,alarme,gymnema,Tunisie`
 - **Texte promotionnel** : `Photographie ton repas, vois tes glucides du jour et laisse l'alarme Sokkar Stop te dire stop.`
 - **Description** : reprendre la description de `GUIDE.md` (section 6), sans la phrase sur le flacon si Apple la juge commerciale.
 - **Avertissement santé** à garder : estimations indicatives, ne remplace pas un médecin ou un diététicien.

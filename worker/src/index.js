@@ -62,7 +62,7 @@ const AR = {
         'fallback' : ['سكر ستوب', ['افتح التطبيق لترى يومك.']],
     };
 
-const ORIGINS = ['https://sokkarstop.site', 'https://www.sokkarstop.site', 'http://sokkarstop.site', 'http://www.sokkarstop.site', 'https://azzaannabi.github.io', 'http://localhost:8123', 'http://localhost:8099'];
+const ORIGINS = ['https://sokkarstop.site', 'https://www.sokkarstop.site', 'https://azzaannabi.github.io'];
 const DAY = 86400;
 
 function cors(req) {
@@ -99,11 +99,28 @@ async function refund(env, key, ttl) {
 }
 async function left(env, key, limit) { return Math.max(0, limit - parseInt((await env.KV.get(key)) || '0', 10)); }
 
-async function access(env, device) {
-  if (String(cfg(env, 'REQUIRE_CODE', 'false')) !== 'true') { return { ok: true, expires: null }; }
+function sameStr(a, b) { a = String(a); b = String(b); if (a.length !== b.length) { return false; } let r = 0; for (let i = 0; i < a.length; i++) { r |= a.charCodeAt(i) ^ b.charCodeAt(i); } return r === 0; }
+const REQUIRE = (env) => String(cfg(env, 'REQUIRE_CODE', 'true')) === 'true';    // par défaut : l'accès exige un code
+/* jeton secret de l'appareil : émis à l'activation, seul son hachage est gardé. Sans lui, connaître l'identifiant d'un appareil ne suffit pas. */
+const newTk = () => hex(crypto.getRandomValues(new Uint8Array(24)));
+async function tkOk(d, tk) { return !d || !d.tk || (!!tk && sameStr(await sha('tk:' + String(tk)), d.tk)); }
+async function access(env, device, tk) {
+  if (!REQUIRE(env)) { return { ok: true, expires: null }; }
   const d = await getJ(env, 'dev:' + device);
+  if (!(await tkOk(d, tk))) { return { ok: false, expires: null }; }
   const exp = (d && d.expires) || 0;
   return { ok: exp > nowS(), expires: exp || null };
+}
+/* accès administrateur : en-tête Authorization: Bearer (ou, à défaut, ?token=), comparaison à temps constant, essais limités par adresse IP */
+async function adminOk(req, env, url) {
+  const ip = req.headers.get('CF-Connecting-IP') || '0', hr = Math.floor(nowS() / 3600);
+  const fk = 'ip:adm:' + ip + ':' + hr;
+  if (parseInt((await env.KV.get(fk)) || '0', 10) >= 10) { return false; }
+  const h = req.headers.get('Authorization') || '';
+  const t = h.startsWith('Bearer ') ? h.slice(7) : (url.searchParams.get('token') || '');
+  if (env.ADMIN_TOKEN && t && sameStr(t, env.ADMIN_TOKEN)) { return true; }
+  await counter(env, fk, 1000, 2 * 3600);
+  return false;
 }
 
 /* ---------- notifications (VAPID) ---------- */
@@ -145,7 +162,7 @@ async function analyze(req, env) {
   const inp = await req.json().catch(() => ({}));
   const device = validDevice(inp.device);
   if (!device) { return out(req, { error: 'bad_device' }, 400); }
-  if (!(await access(env, device)).ok) { return out(req, { error: 'access' }, 403); }
+  if (!(await access(env, device, inp.tk)).ok) { return out(req, { error: 'access' }, 403); }
   const desc = String(inp.text || '').replace(/[\u0000-\u001f<>]/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 300);
   const isText = !inp.image && !!desc;
   const img = String(inp.image || ''), mime = String(inp.mime || 'image/jpeg');
@@ -176,7 +193,7 @@ async function analyze(req, env) {
     }
     if (!gdata) {
       await refund(env, ck, 2 * DAY);
-      return out(req, { error: lastSt === 429 ? 'rate_limited' : lastSt === 401 || lastSt === 403 ? 'config' : 'upstream', up: lastSt, detail: tried.join(' | ') || lastDt }, 502);
+      return out(req, { error: lastSt === 429 ? 'rate_limited' : lastSt === 401 || lastSt === 403 ? 'config' : 'upstream' }, 502);
     }
     for (const c of (gdata.candidates || [])) { for (const p of ((c.content || {}).parts || [])) { if (p.text) { text += p.text; } } }
   } else {
@@ -187,8 +204,7 @@ async function analyze(req, env) {
   });
   if (!r.ok) {
     await refund(env, ck, 2 * DAY);
-    let dt = ''; try { dt = (await r.text()).slice(0, 300); } catch (e) { dt = ''; }
-    return out(req, { error: r.status === 401 || r.status === 403 ? 'config' : r.status === 429 ? 'rate_limited' : 'upstream', up: r.status, detail: dt }, 502);
+    return out(req, { error: r.status === 401 || r.status === 403 ? 'config' : r.status === 429 ? 'rate_limited' : 'upstream' }, 502);
   }
   const data = await r.json();
   for (const p of (data.content || [])) { if (p.type === 'text') { text += p.text; } }
@@ -203,7 +219,7 @@ async function transform(req, env) {
   const inp = await req.json().catch(() => ({}));
   const device = validDevice(inp.device);
   if (!device) { return out(req, { error: 'bad_device' }, 400); }
-  if (!(await access(env, device)).ok) { return out(req, { error: 'access' }, 403); }
+  if (!(await access(env, device, inp.tk)).ok) { return out(req, { error: 'access' }, 403); }
   const img = String(inp.image || '');
   if (!img || img.length > 7e6 || !/^[A-Za-z0-9+/=]+$/.test(img)) { return out(req, { error: 'bad_image' }, 400); }
   const sex = inp.sex === 'm' ? 'man' : 'woman';
@@ -236,28 +252,45 @@ async function transform(req, env) {
 async function sync(req, env) {
   const inp = await req.json().catch(() => ({}));
   const action = String(inp.action || '');
-  if (action === 'config') { return out(req, { vapidPublic: (await vapid(env)).pub, accounts: true, requireCode: String(cfg(env, 'REQUIRE_CODE', 'false')) === 'true', maxTransform: parseInt(cfg(env, 'MAX_TRANSFORM', '3'), 10) }); }
+  if (action === 'config') { return out(req, { vapidPublic: (await vapid(env)).pub, accounts: true, requireCode: REQUIRE(env), maxTransform: parseInt(cfg(env, 'MAX_TRANSFORM', '3'), 10) }); }
   const device = validDevice(inp.device);
   if (!device) { return out(req, { error: 'bad_device' }, 400); }
   const dk = 'dev:' + device;
   const cleanPrefs = (p) => { p = p && typeof p === 'object' ? p : {}; return { on: !!p.on, breakfast: p.breakfast === undefined || !!p.breakfast, lunch: p.lunch === undefined || !!p.lunch, dinner: p.dinner === undefined || !!p.dinner }; };
   switch (action) {
-    case 'status':
-      return out(req, { ok: true, access: await access(env, device), transformLeft: await left(env, 'tr:' + device, parseInt(cfg(env, 'MAX_TRANSFORM', '3'), 10)) });
+    case 'status': {
+      /* appareils activés avant le jeton secret : on leur en remet un une seule fois */
+      let newtk;
+      const d0 = await getJ(env, dk);
+      if (d0 && d0.expires && !d0.tk) { newtk = newTk(); d0.tk = await sha('tk:' + newtk); await putJ(env, dk, d0); }
+      const st = { ok: true, access: await access(env, device, newtk || inp.tk), transformLeft: await left(env, 'tr:' + device, parseInt(cfg(env, 'MAX_TRANSFORM', '3'), 10)) };
+      if (newtk) { st.tk = newtk; }
+      return out(req, st);
+    }
     case 'activate': {
       const code = String(inp.code || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
       let c;
-      if (/^[0-9]{6}$/.test(code)) {
-        /* code à 6 chiffres (boîte Sokkar Stop) : liste fixe créée par /pins, un seul téléphone par code.
-           On limite quand même les essais par adresse IP et par téléphone. */
+      if (/^[0-9]{6,8}$/.test(code)) {
+        /* code à chiffres (boîte Sokkar Stop) : liste fixe créée par /pins, 2 téléphones au plus par code (changement de téléphone).
+           Essais limités par adresse IP, par téléphone, et en échecs globaux. */
         const ip = req.headers.get('CF-Connecting-IP') || '0', hr = Math.floor(nowS() / 3600);
         if (!(await counter(env, 'ip:pin:' + ip + ':' + hr, 12, 2 * 3600)) || !(await counter(env, 'dev:pin:' + device + ':' + Math.floor(hr / 24), 30, 2 * DAY))) { return out(req, { ok: false, error: 'rate_limited' }, 429); }
+        const gk = 'g:pinfail:' + hr, ifk = 'ip:pinfail:' + ip + ':' + hr;
+        if (parseInt((await env.KV.get(gk)) || '0', 10) >= parseInt(cfg(env, 'PIN_FAIL_GLOBAL', '60'), 10) || parseInt((await env.KV.get(ifk)) || '0', 10) >= 6) { return out(req, { ok: false, error: 'rate_limited' }, 429); }
+        const fail = async (err) => { await counter(env, gk, 1e9, 2 * 3600); await counter(env, ifk, 1e9, 2 * 3600); return out(req, { ok: false, error: err }); };
         const list = (await getJ(env, 'pins')) || {};
-        if (!list[code]) { return out(req, { ok: false, error: 'invalid' }); }
-        const use = await getJ(env, 'pinuse:' + code);
-        if (use && use.device !== device) { return out(req, { ok: false, error: 'used' }); }
-        if (!use) { await putJ(env, 'pinuse:' + code, { device, at: nowS() }); }
-        c = { days: list[code] };
+        if (!list[code]) { return await fail('invalid'); }
+        const use = (await getJ(env, 'pinuse:' + code)) || null;
+        const devs = use ? (use.devices || (use.device ? [use.device] : [])) : [];
+        if (devs.length && !devs.includes(device)) {
+          if (devs.length >= 2) { return await fail('used'); }
+          devs.push(device); await putJ(env, 'pinuse:' + code, { devices: devs, at: use.at || nowS() });
+          const first = await getJ(env, 'dev:' + devs[0]);
+          c = { days: list[code], inherit: first && first.expires ? first.expires : 0 };
+        } else if (!devs.length) {
+          await putJ(env, 'pinuse:' + code, { devices: [device], at: nowS() });
+        }
+        c = c || { days: list[code] };
       } else {
         if (code.length < 6) { return out(req, { ok: false, error: 'invalid' }); }
         c = await getJ(env, 'code:' + code);
@@ -266,11 +299,28 @@ async function sync(req, env) {
         if (!c.device) { c.device = device; c.activatedAt = nowS(); await putJ(env, 'code:' + code, c); }
       }
       const d = (await getJ(env, dk)) || {};
+      if (!(await tkOk(d, inp.tk))) { return out(req, { ok: false, error: 'used' }); }
       d.codes = d.codes || [];
-      if (!d.codes.includes(code)) { d.expires = Math.max(nowS(), d.expires || 0) + DAY * (c.days || 30); d.codes.push(code); await putJ(env, dk, d); }
-      return out(req, { ok: true, expires: d.expires });
+      if (!d.codes.includes(code)) { d.expires = c.inherit ? Math.max(c.inherit, d.expires || 0) : Math.max(nowS(), d.expires || 0) + DAY * (c.days || 30); d.codes.push(code); }
+      let newtk;
+      if (!d.tk) { newtk = newTk(); d.tk = await sha('tk:' + newtk); }
+      await putJ(env, dk, d);
+      return out(req, newtk ? { ok: true, expires: d.expires, tk: newtk } : { ok: true, expires: d.expires });
+    }
+    case 'erase': {
+      /* suppression sans compte : rappels et état de cet appareil. L'accès (code, durée) est conservé pour ne pas faire perdre le code. */
+      const d = await getJ(env, dk);
+      if (d) {
+        if (!(await tkOk(d, inp.tk))) { return out(req, { error: 'forbidden' }, 403); }
+        if (d.sub && d.sub.endpoint) { await env.KV.delete('ep:' + (await sha(d.sub.endpoint))); }
+        delete d.sub; delete d.queue; delete d.state; delete d.prefs; delete d.sent; delete d.lang;
+        await putJ(env, dk, d);
+      }
+      await env.KV.delete('an:' + device + ':' + dayKey(nowS()));
+      return out(req, { ok: true });
     }
     case 'register': {
+      if (!(await tkOk(await getJ(env, dk), inp.tk))) { return out(req, { error: 'forbidden' }, 403); }
       const sub = inp.subscription, ep = sub && typeof sub.endpoint === 'string' ? sub.endpoint : '';
       if (!ep.startsWith('https://') || ep.length > 1200 || !sub.keys) { return out(req, { error: 'bad_subscription' }, 400); }
       const d = (await getJ(env, dk)) || {};
@@ -281,12 +331,14 @@ async function sync(req, env) {
     }
     case 'unsubscribe': {
       const d = await getJ(env, dk);
+      if (d && !(await tkOk(d, inp.tk))) { return out(req, { error: 'forbidden' }, 403); }
       if (d) { delete d.sub; delete d.queue; await putJ(env, dk, d); }
       return out(req, { ok: true });
     }
     case 'state': {
       const d = await getJ(env, dk);
       if (!d || !d.sub) { return out(req, { ok: true }); }
+      if (!(await tkOk(d, inp.tk))) { return out(req, { error: 'forbidden' }, 403); }
       const re = /^\d{4}-\d{2}-\d{2}$/, n = (v, mx) => Math.max(0, Math.min(mx, parseInt(v, 10) || 0));
       d.state = { date: re.test(inp.date) ? inp.date : dayKey(nowS()), total: n(inp.total, 20000), goal: n(inp.goal, 20000), count: n(inp.count, 50), byType: { b: !!(inp.byType && inp.byType.b), l: !!(inp.byType && inp.byType.l), d: !!(inp.byType && inp.byType.d) }, exceededAt: n(inp.exceededAt, 4e9), lastExceededDate: re.test(inp.lastExceededDate) ? inp.lastExceededDate : '' };
       d.lang = inp.lang === 'ar' ? 'ar' : 'fr';
@@ -312,15 +364,14 @@ async function message(req, env) {
 
 /* codes à 6 chiffres : GET /pins?token=ADMIN_TOKEN&n=1500&days=30 (une seule fois ; refuse si la liste existe déjà, sauf &add=1) */
 async function pins(req, env, url) {
-  const t = url.searchParams.get('token') || '';
-  if (!env.ADMIN_TOKEN || t !== env.ADMIN_TOKEN) { return out(req, { error: 'forbidden' }, 403); }
+  if (!(await adminOk(req, env, url))) { return out(req, { error: 'forbidden' }, 403); }
   const n = Math.max(1, Math.min(5000, parseInt(url.searchParams.get('n') || '100', 10)));
   const days = Math.max(1, Math.min(400, parseInt(url.searchParams.get('days') || cfg(env, 'CODE_DAYS', '30'), 10)));
   const list = (await getJ(env, 'pins')) || {};
   const own = String(url.searchParams.get('code') || '');
   if (own) {
     /* code personnalisé (accès propriétaire) : &code=123456&days=3650 */
-    if (!/^[0-9]{6}$/.test(own)) { return out(req, { error: 'bad_code' }, 400); }
+    if (!/^[0-9]{6,8}$/.test(own)) { return out(req, { error: 'bad_code' }, 400); }
     list[own] = Math.max(1, Math.min(3650, parseInt(url.searchParams.get('days') || '3650', 10)));
     await putJ(env, 'pins', list);
     return new Response('Code ' + own + ' ajouté (' + list[own] + ' jours, un seul téléphone).\n', { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
@@ -329,9 +380,10 @@ async function pins(req, env, url) {
   if (Object.keys(list).length + n > 100000) { return out(req, { error: 'too_many' }, 400); }
   const bad = (c) => /^(\d)\1{5}$/.test(c) || /^(\d{3})\1$/.test(c) || /^(\d{2})\1\1$/.test(c) || ['012345', '123456', '234567', '345678', '456789', '987654', '876543', '654321', '543210', '123123', '000000'].includes(c);
   const fresh = [];
+  const len = Math.max(6, Math.min(8, parseInt(url.searchParams.get('len') || '6', 10))), mod = 10 ** len;   // &len=8 pour des codes à 8 chiffres (100 fois plus durs à deviner)
   while (fresh.length < n) {
-    const c = String(crypto.getRandomValues(new Uint32Array(1))[0] % 1000000).padStart(6, '0');
-    if (list[c] || bad(c)) { continue; }
+    const c = String(crypto.getRandomValues(new Uint32Array(1))[0] % mod).padStart(len, '0');
+    if (list[c] || (len === 6 && bad(c))) { continue; }
     list[c] = days; fresh.push(c);
   }
   await putJ(env, 'pins', list);
@@ -339,8 +391,7 @@ async function pins(req, env, url) {
 }
 
 async function codes(req, env, url) {
-  const t = url.searchParams.get('token') || '';
-  if (!env.ADMIN_TOKEN || t !== env.ADMIN_TOKEN) { return out(req, { error: 'forbidden' }, 403); }
+  if (!(await adminOk(req, env, url))) { return out(req, { error: 'forbidden' }, 403); }
   const n = Math.max(1, Math.min(200, parseInt(url.searchParams.get('n') || '10', 10)));
   const days = Math.max(1, Math.min(400, parseInt(url.searchParams.get('days') || cfg(env, 'CODE_DAYS', '30'), 10)));
   const al = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', list = [];
@@ -362,7 +413,6 @@ async function hashPw(pw, saltHex) {
   const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
   return hex(await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt, iterations: 100000 }, key, 256));
 }
-function sameStr(a, b) { if (a.length !== b.length) { return false; } let r = 0; for (let i = 0; i < a.length; i++) { r |= a.charCodeAt(i) ^ b.charCodeAt(i); } return r === 0; }
 async function newSession(env, id, u) {
   const token = hex(crypto.getRandomValues(new Uint8Array(32)));
   await env.KV.put('ses:' + (await sha(token)), id + '.' + ((u && u.epoch) || 0), { expirationTtl: 180 * DAY });
@@ -412,8 +462,7 @@ async function eraseUser(env, id, u) {
 }
 /* suppression demandée par e-mail (mot de passe perdu) : réservée à l'administrateur */
 async function adminDelete(req, env, url) {
-  const t = url.searchParams.get('token') || '';
-  if (!env.ADMIN_TOKEN || t !== env.ADMIN_TOKEN) { return out(req, { error: 'forbidden' }, 403); }
+  if (!(await adminOk(req, env, url))) { return out(req, { error: 'forbidden' }, 403); }
   const email = String(url.searchParams.get('email') || '').trim().toLowerCase();
   if (!EMAIL_RE.test(email)) { return out(req, { error: 'bad_email' }, 400); }
   const id = await sha('user:' + email), u = await getJ(env, 'usr:' + id);

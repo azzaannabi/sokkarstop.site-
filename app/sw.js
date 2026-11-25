@@ -1,5 +1,5 @@
 /* Sokkar Stop : service worker (fonctionne hors ligne + reçoit les notifications) */
-var CACHE = 'sokkar-stop-v10';
+var CACHE = 'sokkar-stop-v11';
 try { importScripts('config.js'); } catch (e) {}
 var API = (self.SS_API || '').replace(/\/?$/, '/');
 var SHELL = ['./', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest', 'config.js', 'icons/icon-192.png', 'icons/icon-512.png', 'confidentialite.html', 'suppression-compte.html'];
@@ -22,11 +22,23 @@ self.addEventListener('fetch', function (e) {
   var url = new URL(req.url);
   if (req.method !== 'GET' || url.origin !== self.location.origin || url.pathname.indexOf('/api/') !== -1) { return; }
   e.respondWith(
-    fetch(req).then(function (res) {
-      var copy = res.clone();
-      caches.open(CACHE).then(function (c) { c.put(req, copy); });
-      return res;
-    }).catch(function () { return caches.match(req).then(function (r) { return r || caches.match('index.html'); }); })
+    new Promise(function (resolve) {
+      var done = false;
+      var timer = setTimeout(function () {
+        caches.match(req).then(function (r) { if (r && !done) { done = true; resolve(r); } });
+      }, 3000);
+      fetch(req).then(function (res) {
+        clearTimeout(timer);
+        if (res && res.ok) {
+          var copy = res.clone();
+          caches.open(CACHE).then(function (c) { c.put(req, copy); });
+        }
+        if (!done) { done = true; resolve(res); }
+      }).catch(function () {
+        clearTimeout(timer);
+        caches.match(req).then(function (r) { return r || caches.match('index.html'); }).then(function (r) { if (!done) { done = true; resolve(r || Response.error()); } });
+      });
+    })
   );
 });
 
