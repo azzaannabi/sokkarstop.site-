@@ -335,7 +335,9 @@ function defaults() {
 }
 var S = (function () { var d = defaults(), s = jget(KEY) || {}; for (var k in s) { d[k] = s[k]; } return d; })();
 if (S.gen === 'running') { S.gen = 'error'; S.genErr = 'interrupted'; }
-function save() { S.updatedAt = Date.now(); jset(KEY, S); jset('ss2_dev', { device: S.device, access: S.access }); pushAcc(); }
+var mirrorT = null;
+function mirrorState() { clearTimeout(mirrorT); mirrorT = setTimeout(function () { try { if (typeof idb !== 'undefined' && S.profile) { idb.set('state', JSON.stringify(S)); } } catch (e) {} }, 400); }
+function save() { S.updatedAt = Date.now(); jset(KEY, S); jset('ss2_dev', { device: S.device, access: S.access }); mirrorState(); pushAcc(); }
 (function prune() {
   var cut = Date.now() - 400 * 86400000;
   S.meals = (S.meals || []).filter(function (m) { return m && m.t > cut; });
@@ -1693,6 +1695,16 @@ document.addEventListener('visibilitychange', function () { if (!document.hidden
 
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) { navigator.serviceWorker.register('sw.js').catch(function () {}); }
 
+if (!S.profile) {
+  idb.get('state').then(function (raw) {
+    if (!raw || S.profile) { return; }
+    var r = null; try { r = JSON.parse(raw); } catch (e) {}
+    if (!r || !r.profile) { return; }
+    for (var k in r) { S[k] = r[k]; }
+    S.access = (jget('ss2_dev') || {}).access || r.access || S.access;
+    jset(KEY, S); renderMain();
+  });
+}
 renderMain();
 loadImages().then(function () { if (S.step === 'home') { refreshHero(); } else if (S.step === 'photo') { renderMain(); } });
 try { if (navigator.storage && navigator.storage.persist) { navigator.storage.persist(); } } catch (e) {}
