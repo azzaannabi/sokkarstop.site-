@@ -178,7 +178,6 @@ async function analyze(req, env) {
       !(await counter(env, ck, parseInt(cfg(env, 'DAILY_ANALYZE', '40'), 10), 2 * DAY))) { return out(req, { error: 'rate_limited' }, 429); }
   let text = '';
   if (useGem) {
-    const reqBody2 = JSON.stringify({ contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: 'image/jpeg', data: img } }] }], generationConfig: { responseModalities: ['TEXT', 'IMAGE'] } });
   const models = [cfg(env, 'GEMINI_TEXT_MODEL', ''), 'gemini-3.8-flash-lite', 'gemini-flash-lite-latest', 'gemini-flash-latest', 'gemini-3.8-flash'].filter((v, k, a) => v && a.indexOf(v) === k);
     const body = JSON.stringify({ contents: [{ parts: isText ? [{ text: userText }] : [{ text: PROMPT }, { inline_data: { mime_type: mime, data: img } }] }], generationConfig: { responseMimeType: 'application/json', maxOutputTokens: 1500 } });
     let gdata = null, lastSt = 0, lastDt = '';
@@ -242,6 +241,7 @@ async function transform(req, env) {
     : `a realistic, healthy result after gaining weight and muscle, going from ${f(w)} kg to ${f(t)} kg (height ${h} cm). The body is a bit fuller and more muscular, in natural proportions`;
   const prompt = `Edit this full-body photo of a real adult ${sex} to show ${change_txt}. Keep exactly the same person: same face and facial features, hairstyle, skin tone, pose, background, lighting, camera angle, framing and image proportions. Keep the same clothes (same garments, colors and style), only adjusted to fit the new body naturally. The change must look believable and moderate, like a real photo taken after months of progress, not exaggerated, no filters, no skin retouching. Do not add or remove clothing, text, logos or watermarks. Return one photo.`;
   const reqBody = JSON.stringify({ contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: 'image/jpeg', data: img } }] }], generationConfig: { responseModalities: ['IMAGE'] } });
+  const reqBody2 = JSON.stringify({ contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: 'image/jpeg', data: img } }] }], generationConfig: { responseModalities: ['TEXT', 'IMAGE'] } });
   const models = [cfg(env, 'GEMINI_MODEL', 'gemini-3.1-flash-image'), 'gemini-3.1-flash-image', 'gemini-3-pro-image'].filter((x, i, a) => x && a.indexOf(x) === i);
   let r = null, m = null, lastStatus = 0;
   const tries = [];
