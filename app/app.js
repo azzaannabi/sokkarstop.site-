@@ -148,7 +148,7 @@ var T = {
     weighBanner: 'Ça fait plus d’une semaine : mets à jour ton poids pour voir ton score.',
     // photo repas
     tabGoal: 'Objectif', tabToday: 'Aujourd’hui', tabCal: 'Calendrier',
-    snap: 'Photographier mon repas', camNow: 'Ouvrir directement l’appareil photo',
+    snap: 'Photographier mon repas', camNow: 'Choisir une photo dans la galerie',
     analyzing: 'Analyse de ton repas…', cancel: 'Annuler', retry: 'Réessayer',
     portion: 'Portion', add: 'Ajouter à ma journée',
     estimate: 'Estimation faite à partir de la photo. Ajuste la portion si besoin.',
@@ -299,7 +299,7 @@ var T = {
     rem_d: 'قبل عشائك، صوّره: أقول لك إن كان يدخل في حدّك.',
     weighBanner: 'مرّ أكثر من أسبوع: حدّث وزنك لترى نتيجتك.',
     tabGoal: 'الهدف', tabToday: 'اليوم', tabCal: 'التقويم',
-    snap: 'صوّر أكلك', camNow: 'افتح الكاميرا مباشرة',
+    snap: 'صوّر أكلك', camNow: 'اختر صورة من المعرض',
     analyzing: 'نحلّل أكلك…', cancel: 'إلغاء', retry: 'أعد المحاولة',
     portion: 'الحصة', add: 'أضف إلى يومي',
     estimate: 'تقدير مبني على الصورة. عدّل الحصة عند الحاجة.',
@@ -1421,7 +1421,7 @@ function renderCapture() {
   if (consentAsk) { el.innerHTML = consentCard(); return; }
   if (!cur) {
     if (entry) { el.innerHTML = entryForm(); var fi = $(entry === 'text' ? 'txtIn' : 'manName'); if (fi) { fi.focus(); } return; }
-    el.innerHTML = '<button type="button" class="snap" data-act="snap-pick">' + ICON.camera + '<span>' + esc(tx('snap')) + '</span></button><button type="button" class="link" data-act="snap-cam">' + esc(tx('camNow')) + '</button>' +
+    el.innerHTML = '<button type="button" class="snap" data-act="snap-cam">' + ICON.camera + '<span>' + esc(tx('snap')) + '</span></button><button type="button" class="link" data-act="snap-pick">' + esc(tx('camNow')) + '</button>' +
       '<div class="alt-row"><button type="button" class="btn ghost" data-act="entry-text">' + ICON.pencil + '<span>' + esc(tx('txtBtn')) + '</span></button><button type="button" class="btn ghost" data-act="entry-manual"><b aria-hidden="true">+</b><span>' + esc(tx('manBtn')) + '</span></button></div>';
     return;
   }
@@ -1541,7 +1541,7 @@ function handleClick(ev) {
     case 'tab':
       unlockAudio();
       var tv = b.getAttribute('data-v');
-      if (tv === 'today' && tab === 'today' && !cur) { $('foodPick').click(); } else { showTab(tv); }
+      if (tv === 'today' && tab === 'today' && !cur) { $('foodCam').click(); } else { showTab(tv); }
       break;
     case 'welcome-next': go('profile'); break;
     case 'to-profile': go('profile'); break;
