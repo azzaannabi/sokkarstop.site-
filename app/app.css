@@ -354,3 +354,6 @@ button.snap{font-family:inherit;cursor:pointer}
 .slot .empty{display:flex;align-items:center;justify-content:center;font-size:2rem;color:var(--muted)}
 .slot b{font-size:.95rem}.slot small{color:var(--muted);min-height:1.1em}.slot.wait{opacity:.7}
 .btn.sm{padding:8px 12px;font-size:.9rem}
+.btn.voice{width:100%;min-height:48px;gap:8px;margin-top:6px}
+.btn.voice svg{width:20px;height:20px;flex:none}
+.btn.voice.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}

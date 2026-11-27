@@ -45,7 +45,7 @@ var T = {
     recOld: 'Un nouveau code annule l’ancien.', accPassNow: 'Ton mot de passe actuel', accOk: 'Valider',
     delOpen: 'Supprimer mon compte', delWarn: 'Ton compte et ton historique sauvegardé seront supprimés définitivement de nos serveurs. Tes données restent sur ce téléphone tant que tu ne les supprimes pas (bouton « Effacer mes données »).', delGo: 'Supprimer définitivement', delDone: 'Ton compte a été supprimé.',
     legalPriv: 'Confidentialité', legalDel: 'Supprimer mon compte et mes données', welcomeGift: '1 mois d’accès offert avec chaque flacon Sokkar Stop.',
-    txtBtn: 'Écrire mon repas', manBtn: 'Ajout rapide', txtTitle: 'Décris ton repas', txtHelp: 'Ex. : 2 briks au thon et une salade, ou un thé à la menthe avec 2 sucres.', txtPh: 'Qu’as-tu mangé ou bu ?', txtGo: 'Calculer', txtShort: 'Écris au moins un mot.',
+    txtBtn: 'Écrire mon repas', voiceBtn: 'Dicter mon repas', voiceStop: 'Arrêter', voiceOn: 'Je t’écoute… parle maintenant.', voiceNone: 'La dictée n’est pas disponible ici : utilise le micro de ton clavier.', voiceDenied: 'Micro refusé. Autorise le micro dans les réglages du navigateur.', manBtn: 'Ajout rapide', txtTitle: 'Décris ton repas', txtHelp: 'Ex. : 2 briks au thon et une salade, ou un thé à la menthe avec 2 sucres.', txtPh: 'Qu’as-tu mangé ou bu ?', txtGo: 'Calculer', txtShort: 'Écris au moins un mot.',
     manTitle: 'Ajout rapide', manHelp: 'Tu connais déjà les glucides ? Entre-les directement.', manName: 'Nom (ex. : pain, jus…)', manKcal: 'Glucides (g)', manGo: 'Continuer', entryClose: 'Annuler',
     itEdit: 'Modifier', itDel: 'Retirer', itAdd: 'Ajouter un aliment', itName: 'Nom', itKcal: 'Glucides (g)', itSave: 'Valider', itBad: 'Entre un nom et des glucides entre 0 et 1 000 g.',
     manualHint: 'Glucides saisis par toi : les calories sont estimées (4 kcal par g).', textHint: 'Estimation d’après ton texte : précise les quantités pour être plus juste.', e_badtext: 'Décris ton repas avec quelques mots de plus.',
@@ -202,7 +202,7 @@ var T = {
     recOld: 'الرمز الجديد يلغي القديم.', accPassNow: 'كلمة السر الحالية', accOk: 'تأكيد',
     delOpen: 'حذف حسابي', delWarn: 'سيُحذف حسابك وسجلّك المحفوظ نهائياً من خوادمنا. تبقى بياناتك على هذا الهاتف حتى تحذفها (زر «احذف بياناتي»).', delGo: 'حذف نهائي', delDone: 'تم حذف حسابك.',
     legalPriv: 'الخصوصية', legalDel: 'حذف حسابي وبياناتي', welcomeGift: 'شهر مجاني من الاستعمال مع كل قارورة سكر ستوب.',
-    txtBtn: 'اكتب وجبتك', manBtn: 'إضافة سريعة', txtTitle: 'صف وجبتك', txtHelp: 'مثال: 2 بريك بالتونة وسلطة، أو شاي بالنعناع بسكرتين.', txtPh: 'ماذا أكلت أو شربت؟', txtGo: 'احسب', txtShort: 'اكتب كلمة واحدة على الأقل.',
+    txtBtn: 'اكتب وجبتك', voiceBtn: 'تكلّم عن وجبتك', voiceStop: 'إيقاف', voiceOn: 'أسمعك… تكلّم الآن.', voiceNone: 'الإملاء غير متاح هنا: استعمل ميكروفون لوحة المفاتيح.', voiceDenied: 'تم رفض الميكروفون. اسمح به من إعدادات المتصفح.', manBtn: 'إضافة سريعة', txtTitle: 'صف وجبتك', txtHelp: 'مثال: 2 بريك بالتونة وسلطة، أو شاي بالنعناع بسكرتين.', txtPh: 'ماذا أكلت أو شربت؟', txtGo: 'احسب', txtShort: 'اكتب كلمة واحدة على الأقل.',
     manTitle: 'إضافة سريعة', manHelp: 'تعرف الكربوهيدرات؟ أدخلها مباشرة.', manName: 'الاسم (مثال: خبز، عصير…)', manKcal: 'الكربوهيدرات (غ)', manGo: 'متابعة', entryClose: 'إلغاء',
     itEdit: 'تعديل', itDel: 'إزالة', itAdd: 'إضافة صنف', itName: 'الاسم', itKcal: 'الكربوهيدرات (غ)', itSave: 'تأكيد', itBad: 'أدخل اسماً وكربوهيدرات بين 0 و1000 غ.',
     manualHint: 'كربوهيدرات أدخلتها بنفسك: السعرات تقديرية (4 سعرات لكل غرام).', textHint: 'تقدير حسب نصّك: حدّد الكميات لتكون النتيجة أدق.', e_badtext: 'صف وجبتك بكلمات أكثر قليلاً.',
@@ -720,6 +720,7 @@ function longDate(d) { try { return d.toLocaleDateString(tx('locale'), { day: 'n
    Icônes
    ====================================================================== */
 var ICON = {
+  mic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>',
   camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l1.6-2.4h6.8L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.6"/></svg>',
   pencil: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4zM14 6l3 3"/></svg>',
   bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 17h12l-1.5-2V10a4.5 4.5 0 0 0-9 0v5L6 17z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>',
@@ -1406,6 +1407,7 @@ function entryForm() {
   if (entry === 'text') {
     return '<form class="card" id="txtForm" novalidate><h2>' + esc(tx('txtTitle')) + '</h2><p class="hint">' + esc(tx('txtHelp')) + '</p>' +
       '<div class="inp area"><textarea id="txtIn" rows="3" maxlength="300" autocomplete="off" aria-label="' + esc(tx('txtTitle')) + '" placeholder="' + esc(tx('txtPh')) + '"></textarea></div>' +
+      '<button type="button" class="btn ghost voice" id="voiceBtn" data-act="voice-toggle">' + ICON.mic + '<span>' + esc(tx('voiceBtn')) + '</span></button><p class="hint" id="voiceMsg" aria-live="polite"></p>' +
       (entryErr ? '<p class="err" role="alert">' + esc(entryErr) + '</p>' : '') +
       '<div class="actions"><button type="submit" class="btn">' + esc(tx('txtGo')) + '</button><button type="button" class="btn ghost" data-act="entry-close">' + esc(tx('entryClose')) + '</button></div></form>';
   }
@@ -1415,6 +1417,26 @@ function entryForm() {
     (entryErr ? '<p class="err" role="alert">' + esc(entryErr) + '</p>' : '') +
     '<div class="actions"><button type="submit" class="btn">' + esc(tx('manGo')) + '</button><button type="button" class="btn ghost" data-act="entry-close">' + esc(tx('entryClose')) + '</button></div></form>';
 }
+/* dictée vocale (reconnaissance vocale du navigateur ; sinon on propose le micro du clavier) */
+var rec = null;
+function voiceUI(on, msg) {
+  var b = $('voiceBtn'), m = $('voiceMsg');
+  if (b) { b.classList.toggle('on', !!on); var sp = b.querySelector('span'); if (sp) { sp.textContent = tx(on ? 'voiceStop' : 'voiceBtn'); } }
+  if (m) { m.textContent = msg || ''; }
+}
+function stopVoice() { var r = rec; rec = null; if (r) { try { r.stop(); } catch (e) {} } voiceUI(false); }
+function startVoice() {
+  var ta = $('txtIn'); if (!ta) { return; }
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { voiceUI(false, tx('voiceNone')); ta.focus(); return; }
+  stopVoice();
+  var r = rec = new SR(), base = ta.value ? ta.value.replace(/\s+$/, '') + ' ' : '';
+  r.lang = S.lang === 'ar' ? 'ar-TN' : 'fr-FR'; r.interimResults = true; r.continuous = false; r.maxAlternatives = 1;
+  r.onresult = function (e) { var t = ''; for (var i = 0; i < e.results.length; i++) { t += e.results[i][0].transcript; } ta.value = (base + t).slice(0, 300); };
+  r.onerror = function (e) { if (rec === r) { rec = null; } voiceUI(false, e && (e.error === 'not-allowed' || e.error === 'service-not-allowed') ? tx('voiceDenied') : tx('voiceNone')); };
+  r.onend = function () { if (rec === r) { rec = null; voiceUI(false); } };
+  try { r.start(); voiceUI(true, tx('voiceOn')); } catch (e) { rec = null; voiceUI(false, tx('voiceNone')); }
+}
 function renderCapture() {
   var el = $('capture'); if (!el) { return; }
   var u = tx('unit'), g = tx('g');
@@ -1422,6 +1444,7 @@ function renderCapture() {
   if (!cur) {
     if (entry) { el.innerHTML = entryForm(); var fi = $(entry === 'text' ? 'txtIn' : 'manName'); if (fi) { fi.focus(); } return; }
     el.innerHTML = '<button type="button" class="snap" data-act="snap-cam">' + ICON.camera + '<span>' + esc(tx('snap')) + '</span></button><button type="button" class="link" data-act="snap-pick">' + esc(tx('camNow')) + '</button>' +
+      '<button type="button" class="btn ghost voice" data-act="voice-start">' + ICON.mic + '<span>' + esc(tx('voiceBtn')) + '</span></button>' +
       '<div class="alt-row"><button type="button" class="btn ghost" data-act="entry-text">' + ICON.pencil + '<span>' + esc(tx('txtBtn')) + '</span></button><button type="button" class="btn ghost" data-act="entry-manual"><b aria-hidden="true">+</b><span>' + esc(tx('manBtn')) + '</span></button></div>';
     return;
   }
@@ -1587,7 +1610,9 @@ function handleClick(ev) {
     case 'cal-day': calDay = b.getAttribute('data-k'); refreshCal(); break;
     case 'entry-text': if (!cur) { entry = 'text'; entryErr = ''; renderCapture(); } break;
     case 'entry-manual': if (!cur) { entry = 'manual'; entryErr = ''; renderCapture(); } break;
-    case 'entry-close': entry = ''; entryErr = ''; renderCapture(); break;
+    case 'voice-start': unlockAudio(); if (!cur) { entry = 'text'; entryErr = ''; renderCapture(); startVoice(); } break;
+    case 'voice-toggle': if (rec) { stopVoice(); } else { startVoice(); } break;
+    case 'entry-close': stopVoice(); entry = ''; entryErr = ''; renderCapture(); break;
     case 'it-edit': if (cur && cur.status === 'result') { cur.edit = Number(b.getAttribute('data-i')); cur.editErr = ''; renderCapture(); } break;
     case 'it-add': if (cur && cur.status === 'result') { cur.edit = 'new'; cur.editErr = ''; renderCapture(); } break;
     case 'it-cancel': if (cur) { cur.edit = undefined; cur.editErr = ''; renderCapture(); } break;
@@ -1659,6 +1684,7 @@ function handleSubmit(ev) {
   if (f === 'delForm') { doSecure('delete'); return; }
   if (f === 'itemForm') { applyItemForm(); return; }
   if (f === 'txtForm') {
+    stopVoice();
     var tv = ($('txtIn').value || '').replace(/\s+/g, ' ').trim();
     if (tv.length < 2) { entryErr = tx('txtShort'); renderCapture(); return; }
     startTextAnalysis(tv.slice(0, 300)); return;
